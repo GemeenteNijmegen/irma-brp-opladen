@@ -1,5 +1,5 @@
 # irma-brp-opladen
-De code in deze repository is bedoeld voor een [CA API Gateway] (https://www.ca.com/us/products/ca-api-gateway.html) en kan niet zelfstandig draaien.
+De code in deze repository is bedoeld voor een [CA API Gateway](https://www.ca.com/us/products/ca-api-gateway.html) en kan niet zelfstandig draaien.
 
 ## Gebruik van de opladen service
 Gemeente Nijmegen bied een service aan waarmee attributen uit de testset van GBA-V als attribuut geladen kunnen worden in de IRMA applicatie.
@@ -14,7 +14,7 @@ Na een succesvolle DigiD authenticatie wordt de GBA-V geraadpleegd. Als het BSN 
 ### Gebruik zonder DigiD
 Er is weinig tot geen overlap tussen de BSN's die in de DigiD preprod omgeving gebruikt worden en de BSN's die voorkomen in de GBA-V testset.
 In de acceptatie omgeving is het daarom mogelijk om de QR code te genereren met een zelfgekozen BSN, zonder gebruik te maken van DigiD.
-De complete GBA-V testset is [hier] (https://www.rvig.nl/documenten/richtlijnen/2017/02/20/inhoud-testdatabase-proefomgeving-gba-v) te vinden.
+De complete GBA-V testset is [hier](https://www.rvig.nl/documenten/richtlijnen/2017/02/20/inhoud-testdatabase-proefomgeving-gba-v) te vinden.
 - zorg dat je in je browser een http-header kunt zetten
 - zet in de http-header 'X-Nijm-subscriber-id' een BSN die voorkomt in de GBA-V testset
 - op de url 'https://services-test.nijmegen.nl/irma/issue-secured' in de browser
