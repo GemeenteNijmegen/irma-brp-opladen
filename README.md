@@ -2,14 +2,14 @@
 De code in deze repository is bedoeld voor een [CA API Gateway](https://www.ca.com/us/products/ca-api-gateway.html) en kan niet zelfstandig draaien.
 
 ## Gebruik van de opladen service
-Gemeente Nijmegen bied een service aan waarmee attributen uit de testset van GBA-V als attribuut geladen kunnen worden in de IRMA applicatie.
+Gemeente Nijmegen biedt een service aan waarmee attributen uit de testset van GBA-V als attribuut geladen kunnen worden in de IRMA applicatie.
 Het gaat dan om attributen in het Demo domein van IRMA.
 Deze service werkt zowel met DigiD (via de DigiD acceptatie omgeving) als zonder DigiD (zodat de IRMA QR code makkelijker gegeneerd kan worden).
 
 ### Gebruik met DigiD
 Je hebt een of meer DigiD Preprod accounts nodig. Je kunt een DigiD Preprod account gebruiken van een DigiD Preprod aansluiting in je eigen organisatie. Bij elke aansluiting krijg je 5 accounts.
 Het opladen proces start bij https://services-test.nijmegen.nl/irma/issue/start
-Na een succesvolle DigiD authenticatie wordt de GBA-V geraadpleegd. Als het BSN daar gevonden is wordt er een QR code getoon die met de IRMA app gescanned kan worden.
+Na een succesvolle DigiD authenticatie wordt de GBA-V geraadpleegd. Als het BSN daar gevonden is wordt er een QR code getoond die met de IRMA app gescand kan worden.
 
 ### Gebruik zonder DigiD
 Er is weinig tot geen overlap tussen de BSN's die in de DigiD preprod omgeving gebruikt worden en de BSN's die voorkomen in de GBA-V testset.
@@ -19,7 +19,7 @@ In de acceptatie omgeving is het daarom mogelijk om de QR code te genereren met 
 - zet in de http-header 'X-Nijm-subscriber-id' een BSN die voorkomt in de GBA-V testset
 - Het element '08.11.15' moet een straatnaam bevatten; dat is een verplicht attribuut in IRMA. Kies dus een BSN waar dat element gevuld is.
     bijvoorbeeld test-BSN '780921902'.
-- op de url 'https://services-test.nijmegen.nl/irma/issue-secured' in de browser
+- open de url 'https://services-test.nijmegen.nl/irma/issue-secured' in de browser
 
 Als alles goed gaat krijg je een QR code te zien die je kunt scannen met de IRMA applicatie.
 Wanneer je een credential al hebt dan wordt die overschreven.
