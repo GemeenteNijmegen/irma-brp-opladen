@@ -214,7 +214,7 @@
 
         detectUserAgent();//nodig om op mobile devices routing naar IRMA app te regelen
 
-        issueFromQr(${ qrcode }, success_fun, showWarning, showError);
+        verifyFromQr(${ qrcode }, success_fun, showWarning, showError);
         new QRCode(document.getElementById("qrcode"), JSON.stringify(${ qrcode }));
     </script>
 
