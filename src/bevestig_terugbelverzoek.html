@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="nl">
+    <!-- Er worden twee variabelen gebruikt, ${serverName} en {qrcode}, die verwijzen naar vars die in de Layer7 policy gevuld zijn-->
+    <!-- in runtime worden die vars vervangen door de daadwerkelijke inhoud, en dan wordt deze hele pagina naar de browser gestuurd-->
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://componenten.nijmegen.nl/v2/css/bootstrap.min.css">
+    <!-- Material Design Bootstrap combined with custom styles -->
+    <link rel="stylesheet" href="https://componenten.nijmegen.nl/v2/css/main.css">
+
+
+
+    <title>Terugbelverzoek ondertekenen</title>
+
+    <style>
+        body {padding: 1rem;}
+    </style>
+    <style>
+        body { padding: 50px 0 0;}
+    main .row { padding: 50px 0; }
+    footer.page-footer { margin-top: 50px; }
+	.nav-item{display:none}
+
+	.logoDigiD{margin-right:10px;}
+	#qrcode{
+		margin-top:-40px;
+		margin-bottom:20px;
+	}
+	
+</style>
+</head>
+
+<body>
+
+    <nav class="navbar fixed-top navbar-expand-lg scrolling-navbar navbar-primary">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse"
+                aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                <div class="navbar-brand-container">
+                    <img src="https://componenten.nijmegen.nl/v2/img/beeldmerklabelwit.svg" class="logo-labeled" alt="Logo Nijmegen">
+                    <img src="https://componenten.nijmegen.nl/v2/img/beeldmerkwit.svg" class="logo" alt="Logo Nijmegen">
+                </div>
+            </a>
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+                <ul class="navbar-nav mr-auto smooth-scroll">
+                    <li class="nav-item">
+                        <a href="#section-1" class="nav-link"></a>
+                    </li>
+                </ul>
+                <form action="https://www.nijmegen.nl" class="form-inline ml-auto">
+                    <label for="oi-query" class="sr-only">Zoeken</label>
+                    <input class="form-control" id="oi-query" type="text" placeholder="Zoeken" autocomplete="off">
+                    <button class="btn-search"><i class="mdi mdi-magnify" aria-hidden="true"></i></button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container" id="section-1">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card card-filename">
+                        <div class="card-body">
+                            <p class="card-title">BRP gegevens opladen in IRMA</p>
+                            <div id="qrcode"></div>
+                            <p id="feedback" class="card-text">Scan de bovenstaande afbeelding met uw IRMA app.</p>
+                            <p class="text-right mb-0 text-uppercase"><img class="logoDigiD" src="https://www.nijmegen.nl/fileadmin/bestanden/logos/digid_eo_rgb_50px.png"><a
+                                    href="${serverName}/irma/digid/logout" aria-label="Opladen">Uitloggen</a></p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row d-md-none">
+                <div class="col-12">
+                    <div class="horizontal-collapse">
+                        <a class="btn-floating btn-large btn-floating-primary btn-floating-collapse">
+                            <span class="sr-only">How to contact/follow us</span>
+                            <i class="mdi mdi-message-processing" aria-hidden="true"></i>
+                        </a>
+                        <ul class="expand-horizontal animated">
+                            <li><a href="tel:+3114024"><span class="sr-only">Telephone</span><i class="mdi mdi-phone"
+                                        aria-hidden="true"></i></a></li>
+                            <li><i class="mdi mdi-near-me" aria-hidden="true"></i></li>
+                            <li><a href="mailto:gemeente@nijmegen.nl"><span class="sr-only">E-mail</span><i class="mdi mdi-email"
+                                        aria-hidden="true"></i></a></li>
+                            <li><a href="https://www.facebook.com/gemeentenijmegen"><span class="sr-only">Facebook</span><i
+                                        class="mdi mdi-facebook-box" aria-hidden="true"></i></a></li>
+                            <li><a href="https://twitter.com/gem_nijmegen"><span class="sr-only">Twitter</span><i class="mdi mdi-twitter-box"
+                                        aria-hidden="true"></i></a></li>
+                            <li class="btn-floating-wrapper"></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="page-footer">
+        <div class="footer-content">
+            <div class="container">
+                <div class="row">
+                    <div class="hidden-md-down col-lg-6">
+                        <!-- Space for other content/links -->
+                    </div>
+                    <div class="col-md-12 col-lg-6">
+                        <div class="row">
+                            <div class="hidden-md-down col-lg-5">
+                                <p class="title">Over deze site</p>
+                                <ul class="link-list">
+                                    <li><a href="https://www.nijmegen.nl/toegankelijkheid/">Toegankelijkheid</a></li>
+                                    <li><a href="https://www.nijmegen.nl/privacyverklaring/">Privacyverklaring</a></li>
+                                    <li><a href="https://www.nijmegen.nl/cookies/">Cookies</a></li>
+                                    <li><a href="https://www.nijmegen.nl/proclaimer/">Proclaimer</a></li>
+                                    <li><a href="https://www.nijmegen.nl/sitemap/">Sitemap</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="col-xs-12 col-md-6 col-lg-7">
+                                <p class="title">Contactgegevens</p>
+                                <ul class="link-list contact-list">
+                                    <li><i class="mdi mdi-map-marker" aria-hidden="true"></i> Stadswinkel, Mariënburg
+                                        30</li>
+                                    <li><i class="mdi mdi-phone" aria-hidden="true"></i> <a href="tel:14024">14 024</a></li>
+                                    <li><i class="mdi mdi-email" aria-hidden="true"></i> <a href="mailto:gemeente@nijmegen.nl">gemeente@nijmegen.nl</a>
+                                    </li>
+                                    <li><i class="mdi mdi-facebook-box" aria-hidden="true"></i> <a href="https://www.facebook.com/gemeentenijmegen">Gemeente
+                                            Nijmegen</a></li>
+                                    <li><i class="mdi mdi-twitter-box" aria-hidden="true"></i> <a href="https://twitter.com/gem_nijmegen">@nijmegen</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright text-center">
+            <div class="container-fluid">
+                <img src="https://componenten.nijmegen.nl/v2/img/beeldmerkwit.svg" height="32" width="25" class="logo-labeled"
+                    alt="">
+                Gemeente Nijmegen
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- SCRIPTS -->
+
+    <!-- JQuery -->
+    <script src="https://componenten.nijmegen.nl/v2/js/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script src="https://componenten.nijmegen.nl/v2/js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://componenten.nijmegen.nl/v2/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script src="https://componenten.nijmegen.nl/v2/js/mdb.min.js"></script>
+
+    <!-- IRMA -->
+    <!--<script type="text/javascript" src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>-->
+    <script type="text/javascript" src="${serverName}/irma/issue/qrcode-min.js"></script>
+    <script type="text/javascript" src="${serverName}/irma/issue/irma-nijmegen.js"></script>
+
+    <!-- Search API -->
+    <script src="https://www.openindex.io/js/openindex.69694b9315763c81.js"></script>
+
+    <script>
+        $('.horizontal-collapse').on('click', '.btn-floating-collapse', function () {
+            if ($(this).parent().hasClass('active')) {
+                $(this).parent().removeClass('active');
+                $(this).parent().find('.expand-horizontal').removeClass('slideInRight').addClass('slideOutRight');
+            } else {
+                $(this).parent().addClass('active');
+                $(this).parent().find('.expand-horizontal').removeClass('slideOutRight').addClass('slideInRight');
+            }
+        });
+
+        
+    </script>
+
+    <!-- IRMA stuff -->
+    <script type="text/javascript">
+
+        detectUserAgent();//nodig om op mobile devices routing naar IRMA app te regelen
+
+       
+    </script>
+
+    <script type="text/javascript">
+        function feedback(txt) {
+            $("#feedback").html(txt);
+        }
+    </script>
+
+</body>
+
+</html>
