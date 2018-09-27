@@ -512,14 +512,17 @@ function handleProofMessageFromServer(xhr) {
         log(Loglevel.Info, "Proof data: ", data);
 
         cancelTimers();
-
-        var token = jwt_decode(data);
+        successCallback("gelukt");
+        
+        //var token = jwt_decode(data); //decoden doen we server-side, niet client side.
+        /*
         if (token.status === "VALID") {
             successCallback(data);
         } else {
             log(Loglevel.Info, "Server rejected proof: ", token.status);
             failureCallback(ErrorCodes.Rejected, "Server rejected the proof", data);
         }
+        */
     } else {
         // Failure
         failure(ErrorCodes.ConnectionError.Proof, "Request for proof from server failed. Returned status of " + xhr.status, xhr);

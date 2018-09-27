@@ -69,11 +69,9 @@
                 <div class="col-lg-12">
                     <div class="card card-filename">
                         <div class="card-body">
-                            <p class="card-title">BRP gegevens opladen in IRMA</p>
+                            <p class="card-title">Terugbelvezoek ondertekenen</p>
                             <div id="qrcode"></div>
                             <p id="feedback" class="card-text">Scan de bovenstaande afbeelding met uw IRMA app.</p>
-                            <p class="text-right mb-0 text-uppercase"><img class="logoDigiD" src="https://www.nijmegen.nl/fileadmin/bestanden/logos/digid_eo_rgb_50px.png"><a
-                                    href="${serverName}/irma/digid/logout" aria-label="Opladen">Uitloggen</a></p>
                         </div>
                     </div>
                 </div>
@@ -203,10 +201,10 @@
             var x = document.getElementById("qrcode");
             x.style.display = "none";
 
-            log(Loglevel.Info, "credentials issued");
             log(Loglevel.Info, "redirect naar volgende L7 policy waar bevestiging geregeld wordt");
             feedback("redirect naar volgende L7 policy waar bevestiging geregeld wordt")
         };
+
     </script>
 
     <!-- IRMA stuff -->
@@ -214,7 +212,7 @@
 
         detectUserAgent();//nodig om op mobile devices routing naar IRMA app te regelen
 
-        verifyFromQr(${ qrcode }, success_fun, showWarning, showError);
+        signFromQr(${ qrcode }, success_fun, showWarning, showError);
         new QRCode(document.getElementById("qrcode"), JSON.stringify(${ qrcode }));
     </script>
 
