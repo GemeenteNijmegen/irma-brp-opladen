@@ -3,6 +3,8 @@ const defaultLang = "en"; // Default after init, and fallback when a language st
 const STATUS_CHECK_INTERVAL = 500;
 const DEFAULT_TIMEOUT = 120 * 1000;
 
+var proofJWT;
+
 const Action = {
     Verifying: "Verifying",
     Issuing: "Issuing",
@@ -177,6 +179,8 @@ function doSessionFromQr(qr, success_cb, cancel_cb, failure_cb) {
     //showPopup();
     setAndCheckCallbacks(success_cb, cancel_cb, failure_cb);
 
+    //log(Loglevel.Info, "qr: " + qr);
+    //log(Loglevel.Info, "qr.u: " + qr.u );
     actionPath = qr.u.substr(0, qr.u.lastIndexOf("/")) + "/";            // Strip session token
     apiServer = actionPath.substr(0, actionPath.lastIndexOf("/")) + "/"; // Also strip session type (e.g., "issue")
     sessionId = qr.u.substr(qr.u.lastIndexOf("/") + 1, qr.u.length);
@@ -508,8 +512,11 @@ function timeoutSession() {
 function handleProofMessageFromServer(xhr) {
     if (xhr.status === 200) {
         // Success
-        var data = xhr.responseText;
-        log(Loglevel.Info, "Proof data: ", data);
+        //var data = xhr.responseText;
+        proofJWT = xhr.responseText;
+        log(Loglevel.Info, "Proof data: ", proofJWT);
+
+        returnProofJWT(proofJWT);
 
         cancelTimers();
         successCallback("gelukt");
