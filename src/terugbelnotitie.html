@@ -65,7 +65,7 @@
 
 			</div>
 		</div>
-		<form id="frm1" action="https://services-test.nijmegen.nl/terugbelnotitie" method="POST">
+		<form id="frm1" action="${serverName}/terugbelnotitie" method="POST">
             <div class="row">
                 <div class="col-12">
                     <div class="md-form">
@@ -120,8 +120,8 @@
 <script src="https://www.openindex.io/js/openindex.69694b9315763c81.js"></script>
 
 <!-- IRMA -->
-<script type="text/javascript" src="https://services-test.nijmegen.nl/irma/issue/qrcode-min.js"></script>
-<script type="text/javascript" src="https://services-test.nijmegen.nl/irma/issue/irma-nijmegen.js"></script>
+<script type="text/javascript" src="${serverName}/irma/issue/qrcode-min.js"></script>
+<script type="text/javascript" src="${serverName}/irma/issue/irma-nijmegen.js"></script>
 
 
 <script>
@@ -199,7 +199,7 @@ var success_fun = function (data) {
 function returnProofJWT(jwt){
 
 var xhr = new XMLHttpRequest();
-  xhr.open("POST", "https://services-test.nijmegen.nl/terugbelnotitie/jwt", true);
+  xhr.open("POST", "${serverName}/terugbelnotitie/jwt", true);
   xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
 
   xhr.send(jwt);
