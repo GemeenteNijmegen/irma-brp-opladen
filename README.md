@@ -14,7 +14,7 @@ Na een succesvolle DigiD authenticatie wordt de GBA-V geraadpleegd. Als het BSN 
 ### Gebruik zonder DigiD
 Er is weinig tot geen overlap tussen de BSN's die in de DigiD preprod omgeving gebruikt worden en de BSN's die voorkomen in de GBA-V testset.
 In de acceptatie omgeving is het daarom mogelijk om de QR code te genereren met een zelfgekozen BSN, zonder gebruik te maken van DigiD.
-[De complete GBA-V testset is hier](https://www.rvig.nl/documenten/richtlijnen/2018/09/20/testdataset-persoonslijsten-proefomgevingen-gba-v-en-bv-bsn) te vinden.
+[De complete GBA-V testset is hier](https://www.rvig.nl/actueel/nieuws/2018/09/21/nieuwe-versie-testdatabase-proefomgevingen-gba-v-en-bv-bsn) te vinden.
 - zorg dat je in je browser een http-header kunt zetten
 - zet in de http-header 'X-Nijm-subscriber-id' een BSN die voorkomt in de GBA-V testset
 - Het element '08.11.15' moet een straatnaam bevatten; dat is een verplicht attribuut in IRMA. Kies dus een BSN waar dat element gevuld is.
