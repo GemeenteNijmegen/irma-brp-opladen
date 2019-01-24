@@ -19,6 +19,7 @@ In de acceptatie omgeving is het daarom mogelijk om de QR code te genereren met 
 - zet in de http-header 'X-Nijm-subscriber-id' een BSN die voorkomt in de GBA-V testset
 - Het element '08.11.15' moet een straatnaam bevatten; dat is een verplicht attribuut in IRMA. Kies dus een BSN waar dat element gevuld is.
     bijvoorbeeld test-BSN '999994190'.
+- voeg en 2e http-header toe met als naam 'zekerheidsniveau' en als waarde '10', '20', 25' of '30'. Die komen overeen met respectievelijk 'Basis', 'Midden', 'Substantieel' en 'Hoog' als DigiD betrouwbaarheidsniveau.
 - open de url 'https://services-test.nijmegen.nl/irma/issue-secured' in de browser
 
 Als alles goed gaat krijg je een QR code te zien die je kunt scannen met de IRMA applicatie.
