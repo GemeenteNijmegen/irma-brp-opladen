@@ -213,6 +213,12 @@
     <script type="text/javascript">
 
         detectUserAgent();//nodig om op mobile devices routing naar IRMA app te regelen
+	    
+	//Hide QR on mobile devices
+	if(ua!=UserAgent.Desktop){
+		document.getElementById("qrcode").style.display = "none";
+		$("#feedback").html("Volg de aanwijzingen in uw IRMA app.");
+	}	    
 
         issueFromQr(${ qrcode }, success_fun, showWarning, showError);
         new QRCode(document.getElementById("qrcode"), JSON.stringify(${ qrcode }));
