@@ -8,7 +8,7 @@ Deze service werkt zowel met DigiD (via de DigiD acceptatie omgeving) als zonder
 
 ### Gebruik met DigiD
 Je hebt een of meer DigiD Preprod accounts nodig. Je kunt een DigiD Preprod account gebruiken van een DigiD Preprod aansluiting in je eigen organisatie. Bij elke aansluiting krijg je 5 accounts.
-Het opladen proces start bij https://services-test.nijmegen.nl/irma/issue/start
+Het opladen proces start bij https://services-test.nijmegen.nl/irma/gemeente/start
 Na een succesvolle DigiD authenticatie wordt de GBA-V geraadpleegd. Als het BSN daar gevonden is wordt er een QR code getoond die met de IRMA app gescand kan worden.
 
 ### Gebruik zonder DigiD
@@ -20,18 +20,20 @@ In de acceptatie omgeving is het daarom mogelijk om de QR code te genereren met 
 - Het element '08.11.15' moet een straatnaam bevatten; dat is een verplicht attribuut in IRMA. Kies dus een BSN waar dat element gevuld is.
     bijvoorbeeld test-BSN '999994190'.
 - voeg en 2e http-header toe met als naam 'zekerheidsniveau' en als waarde '10', '20', 25' of '30'. Die komen overeen met respectievelijk 'Basis', 'Midden', 'Substantieel' en 'Hoog' als DigiD betrouwbaarheidsniveau.
-- open de url 'https://services-test.nijmegen.nl/irma/issue-secured' in de browser
+- open de url 'https://services-test.nijmegen.nl/irma/gemeente/issue-secured' in de browser
 
 Als alles goed gaat krijg je een QR code te zien die je kunt scannen met de IRMA applicatie.
 Wanneer je een credential al hebt dan wordt die overschreven.
 
 
 ## Opladen met echte BRP gegevens
-Binnenkort is de opladen service ook beschikbaar om echte BRP data in de IRMA app te laden, die zijn opgenomen in het productie schema van IRMA.
+De opladen service is ook beschikbaar om echte BRP data in de IRMA app te laden, die zijn opgenomen in het productie schema van IRMA.
 In deze omgeving is inloggen met DigiD (niveau midden) verplicht, en is er geen mogelijkheid om zelf een BSN op te geven.
+Op dit moment (25-04-2019) wordt in productie een ander IRMA schema gebruikt 'https://github.com/privacybydesign/pbdf-schememanager/tree/master/nijmegen' dan in acceptatie op services-test. Daar wordt het nieuwe 'gemeente' schema 'https://github.com/privacybydesign/irma-demo-schememanager/tree/master/gemeente' gebruikt. 
+Naar verwachting is dit 'gemeente' schema eind mei beschikbaar in productie.
 
 ## Beschikbare credentials en attributen
-Hier is terug te vinden welke credentials en attributen in de Demo omgeving beschikbaar zijn: https://github.com/privacybydesign/irma-demo-schememanager/tree/master/nijmegen/Issues
+Hier is terug te vinden welke credentials en attributen in de Demo omgeving beschikbaar zijn: https://github.com/privacybydesign/irma-demo-schememanager/tree/master/gemeente/Issues
 
 De credentials en attributen voor de productie omgeving zijn hier terug te vinden:
 https://github.com/privacybydesign/pbdf-schememanager/tree/master/pbdf/Issues
