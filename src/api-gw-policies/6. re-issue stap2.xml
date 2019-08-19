@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsp:Policy xmlns:L7p="http://www.layer7tech.com/ws/policy" xmlns:wsp="http://schemas.xmlsoap.org/ws/2002/12/policy">
+    <wsp:All wsp:Usage="Required">
+        <L7p:AuditAssertion>
+            <L7p:SaveRequest booleanValue="true"/>
+            <L7p:SaveResponse booleanValue="true"/>
+        </L7p:AuditAssertion>
+        <L7p:SslAssertion/>
+        <L7p:CookieCredentialSource>
+            <L7p:CookieName stringValue="irma-reissue"/>
+        </L7p:CookieCredentialSource>
+        <L7p:AuditDetailAssertion>
+            <L7p:Detail stringValue="cookie value: ${cookie.irma-reissue}"/>
+        </L7p:AuditDetailAssertion>
+        <wsp:All wsp:Usage="Required">
+            <L7p:SetVariable>
+                <L7p:Base64Expression stringValue="aHR0cHM6Ly9ndy10ZXN0Lm5pam1lZ2VuLm5s"/>
+                <L7p:VariableToSet stringValue="IRMA-API-Hostname"/>
+            </L7p:SetVariable>
+            <L7p:SetVariable>
+                <L7p:AssertionComment assertionComment="included">
+                    <L7p:Properties mapValue="included">
+                        <L7p:entry>
+                            <L7p:key stringValue="RIGHT.COMMENT"/>
+                            <L7p:value stringValue=">> bij gebruik van een eigen hostname hoeft de stagename niet meegegeven te worden"/>
+                        </L7p:entry>
+                    </L7p:Properties>
+                </L7p:AssertionComment>
+                <L7p:Base64Expression stringValue="L3Nlc3Npb24v"/>
+                <L7p:VariableToSet stringValue="endpoint-private"/>
+            </L7p:SetVariable>
+            <L7p:SetVariable>
+                <L7p:AssertionComment assertionComment="included">
+                    <L7p:Properties mapValue="included">
+                        <L7p:entry>
+                            <L7p:key stringValue="RIGHT.COMMENT"/>
+                            <L7p:value stringValue=">> Werkt alleen in ACCP omgeving"/>
+                        </L7p:entry>
+                    </L7p:Properties>
+                </L7p:AssertionComment>
+                <L7p:Base64Expression stringValue="aXJtYS1kZW1v"/>
+                <L7p:VariableToSet stringValue="SchemeManager"/>
+            </L7p:SetVariable>
+            <L7p:assertionComment>
+                <L7p:Properties mapValue="included">
+                    <L7p:entry>
+                        <L7p:key stringValue="RIGHT.COMMENT"/>
+                        <L7p:value stringValue=">> DEVELOPMENT Environment"/>
+                    </L7p:entry>
+                </L7p:Properties>
+            </L7p:assertionComment>
+        </wsp:All>
+        <wsp:All wsp:Usage="Required">
+            <L7p:CacheLookup>
+                <L7p:CacheEntryKey stringValue="${cookie.irma-reissue}"/>
+                <L7p:CacheId stringValue="irma-reissue"/>
+                <L7p:ContentTypeOverride stringValue=""/>
+                <L7p:MaxEntryAgeSeconds stringValue="100"/>
+                <L7p:OtherTargetMessageVariable stringValue="irma-sessionID"/>
+                <L7p:Target target="OTHER"/>
+            </L7p:CacheLookup>
+            <L7p:AuditDetailAssertion>
+                <L7p:Detail stringValue="cache value: ${irma-SessionID.mainpart}"/>
+            </L7p:AuditDetailAssertion>
+            <L7p:AuditDetailAssertion>
+                <L7p:Detail stringValue="routing to: ${IRMA-API-Hostname}${endpoint-private}${irma-SessionID.mainpart}/result"/>
+            </L7p:AuditDetailAssertion>
+            <L7p:HttpRoutingAssertion>
+                <L7p:CurrentSecurityHeaderHandling intValue="3"/>
+                <L7p:FailOnErrorStatus booleanValue="false"/>
+                <L7p:ProtectedServiceUrl stringValue="${IRMA-API-Hostname}${endpoint-private}${irma-SessionID.mainpart}/result"/>
+                <L7p:ProxyPassword stringValueNull="null"/>
+                <L7p:ProxyUsername stringValueNull="null"/>
+                <L7p:RequestHeaderRules httpPassthroughRuleSet="included">
+                    <L7p:Rules httpPassthroughRules="included">
+                        <L7p:item httpPassthroughRule="included">
+                            <L7p:CustomizeValue stringValue="${secpass.AWS-IRMA-Development.plaintext}"/>
+                            <L7p:Name stringValue="authorization"/>
+                            <L7p:UsesCustomizedValue booleanValue="true"/>
+                        </L7p:item>
+                    </L7p:Rules>
+                </L7p:RequestHeaderRules>
+                <L7p:RequestParamRules httpPassthroughRuleSet="included">
+                    <L7p:ForwardAll booleanValue="true"/>
+                    <L7p:Rules httpPassthroughRules="included"/>
+                </L7p:RequestParamRules>
+                <L7p:ResponseHeaderRules httpPassthroughRuleSet="included">
+                    <L7p:ForwardAll booleanValue="true"/>
+                    <L7p:Rules httpPassthroughRules="included"/>
+                </L7p:ResponseHeaderRules>
+                <L7p:SamlAssertionVersion intValue="2"/>
+                <L7p:UseKeepAlives booleanValue="false"/>
+            </L7p:HttpRoutingAssertion>
+            <L7p:AuditDetailAssertion>
+                <L7p:Detail stringValue="result: ${response.mainpart}"/>
+            </L7p:AuditDetailAssertion>
+            <L7p:assertionComment>
+                <L7p:Properties mapValue="included">
+                    <L7p:entry>
+                        <L7p:key stringValue="RIGHT.COMMENT"/>
+                        <L7p:value stringValue=">> Ophalen sessie met info van IRMA API server"/>
+                    </L7p:entry>
+                </L7p:Properties>
+            </L7p:assertionComment>
+        </wsp:All>
+        <L7p:EvaluateJsonPathExpressionV2>
+            <L7p:AssertionComment assertionComment="included">
+                <L7p:Properties mapValue="included">
+                    <L7p:entry>
+                        <L7p:key stringValue="RIGHT.COMMENT"/>
+                        <L7p:value stringValue=">> Uitlezen van BSN"/>
+                    </L7p:entry>
+                </L7p:Properties>
+            </L7p:AssertionComment>
+            <L7p:Expression stringValue="$.disclosed[0].rawvalue"/>
+            <L7p:Target target="RESPONSE"/>
+            <L7p:VariablePrefix stringValue="respValue"/>
+        </L7p:EvaluateJsonPathExpressionV2>
+        <L7p:AuditDetailAssertion>
+            <L7p:Detail stringValue="resultValue: ${respValue.result}"/>
+        </L7p:AuditDetailAssertion>
+        <L7p:SetVariable>
+            <L7p:AssertionComment assertionComment="included">
+                <L7p:Properties mapValue="included">
+                    <L7p:entry>
+                        <L7p:key stringValue="RIGHT.COMMENT"/>
+                        <L7p:value stringValue=">> variable die gebruikt wordt door de include policy fragment"/>
+                    </L7p:entry>
+                </L7p:Properties>
+            </L7p:AssertionComment>
+            <L7p:Base64Expression stringValue="JHtyZXNwVmFsdWUucmVzdWx0fQ=="/>
+            <L7p:VariableToSet stringValue="bsn"/>
+        </L7p:SetVariable>
+        <L7p:SetVariable>
+            <L7p:AssertionComment assertionComment="included">
+                <L7p:Properties mapValue="included">
+                    <L7p:entry>
+                        <L7p:key stringValue="RIGHT.COMMENT"/>
+                        <L7p:value stringValue=">> variable die gebruikt wordt door de include policy fragment"/>
+                    </L7p:entry>
+                </L7p:Properties>
+            </L7p:AssertionComment>
+            <L7p:Base64Expression stringValue=""/>
+            <L7p:VariableToSet stringValue="betrouwbaarheidsniveau"/>
+        </L7p:SetVariable>
+        <L7p:SetVariable>
+            <L7p:AssertionComment assertionComment="included">
+                <L7p:Properties mapValue="included">
+                    <L7p:entry>
+                        <L7p:key stringValue="RIGHT.COMMENT"/>
+                        <L7p:value stringValue=">> variable die gebruikt wordt door de include policy fragment"/>
+                    </L7p:entry>
+                </L7p:Properties>
+            </L7p:AssertionComment>
+            <L7p:Base64Expression stringValue="SVJNQQ=="/>
+            <L7p:VariableToSet stringValue="x-nijm-auth_type"/>
+        </L7p:SetVariable>
+        <L7p:Include>
+            <L7p:AssertionComment assertionComment="included">
+                <L7p:Properties mapValue="included">
+                    <L7p:entry>
+                        <L7p:key stringValue="RIGHT.COMMENT"/>
+                        <L7p:value stringValue=">> Ophalen BRP info en samenstellen IRMA issue request"/>
+                    </L7p:entry>
+                </L7p:Properties>
+            </L7p:AssertionComment>
+            <L7p:PolicyGuid stringValue="4bacab78-3247-4164-a66e-f4cc635a86bd"/>
+        </L7p:Include>
+        <wsp:All wsp:Usage="Required">
+            <L7p:AuditDetailAssertion>
+                <L7p:Detail stringValue="routingTo: ${IRMA-API-Hostname}${endpoint-private}"/>
+            </L7p:AuditDetailAssertion>
+            <L7p:AuditDetailAssertion>
+                <L7p:Detail stringValue="signRequest: ${signRequest.mainpart}"/>
+            </L7p:AuditDetailAssertion>
+            <L7p:HttpRoutingAssertion>
+                <L7p:FailOnErrorStatus booleanValue="false"/>
+                <L7p:HttpMethod httpMethod="POST"/>
+                <L7p:ProtectedServiceUrl stringValue="${IRMA-API-Hostname}${endpoint-private}"/>
+                <L7p:ProxyPassword stringValueNull="null"/>
+                <L7p:ProxyUsername stringValueNull="null"/>
+                <L7p:RequestHeaderRules httpPassthroughRuleSet="included">
+                    <L7p:Rules httpPassthroughRules="included">
+                        <L7p:item httpPassthroughRule="included">
+                            <L7p:CustomizeValue stringValue="${secpass.AWS-IRMA-Development.plaintext}"/>
+                            <L7p:Name stringValue="authorization"/>
+                            <L7p:UsesCustomizedValue booleanValue="true"/>
+                        </L7p:item>
+                    </L7p:Rules>
+                </L7p:RequestHeaderRules>
+                <L7p:RequestMsgSrc stringValue="signRequest"/>
+                <L7p:RequestParamRules httpPassthroughRuleSet="included">
+                    <L7p:ForwardAll booleanValue="true"/>
+                    <L7p:Rules httpPassthroughRules="included"/>
+                </L7p:RequestParamRules>
+                <L7p:ResponseHeaderRules httpPassthroughRuleSet="included">
+                    <L7p:ForwardAll booleanValue="true"/>
+                    <L7p:Rules httpPassthroughRules="included"/>
+                </L7p:ResponseHeaderRules>
+                <L7p:ResponseMsgDest stringValue="signResponse"/>
+                <L7p:SamlAssertionVersion intValue="2"/>
+                <L7p:UseKeepAlives booleanValue="false"/>
+            </L7p:HttpRoutingAssertion>
+            <L7p:AuditDetailAssertion>
+                <L7p:Detail stringValue="signResponse: ${signResponse.mainpart}"/>
+                <L7p:Level stringValue="WARNING"/>
+            </L7p:AuditDetailAssertion>
+            <L7p:EvaluateJsonPathExpression>
+                <L7p:Expression stringValue=".sessionPtr"/>
+                <L7p:OtherTargetMessageVariable stringValue="signResponse"/>
+                <L7p:Target target="OTHER"/>
+                <L7p:VariablePrefix stringValue="sessionPtr"/>
+            </L7p:EvaluateJsonPathExpression>
+            <L7p:SetVariable>
+                <L7p:Base64Expression stringValue="JHtzZXNzaW9uUHRyLnJlc3VsdH0="/>
+                <L7p:VariableToSet stringValue="qrcode"/>
+            </L7p:SetVariable>
+            <L7p:AuditDetailAssertion>
+                <L7p:Detail stringValue="qrcode json: ${qrcode}"/>
+            </L7p:AuditDetailAssertion>
+            <L7p:assertionComment>
+                <L7p:Properties mapValue="included">
+                    <L7p:entry>
+                        <L7p:key stringValue="RIGHT.COMMENT"/>
+                        <L7p:value stringValue=">> IRMA sessie klaarzetten en qrcode variable voor html response regelen"/>
+                    </L7p:entry>
+                </L7p:Properties>
+            </L7p:assertionComment>
+        </wsp:All>
+        <L7p:Include>
+            <L7p:PolicyGuid stringValue="9663cdcb-bcea-4e78-84bf-c1e4fe3b9f8c"/>
+        </L7p:Include>
+        <L7p:AddHeader>
+            <L7p:AssertionComment assertionComment="included">
+                <L7p:Properties mapValue="included">
+                    <L7p:entry>
+                        <L7p:key stringValue="RIGHT.COMMENT"/>
+                        <L7p:value stringValue=">> meer restrictieve dan de standaard"/>
+                    </L7p:entry>
+                </L7p:Properties>
+            </L7p:AssertionComment>
+            <L7p:HeaderName stringValue="Content-Security-Policy"/>
+            <L7p:HeaderValue stringValue="script-src 'unsafe-inline' https://services-test.nijmegen.nl"/>
+            <L7p:RemoveExisting booleanValue="true"/>
+            <L7p:Target target="RESPONSE"/>
+        </L7p:AddHeader>
+        <L7p:Include>
+            <L7p:PolicyGuid stringValue="f9591ab0-5872-4326-b442-9d6d6418172f"/>
+        </L7p:Include>
+    </wsp:All>
+</wsp:Policy>

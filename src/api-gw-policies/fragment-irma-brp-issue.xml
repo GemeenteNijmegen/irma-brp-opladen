@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsp:Policy xmlns:L7p="http://www.layer7tech.com/ws/policy" xmlns:wsp="http://schemas.xmlsoap.org/ws/2002/12/policy">
+    <wsp:All wsp:Usage="Required">
+        <L7p:CommentAssertion>
+            <L7p:Comment stringValue="3 VARS moeten aanwezig zijn: 'BSN', 'betrouwbaarheidsniveau' en 'x-nijm-auth_type'"/>
+        </L7p:CommentAssertion>
+        <L7p:CommentAssertion>
+            <L7p:Comment stringValue="Policy Fragment: irma-brp-issue"/>
+        </L7p:CommentAssertion>
+        <wsp:All wsp:Usage="Required">
+            <L7p:SetVariable>
+                <L7p:Base64Expression stringValue="RXIgaGVlZnQgemljaCBlZW4gb25iZWtlbmRlIGZvdXQgdm9vcmdlZGFhbiAoMTIpLg0KUHJvYmVlcnQgdSBoZXQgbGF0ZXIgbm9nIGVlbnMu"/>
+                <L7p:VariableToSet stringValue="errorMessage"/>
+            </L7p:SetVariable>
+            <L7p:SetVariable>
+                <L7p:Base64Expression stringValue="JHtnYXRld2F5LnRpbWUuc2Vjb25kc30="/>
+                <L7p:DataType variableDataType="dateTime"/>
+                <L7p:DateFormat stringValue="&lt;Second Timestamp>"/>
+                <L7p:DateOffsetExpression stringValue="7889231"/>
+                <L7p:VariableToSet stringValue="time-plus-3-months"/>
+            </L7p:SetVariable>
+            <L7p:SetVariable>
+                <L7p:Base64Expression stringValue="JHtnYXRld2F5LnRpbWUuc2Vjb25kc30="/>
+                <L7p:DataType variableDataType="dateTime"/>
+                <L7p:DateFormat stringValue="&lt;Second Timestamp>"/>
+                <L7p:DateOffsetExpression stringValue="31557600"/>
+                <L7p:VariableToSet stringValue="time-plus-1-year"/>
+            </L7p:SetVariable>
+            <L7p:SetVariable>
+                <L7p:Base64Expression stringValue="JHtnYXRld2F5LnRpbWUuc2Vjb25kc30="/>
+                <L7p:DataType variableDataType="dateTime"/>
+                <L7p:DateOffsetExpression stringValue="157788000"/>
+                <L7p:VariableToSet stringValue="time-plus-5-year"/>
+            </L7p:SetVariable>
+            <L7p:AuditDetailAssertion>
+                <L7p:Detail stringValueReference="inline"><![CDATA[time-plus-3-months: ${time-plus-3-months}
+time-plus-3-months seconds: ${time-plus-3-months.seconds}]]></L7p:Detail>
+            </L7p:AuditDetailAssertion>
+            <L7p:AuditDetailAssertion>
+                <L7p:Detail stringValueReference="inline"><![CDATA[time-plus-1-year: ${time-plus-1-year}
+time-plus-1-year seconds: ${time-plus-1-year.seconds}]]></L7p:Detail>
+            </L7p:AuditDetailAssertion>
+            <L7p:AuditDetailAssertion>
+                <L7p:Detail stringValueReference="inline"><![CDATA[time-plus-5-year: ${time-plus-5-year}
+time-plus-5-year seconds: ${time-plus-5-year.seconds}]]></L7p:Detail>
+            </L7p:AuditDetailAssertion>
+            <L7p:assertionComment>
+                <L7p:Properties mapValue="included">
+                    <L7p:entry>
+                        <L7p:key stringValue="LEFT.COMMENT"/>
+                        <L7p:value stringValue="Unixtimes berekenen"/>
+                    </L7p:entry>
+                </L7p:Properties>
+            </L7p:assertionComment>
+        </wsp:All>
+        <wsp:All wsp:Usage="Required">
+            <L7p:SetVariable>
+                <L7p:Base64Expression stringValue="RXIgaXMgZWVuIHNlcnZlciBuaWV0IGJlcmVpa2JhYXIgKDEpLiBQcm9iZWVydCB1IGhldCBsYXRlciBub2cgZWVucy4="/>
+                <L7p:VariableToSet stringValue="errorMessage"/>
+            </L7p:SetVariable>
+            <L7p:CommentAssertion>
+                <L7p:Comment stringValue="raadplegen BRP"/>
+            </L7p:CommentAssertion>
+            <L7p:SetVariable>
+                <L7p:Base64Expression stringValue="eyJic24iOiIke2Jzbn0ifQ=="/>
+                <L7p:ContentType stringValue="application/json; charset=utf-8"/>
+                <L7p:DataType variableDataType="message"/>
+                <L7p:VariableToSet stringValue="BRP_request"/>
+            </L7p:SetVariable>
+            <L7p:HttpRoutingAssertion>
+                <L7p:ConnectionTimeout stringValue="3000"/>
+                <L7p:FailOnErrorStatus booleanValue="false"/>
+                <L7p:HttpMethod httpMethod="POST"/>
+                <L7p:ProtectedServiceUrl stringValue="https://mule-test/IRMA/BRP/API"/>
+                <L7p:ProxyPassword stringValueNull="null"/>
+                <L7p:ProxyUsername stringValueNull="null"/>
+                <L7p:RequestHeaderRules httpPassthroughRuleSet="included">
+                    <L7p:ForwardAll booleanValue="true"/>
+                    <L7p:Rules httpPassthroughRules="included">
+                        <L7p:item httpPassthroughRule="included">
+                            <L7p:Name stringValue="Cookie"/>
+                        </L7p:item>
+                        <L7p:item httpPassthroughRule="included">
+                            <L7p:Name stringValue="SOAPAction"/>
+                        </L7p:item>
+                    </L7p:Rules>
+                </L7p:RequestHeaderRules>
+                <L7p:RequestMsgSrc stringValue="BRP_request"/>
+                <L7p:RequestParamRules httpPassthroughRuleSet="included">
+                    <L7p:ForwardAll booleanValue="true"/>
+                    <L7p:Rules httpPassthroughRules="included"/>
+                </L7p:RequestParamRules>
+                <L7p:ResponseHeaderRules httpPassthroughRuleSet="included">
+                    <L7p:ForwardAll booleanValue="true"/>
+                    <L7p:Rules httpPassthroughRules="included">
+                        <L7p:item httpPassthroughRule="included">
+                            <L7p:Name stringValue="Set-Cookie"/>
+                        </L7p:item>
+                    </L7p:Rules>
+                </L7p:ResponseHeaderRules>
+                <L7p:ResponseMsgDest stringValue="brpResponse"/>
+                <L7p:SamlAssertionVersion intValue="2"/>
+                <L7p:Timeout stringValue="6000"/>
+                <L7p:UseKeepAlives booleanValue="false"/>
+            </L7p:HttpRoutingAssertion>
+            <L7p:SetVariable>
+                <L7p:AssertionComment assertionComment="included">
+                    <L7p:Properties mapValue="included">
+                        <L7p:entry>
+                            <L7p:key stringValue="RIGHT.COMMENT"/>
+                            <L7p:value stringValue=">> SAMPLE message, te gebruiken als BRP service geen antwoord geeft"/>
+                        </L7p:entry>
+                    </L7p:Properties>
+                </L7p:AssertionComment>
+                <L7p:Base64Expression stringValue="ew0KICAgICJQZXJzb29uIjogew0KICAgICAgICAiQlNOIjogew0KICAgICAgICAgICAgIkJTTiI6ICI5OTk5OTQxOTAiDQogICAgICAgIH0sDQogICAgICAgICJQZXJzb29uc2dlZ2V2ZW5zIjogew0KICAgICAgICAgICAgIlZvb3JsZXR0ZXJzIjogIkUuVy4iLA0KICAgICAgICAgICAgIlZvb3JuYW1lbiI6ICJFdmVydCBXaWV0c2UiLA0KICAgICAgICAgICAgIlZvb3J2b2Vnc2VsIjogIiIsDQogICAgICAgICAgICAiR2VzbGFjaHRzbmFhbSI6ICJBbHRlbmEiLA0KICAgICAgICAgICAgIkFjaHRlcm5hYW0iOiAiQWx0ZW5hIiwNCiAgICAgICAgICAgICJOYWFtIjogIkUuVy4gQWx0ZW5hIiwNCiAgICAgICAgICAgICJHZWJvb3J0ZWRhdHVtIjogIjI5LTExLTE5MjkiLA0KICAgICAgICAgICAgIkdlc2xhY2h0IjogIk0iLA0KICAgICAgICAgICAgIk5lZGVybGFuZHNlTmF0aW9uYWxpdGVpdCI6ICJKYSIsDQogICAgICAgICAgICAiR2Vib29ydGVwbGFhdHMiOiAiTGl0aG9pamVuIiwNCiAgICAgICAgICAgICJHZWJvb3J0ZWxhbmQiOiAiTmVkZXJsYW5kIg0KICAgICAgICB9LA0KICAgICAgICAiQWRyZXMiOiB7DQogICAgICAgICAgICAiU3RyYWF0IjogIkJpZXJlbWFsYWFuIiwNCiAgICAgICAgICAgICJIdWlzbnVtbWVyIjogIjczIiwNCiAgICAgICAgICAgICJHZW1lZW50ZSI6ICIncy1HcmF2ZW5oYWdlIiwNCiAgICAgICAgICAgICJQb3N0Y29kZSI6ICIyNDk3IEFYIiwNCiAgICAgICAgICAgICJXb29ucGxhYXRzIjogIidzLUdyYXZlbmhhZ2UiDQogICAgICAgIH0sDQogICAgICAgICJSZWlzZG9jdW1lbnQiOiB7DQogICAgICAgICAgICAiRG9jdW1lbnRzb29ydCI6ICJOYXRpb25hYWwgcGFzcG9vcnQiLA0KICAgICAgICAgICAgIkRvY3VtZW50bnVtbWVyIjogIk5DNzUwMzA1NyIsDQogICAgICAgICAgICAiVWl0Z2lmdGVkYXR1bSI6ICIyMDAyMDcxMCIsDQogICAgICAgICAgICAiVmVybG9vcGRhdHVtIjogIjIwMDcwNzEwIg0KICAgICAgICB9LA0KICAgICAgICAiYWdlTGltaXRzIjogew0KICAgICAgICAgICAgIm92ZXIxMiI6ICJZZXMiLA0KICAgICAgICAgICAgIm92ZXIxNiI6ICJZZXMiLA0KICAgICAgICAgICAgIm92ZXIxOCI6ICJZZXMiLA0KICAgICAgICAgICAgIm92ZXIyMSI6ICJZZXMiLA0KICAgICAgICAgICAgIm92ZXI2NSI6ICJZZXMiDQogICAgICAgIH0NCiAgICB9DQp9"/>
+                <L7p:ContentType stringValue="application/json; charset=utf-8"/>
+                <L7p:DataType variableDataType="message"/>
+                <L7p:Enabled booleanValue="false"/>
+                <L7p:VariableToSet stringValue="brpResponse"/>
+            </L7p:SetVariable>
+            <L7p:AuditDetailAssertion>
+                <L7p:Detail stringValue="brpResponse: ${brpResponse.mainpart}"/>
+                <L7p:Level stringValue="WARNING"/>
+            </L7p:AuditDetailAssertion>
+            <wsp:All wsp:Usage="Required">
+                <L7p:EvaluateJsonPathExpression>
+                    <L7p:Expression stringValue="Persoon.Adres.Straat"/>
+                    <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
+                    <L7p:Target target="OTHER"/>
+                    <L7p:VariablePrefix stringValue="straat"/>
+                </L7p:EvaluateJsonPathExpression>
+                <L7p:EvaluateJsonPathExpression>
+                    <L7p:Expression stringValue="Persoon.Adres.Huisnummer"/>
+                    <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
+                    <L7p:Target target="OTHER"/>
+                    <L7p:VariablePrefix stringValue="huisnr"/>
+                </L7p:EvaluateJsonPathExpression>
+                <L7p:EvaluateJsonPathExpression>
+                    <L7p:Expression stringValue="Persoon.Adres.Postcode"/>
+                    <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
+                    <L7p:Target target="OTHER"/>
+                    <L7p:VariablePrefix stringValue="postcode"/>
+                </L7p:EvaluateJsonPathExpression>
+                <L7p:EvaluateJsonPathExpression>
+                    <L7p:Expression stringValue="Persoon.Adres.Woonplaats"/>
+                    <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
+                    <L7p:Target target="OTHER"/>
+                    <L7p:VariablePrefix stringValue="woonplaats"/>
+                </L7p:EvaluateJsonPathExpression>
+                <L7p:EvaluateJsonPathExpression>
+                    <L7p:Expression stringValue="Persoon.Adres.Gemeente"/>
+                    <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
+                    <L7p:Target target="OTHER"/>
+                    <L7p:VariablePrefix stringValue="gemeente"/>
+                </L7p:EvaluateJsonPathExpression>
+                <L7p:SetVariable>
+                    <L7p:Base64Expression stringValue="ew0KImNyZWRlbnRpYWwiOiAiJHtTY2hlbWVNYW5hZ2VyfS5nZW1lZW50ZS5hZGRyZXNzIiwNCiJ2YWxpZGl0eSI6ICR7dGltZS1wbHVzLTEteWVhci5zZWNvbmRzfSwNCiJhdHRyaWJ1dGVzIjogew0KInN0cmVldCI6ICIke3N0cmFhdC5yZXN1bHR9IiwNCiJob3VzZU51bWJlciI6ICIke2h1aXNuci5yZXN1bHR9IiwNCiJ6aXBjb2RlIjogIiR7cG9zdGNvZGUucmVzdWx0fSIsDQoibXVuaWNpcGFsaXR5IjogIiR7Z2VtZWVudGUucmVzdWx0fSIsDQoiY2l0eSI6ICIke3dvb25wbGFhdHMucmVzdWx0fSINCn0NCn0="/>
+                    <L7p:VariableToSet stringValue="adres"/>
+                </L7p:SetVariable>
+                <L7p:SetVariable>
+                    <L7p:AssertionComment assertionComment="included">
+                        <L7p:Properties mapValue="included">
+                            <L7p:entry>
+                                <L7p:key stringValue="RIGHT.COMMENT"/>
+                                <L7p:value stringValue=">> hardcoded responsen voor testen verwijderen overleden persoon"/>
+                            </L7p:entry>
+                        </L7p:Properties>
+                    </L7p:AssertionComment>
+                    <L7p:Base64Expression stringValue="ew0KImNyZWRlbnRpYWwiOiAiaXJtYS1kZW1vLmdlbWVlbnRlLmFkZHJlc3MiLA0KInZhbGlkaXR5IjogMTU5MDYwNjU5MywNCiJhdHRyaWJ1dGVzIjogew0KInN0cmVldCI6ICJCaWVyZW1hbGFhbiIsDQoiaG91c2VOdW1iZXIiOiAiNzMiLA0KInppcGNvZGUiOiAiMjQ5NyBBWCIsDQoibXVuaWNpcGFsaXR5IjogIidzLUdyYXZlbmhhZ2UiLA0KImNpdHkiOiAiJ3MtR3JhdmVuaGFnZSINCn0NCn0="/>
+                    <L7p:Enabled booleanValue="false"/>
+                    <L7p:VariableToSet stringValue="adres"/>
+                </L7p:SetVariable>
+                <L7p:AuditDetailAssertion>
+                    <L7p:Detail stringValue="adres: ${adres}"/>
+                </L7p:AuditDetailAssertion>
+                <L7p:assertionComment>
+                    <L7p:Properties mapValue="included">
+                        <L7p:entry>
+                            <L7p:key stringValue="LEFT.COMMENT"/>
+                            <L7p:value stringValue="1.1 Adres verwerken"/>
+                        </L7p:entry>
+                    </L7p:Properties>
+                </L7p:assertionComment>
+            </wsp:All>
+            <wsp:All wsp:Usage="Required">
+                <wsp:All wsp:Usage="Required">
+                    <L7p:EvaluateJsonPathExpression>
+                        <L7p:Expression stringValue="Persoon.ageLimits.over12"/>
+                        <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
+                        <L7p:Target target="OTHER"/>
+                        <L7p:VariablePrefix stringValue="over12"/>
+                    </L7p:EvaluateJsonPathExpression>
+                    <L7p:EvaluateJsonPathExpression>
+                        <L7p:Expression stringValue="Persoon.ageLimits.over16"/>
+                        <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
+                        <L7p:Target target="OTHER"/>
+                        <L7p:VariablePrefix stringValue="over16"/>
+                    </L7p:EvaluateJsonPathExpression>
+                    <L7p:EvaluateJsonPathExpression>
+                        <L7p:Expression stringValue="Persoon.ageLimits.over18"/>
+                        <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
+                        <L7p:Target target="OTHER"/>
+                        <L7p:VariablePrefix stringValue="over18"/>
+                    </L7p:EvaluateJsonPathExpression>
+                    <L7p:EvaluateJsonPathExpression>
+                        <L7p:Expression stringValue="Persoon.ageLimits.over21"/>
+                        <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
+                        <L7p:Target target="OTHER"/>
+                        <L7p:VariablePrefix stringValue="over21"/>
+                    </L7p:EvaluateJsonPathExpression>
+                    <L7p:EvaluateJsonPathExpression>
+                        <L7p:Expression stringValue="Persoon.ageLimits.over65"/>
+                        <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
+                        <L7p:Target target="OTHER"/>
+                        <L7p:VariablePrefix stringValue="over65"/>
+                    </L7p:EvaluateJsonPathExpression>
+                    <L7p:SetVariable>
+                        <L7p:Base64Expression stringValue="ew0KImNyZWRlbnRpYWwiOiAiJHtTY2hlbWVNYW5hZ2VyfS5nZW1lZW50ZS5hZ2VMaW1pdHMiLA0KInZhbGlkaXR5IjogJHt0aW1lLXBsdXMtMS15ZWFyLnNlY29uZHN9LA0KImF0dHJpYnV0ZXMiOiB7DQoib3ZlcjEyIjogIiR7b3ZlcjEyLnJlc3VsdH0iLA0KIm92ZXIxNiI6ICIke292ZXIxNi5yZXN1bHR9IiwNCiJvdmVyMTgiOiAiJHtvdmVyMTgucmVzdWx0fSIsDQoib3ZlcjIxIjogIiR7b3ZlcjIxLnJlc3VsdH0iLA0KIm92ZXI2NSI6ICIke292ZXI2NS5yZXN1bHR9Ig0KfQ0KfQ=="/>
+                        <L7p:VariableToSet stringValue="agelimits"/>
+                    </L7p:SetVariable>
+                    <L7p:AuditDetailAssertion>
+                        <L7p:Detail stringValue="agelimits: ${agelimits}"/>
+                    </L7p:AuditDetailAssertion>
+                    <L7p:assertionComment>
+                        <L7p:Properties mapValue="included">
+                            <L7p:entry>
+                                <L7p:key stringValue="LEFT.COMMENT"/>
+                                <L7p:value stringValue="1.3 Agelimits verwerken"/>
+                            </L7p:entry>
+                        </L7p:Properties>
+                    </L7p:assertionComment>
+                </wsp:All>
+                <L7p:EvaluateJsonPathExpression>
+                    <L7p:Expression stringValue="Persoon.BSN.BSN"/>
+                    <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
+                    <L7p:Target target="OTHER"/>
+                    <L7p:VariablePrefix stringValue="bsn"/>
+                </L7p:EvaluateJsonPathExpression>
+                <L7p:EvaluateJsonPathExpression>
+                    <L7p:Expression stringValue="Persoon.Persoonsgegevens.Voorletters"/>
+                    <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
+                    <L7p:Target target="OTHER"/>
+                    <L7p:VariablePrefix stringValue="voorletters"/>
+                </L7p:EvaluateJsonPathExpression>
+                <L7p:EvaluateJsonPathExpression>
+                    <L7p:Expression stringValue="Persoon.Persoonsgegevens.Voornamen"/>
+                    <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
+                    <L7p:Target target="OTHER"/>
+                    <L7p:VariablePrefix stringValue="voornamen"/>
+                </L7p:EvaluateJsonPathExpression>
+                <L7p:EvaluateJsonPathExpression>
+                    <L7p:Expression stringValue="Persoon.Persoonsgegevens.Voorvoegsel"/>
+                    <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
+                    <L7p:Target target="OTHER"/>
+                    <L7p:VariablePrefix stringValue="voorvoegsel"/>
+                </L7p:EvaluateJsonPathExpression>
+                <L7p:EvaluateJsonPathExpression>
+                    <L7p:Expression stringValue="Persoon.Persoonsgegevens.Geslachtsnaam"/>
+                    <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
+                    <L7p:Target target="OTHER"/>
+                    <L7p:VariablePrefix stringValue="geslachtsnaam"/>
+                </L7p:EvaluateJsonPathExpression>
+                <L7p:EvaluateJsonPathExpression>
+                    <L7p:AssertionComment assertionComment="included">
+                        <L7p:Properties mapValue="included">
+                            <L7p:entry>
+                                <L7p:key stringValue="RIGHT.COMMENT"/>
+                                <L7p:value stringValue=">> Wordt niet meer meegegeven vanuit de BRP API"/>
+                            </L7p:entry>
+                        </L7p:Properties>
+                    </L7p:AssertionComment>
+                    <L7p:Expression stringValue="Persoon.Persoonsgegevens.Achternaam"/>
+                    <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
+                    <L7p:Target target="OTHER"/>
+                    <L7p:VariablePrefix stringValue="achternaam"/>
+                </L7p:EvaluateJsonPathExpression>
+                <L7p:EvaluateJsonPathExpression>
+                    <L7p:AssertionComment assertionComment="included">
+                        <L7p:Properties mapValue="included">
+                            <L7p:entry>
+                                <L7p:key stringValue="RIGHT.COMMENT"/>
+                                <L7p:value stringValue=">> Hier bestaat geen attribuut voor"/>
+                            </L7p:entry>
+                        </L7p:Properties>
+                    </L7p:AssertionComment>
+                    <L7p:Expression stringValue="Persoon.Persoonsgegevens.Naam"/>
+                    <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
+                    <L7p:Target target="OTHER"/>
+                    <L7p:VariablePrefix stringValue="naam"/>
+                </L7p:EvaluateJsonPathExpression>
+                <L7p:EvaluateJsonPathExpression>
+                    <L7p:Expression stringValue="Persoon.Persoonsgegevens.Geboortedatum"/>
+                    <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
+                    <L7p:Target target="OTHER"/>
+                    <L7p:VariablePrefix stringValue="geboortedatum"/>
+                </L7p:EvaluateJsonPathExpression>
+                <L7p:EvaluateJsonPathExpression>
+                    <L7p:Expression stringValue="Persoon.Persoonsgegevens.Geslacht"/>
+                    <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
+                    <L7p:Target target="OTHER"/>
+                    <L7p:VariablePrefix stringValue="geslacht"/>
+                </L7p:EvaluateJsonPathExpression>
+                <L7p:EvaluateJsonPathExpression>
+                    <L7p:Expression stringValue="Persoon.Persoonsgegevens.NederlandseNationaliteit"/>
+                    <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
+                    <L7p:Target target="OTHER"/>
+                    <L7p:VariablePrefix stringValue="nederlandsenationaliteit"/>
+                </L7p:EvaluateJsonPathExpression>
+                <L7p:EvaluateJsonPathExpression>
+                    <L7p:Expression stringValue="Persoon.Persoonsgegevens.Geboorteplaats"/>
+                    <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
+                    <L7p:Target target="OTHER"/>
+                    <L7p:VariablePrefix stringValue="geboorteplaats"/>
+                </L7p:EvaluateJsonPathExpression>
+                <L7p:EvaluateJsonPathExpression>
+                    <L7p:Expression stringValue="Persoon.Persoonsgegevens.Geboorteland"/>
+                    <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
+                    <L7p:Target target="OTHER"/>
+                    <L7p:VariablePrefix stringValue="Geboorteland"/>
+                </L7p:EvaluateJsonPathExpression>
+                <L7p:SetVariable>
+                    <L7p:Base64Expression stringValue="ew0KImNyZWRlbnRpYWwiOiAiJHtTY2hlbWVNYW5hZ2VyfS5nZW1lZW50ZS5wZXJzb25hbERhdGEiLA0KInZhbGlkaXR5IjogJHt0aW1lLXBsdXMtMS15ZWFyLnNlY29uZHN9LA0KImF0dHJpYnV0ZXMiOiB7DQoiaW5pdGlhbHMiOiAiJHt2b29ybGV0dGVycy5yZXN1bHR9IiwNCiJmaXJzdG5hbWVzIjogIiR7dm9vcm5hbWVuLnJlc3VsdH0iLA0KInByZWZpeCI6ICIke3Zvb3J2b2Vnc2VsLnJlc3VsdH0iLA0KImZhbWlseW5hbWUiOiAiJHtnZXNsYWNodHNuYWFtLnJlc3VsdH0iLA0KImZ1bGxuYW1lIjogIiR7bmFhbS5yZXN1bHR9IiwNCiJkYXRlb2ZiaXJ0aCI6ICIke2dlYm9vcnRlZGF0dW0ucmVzdWx0fSIsDQoiZ2VuZGVyIjogIiR7Z2VzbGFjaHQucmVzdWx0fSIsDQoibmF0aW9uYWxpdHkiOiAiJHtuZWRlcmxhbmRzZW5hdGlvbmFsaXRlaXQucmVzdWx0fSIsDQoic3VybmFtZSI6IiR7YWNodGVybmFhbS5yZXN1bHR9IiwNCiJjaXR5b2ZiaXJ0aCI6IiR7Z2Vib29ydGVwbGFhdHMucmVzdWx0fSIsDQoiY291bnRyeW9mYmlydGgiOiIke2dlYm9vcnRlbGFuZC5yZXN1bHR9IiwNCiJvdmVyMTIiOiAiJHtvdmVyMTIucmVzdWx0fSIsDQoib3ZlcjE2IjogIiR7b3ZlcjE2LnJlc3VsdH0iLA0KIm92ZXIxOCI6ICIke292ZXIxOC5yZXN1bHR9IiwNCiJvdmVyMjEiOiAiJHtvdmVyMjEucmVzdWx0fSIsDQoib3ZlcjY1IjogIiR7b3ZlcjY1LnJlc3VsdH0iLA0KImJzbiI6ICIke2Jzbi5yZXN1bHR9IiwNCiJkaWdpZGxldmVsIjogIiR7YmV0cm91d2JhYXJoZWlkc25pdmVhdS10ZWtzdH0iDQp9DQp9"/>
+                    <L7p:VariableToSet stringValue="persoonsgegevens"/>
+                </L7p:SetVariable>
+                <L7p:SetVariable>
+                    <L7p:AssertionComment assertionComment="included">
+                        <L7p:Properties mapValue="included">
+                            <L7p:entry>
+                                <L7p:key stringValue="RIGHT.COMMENT"/>
+                                <L7p:value stringValue=">> Hardcoded response, voor testen verwijderen overleden persoon"/>
+                            </L7p:entry>
+                        </L7p:Properties>
+                    </L7p:AssertionComment>
+                    <L7p:Base64Expression stringValue="ew0KImNyZWRlbnRpYWwiOiAiaXJtYS1kZW1vLmdlbWVlbnRlLnBlcnNvbmFsRGF0YSIsDQoidmFsaWRpdHkiOiAxNTkwNjA2NTkzLA0KImF0dHJpYnV0ZXMiOiB7DQoiaW5pdGlhbHMiOiAiRS5XLiIsDQoiZmlyc3RuYW1lcyI6ICJFdmVydCBXaWV0c2UiLA0KInByZWZpeCI6ICIiLA0KImZhbWlseW5hbWUiOiAiQWx0ZW5hIiwNCiJmdWxsbmFtZSI6ICJFLlcuIEFsdGVuYSIsDQoiZGF0ZW9mYmlydGgiOiAiMjktMTEtMTkyOSIsDQoiZ2VuZGVyIjogIk0iLA0KIm5hdGlvbmFsaXR5IjogIkphIiwNCiJzdXJuYW1lIjoiQWx0ZW5hIiwNCiJjaXR5b2ZiaXJ0aCI6IiIsDQoiY291bnRyeW9mYmlydGgiOiIiLA0KIm92ZXIxMiI6ICJZZXMiLA0KIm92ZXIxNiI6ICJZZXMiLA0KIm92ZXIxOCI6ICJZZXMiLA0KIm92ZXIyMSI6ICJZZXMiLA0KIm92ZXI2NSI6ICJZZXMiLA0KImJzbiI6ICI5OTk5OTMwMDgiLA0KImRpZ2lkbGV2ZWwiOiAiU3Vic3RhbnRpZWVsIg0KfQ0KfQ=="/>
+                    <L7p:Enabled booleanValue="false"/>
+                    <L7p:VariableToSet stringValue="persoonsgegevens"/>
+                </L7p:SetVariable>
+                <L7p:AuditDetailAssertion>
+                    <L7p:Detail stringValue="persoonsgegevens: ${persoonsgegevens}"/>
+                </L7p:AuditDetailAssertion>
+                <L7p:assertionComment>
+                    <L7p:Properties mapValue="included">
+                        <L7p:entry>
+                            <L7p:key stringValue="LEFT.COMMENT"/>
+                            <L7p:value stringValue="1.2 Persoonsgegevens verwerken"/>
+                        </L7p:entry>
+                    </L7p:Properties>
+                </L7p:assertionComment>
+            </wsp:All>
+            <L7p:SetVariable>
+                <L7p:Base64Expression stringValue="eyJ0eXBlIjoiaXNzdWluZyIsImNyZWRlbnRpYWxzIjogWyR7YWRyZXN9LCR7cGVyc29vbnNnZWdldmVuc31dfQ=="/>
+                <L7p:ContentType stringValue="application/json; charset=utf-8"/>
+                <L7p:DataType variableDataType="message"/>
+                <L7p:VariableToSet stringValue="signRequest"/>
+            </L7p:SetVariable>
+        </wsp:All>
+        <wsp:All wsp:Usage="Required">
+            <L7p:AuditDetailAssertion>
+                <L7p:Detail stringValue="irma-issue.timestamp=${gateway.time.utc} | irma-issue.gemeente=${gemeente.result} | irma-issue.auth_method=${x-nijm-auth_type} | irma-issue.auth_level=${betrouwbaarheidsniveau}"/>
+            </L7p:AuditDetailAssertion>
+            <L7p:SetVariable>
+                <L7p:Base64Expression stringValue="ew0KCSJ0aW1lc3RhbXAiOiAke2dhdGV3YXkudGltZS51dGN9LA0KCSJnZW1lZW50ZSI6ICR7Z2VtZWVudGUucmVzdWx0fSwNCgkiYXV0aF9tZXRob2QiOiAke3gtbmlqbS1hdXRoX3R5cGV9LA0KCSJhdXRoX2xldmVsIjogJHtiZXRyb3V3YmFhcmhlaWRzbml2ZWF1fQ0KfQ=="/>
+                <L7p:ContentType stringValue="application/json; charset=utf-8"/>
+                <L7p:DataType variableDataType="message"/>
+                <L7p:VariableToSet stringValue="logmessage"/>
+            </L7p:SetVariable>
+            <L7p:assertionComment>
+                <L7p:Properties mapValue="included">
+                    <L7p:entry>
+                        <L7p:key stringValue="LEFT.COMMENT"/>
+                        <L7p:value stringValue="Logging"/>
+                    </L7p:entry>
+                </L7p:Properties>
+            </L7p:assertionComment>
+        </wsp:All>
+        <L7p:AuditDetailAssertion>
+            <L7p:Detail stringValue="signRequest: ${signRequest.mainpart}"/>
+        </L7p:AuditDetailAssertion>
+    </wsp:All>
+</wsp:Policy>

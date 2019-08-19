@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsp:Policy xmlns:L7p="http://www.layer7tech.com/ws/policy" xmlns:wsp="http://schemas.xmlsoap.org/ws/2002/12/policy">
+    <wsp:All wsp:Usage="Required">
+        <L7p:CommentAssertion>
+            <L7p:Comment stringValue="##########################################################"/>
+        </L7p:CommentAssertion>
+        <L7p:CommentAssertion>
+            <L7p:Comment stringValue="Deze policy mag NIET bestaan IN PRODUCTIE"/>
+        </L7p:CommentAssertion>
+        <L7p:CommentAssertion>
+            <L7p:Comment stringValue="Bedoeld om in test, buiten DigiD om, credentials op te kunnen halen"/>
+        </L7p:CommentAssertion>
+        <L7p:CommentAssertion>
+            <L7p:Comment stringValue="##########################################################"/>
+        </L7p:CommentAssertion>
+        <L7p:SslAssertion>
+            <L7p:AssertionComment assertionComment="included">
+                <L7p:Properties mapValue="included">
+                    <L7p:entry>
+                        <L7p:key stringValue="RIGHT.COMMENT"/>
+                        <L7p:value stringValue=">> Meesturen van TLS cert (en https) afdwingen. MOET AAN IN PRODUCTIE"/>
+                    </L7p:entry>
+                </L7p:Properties>
+            </L7p:AssertionComment>
+        </L7p:SslAssertion>
+        <L7p:AuditAssertion/>
+        <L7p:AuditDetailAssertion>
+            <L7p:Detail stringValue="query: ${request.url.query}"/>
+        </L7p:AuditDetailAssertion>
+        <L7p:AuditDetailAssertion>
+            <L7p:Detail stringValue="bsn: ${request.http.parameter.bsn}"/>
+        </L7p:AuditDetailAssertion>
+        <L7p:AuditDetailAssertion>
+            <L7p:Detail stringValue="zhn: ${request.http.parameter.zhn}"/>
+        </L7p:AuditDetailAssertion>
+        <L7p:SetVariable>
+            <L7p:AssertionComment assertionComment="included">
+                <L7p:Properties mapValue="included">
+                    <L7p:entry>
+                        <L7p:key stringValue="RIGHT.COMMENT"/>
+                        <L7p:value stringValue=">> Moet 20 worden"/>
+                    </L7p:entry>
+                </L7p:Properties>
+            </L7p:AssertionComment>
+            <L7p:Base64Expression stringValue="MTA="/>
+            <L7p:DataType variableDataType="int"/>
+            <L7p:VariableToSet stringValue="service.zekerheidsniveau"/>
+        </L7p:SetVariable>
+        <L7p:SetVariable>
+            <L7p:Base64Expression stringValue="aHR0cHM6Ly8xMjcuMC4wLjE6ODQ0My9pcm1hL2dlbWVlbnRlL2lzc3VlLXNlY3VyZWQ="/>
+            <L7p:VariableToSet stringValue="backend.url"/>
+        </L7p:SetVariable>
+        <L7p:AddHeader>
+            <L7p:HeaderName stringValue="X-Nijm-subscriber-id"/>
+            <L7p:HeaderValue stringValue="${request.http.parameter.bsn}"/>
+            <L7p:RemoveExisting booleanValue="true"/>
+        </L7p:AddHeader>
+        <L7p:AddHeader>
+            <L7p:HeaderName stringValue="zekerheidsniveau"/>
+            <L7p:HeaderValue stringValue="${request.http.parameter.zhn}"/>
+            <L7p:RemoveExisting booleanValue="true"/>
+        </L7p:AddHeader>
+        <L7p:AddHeader>
+            <L7p:HeaderName stringValue="x-nijm-auth_type"/>
+            <L7p:HeaderValue stringValue="&quot;DigiD&quot;"/>
+            <L7p:RemoveExisting booleanValue="true"/>
+        </L7p:AddHeader>
+        <L7p:HttpRoutingAssertion>
+            <L7p:Enabled booleanValue="false"/>
+            <L7p:KeyAlias stringValue="data-test.nijmegen.nl-20190430"/>
+            <L7p:NonDefaultKeystoreId goidValue="00000000000000000000000000000002"/>
+            <L7p:ProtectedServiceUrl stringValue="${backend.url}"/>
+            <L7p:ProxyPassword stringValueNull="null"/>
+            <L7p:ProxyUsername stringValueNull="null"/>
+            <L7p:RequestHeaderRules httpPassthroughRuleSet="included">
+                <L7p:ForwardAll booleanValue="true"/>
+                <L7p:Rules httpPassthroughRules="included">
+                    <L7p:item httpPassthroughRule="included">
+                        <L7p:Name stringValue="Cookie"/>
+                    </L7p:item>
+                    <L7p:item httpPassthroughRule="included">
+                        <L7p:Name stringValue="SOAPAction"/>
+                    </L7p:item>
+                </L7p:Rules>
+            </L7p:RequestHeaderRules>
+            <L7p:RequestParamRules httpPassthroughRuleSet="included">
+                <L7p:ForwardAll booleanValue="true"/>
+                <L7p:Rules httpPassthroughRules="included"/>
+            </L7p:RequestParamRules>
+            <L7p:ResponseHeaderRules httpPassthroughRuleSet="included">
+                <L7p:ForwardAll booleanValue="true"/>
+                <L7p:Rules httpPassthroughRules="included">
+                    <L7p:item httpPassthroughRule="included">
+                        <L7p:Name stringValue="Set-Cookie"/>
+                    </L7p:item>
+                </L7p:Rules>
+            </L7p:ResponseHeaderRules>
+            <L7p:SamlAssertionVersion intValue="2"/>
+            <L7p:UsesDefaultKeyStore booleanValue="false"/>
+        </L7p:HttpRoutingAssertion>
+        <L7p:HttpRoutingAssertion>
+            <L7p:KeyAlias stringValue="data-test.nijmegen.nl-20190430"/>
+            <L7p:NonDefaultKeystoreId goidValue="00000000000000000000000000000002"/>
+            <L7p:ProtectedServiceUrl stringValue="${backend.url}"/>
+            <L7p:ProxyPassword stringValueNull="null"/>
+            <L7p:ProxyUsername stringValueNull="null"/>
+            <L7p:RequestHeaderRules httpPassthroughRuleSet="included">
+                <L7p:ForwardAll booleanValue="true"/>
+                <L7p:Rules httpPassthroughRules="included">
+                    <L7p:item httpPassthroughRule="included">
+                        <L7p:Name stringValue="Cookie"/>
+                    </L7p:item>
+                    <L7p:item httpPassthroughRule="included">
+                        <L7p:Name stringValue="SOAPAction"/>
+                    </L7p:item>
+                </L7p:Rules>
+            </L7p:RequestHeaderRules>
+            <L7p:RequestParamRules httpPassthroughRuleSet="included">
+                <L7p:ForwardAll booleanValue="true"/>
+                <L7p:Rules httpPassthroughRules="included"/>
+            </L7p:RequestParamRules>
+            <L7p:ResponseHeaderRules httpPassthroughRuleSet="included">
+                <L7p:ForwardAll booleanValue="true"/>
+                <L7p:Rules httpPassthroughRules="included">
+                    <L7p:item httpPassthroughRule="included">
+                        <L7p:Name stringValue="Set-Cookie"/>
+                    </L7p:item>
+                </L7p:Rules>
+            </L7p:ResponseHeaderRules>
+            <L7p:SamlAssertionVersion intValue="2"/>
+            <L7p:UsesDefaultKeyStore booleanValue="false"/>
+        </L7p:HttpRoutingAssertion>
+        <L7p:Include>
+            <L7p:PolicyGuid stringValue="9663cdcb-bcea-4e78-84bf-c1e4fe3b9f8c"/>
+        </L7p:Include>
+        <L7p:AddHeader>
+            <L7p:AssertionComment assertionComment="included">
+                <L7p:Properties mapValue="included">
+                    <L7p:entry>
+                        <L7p:key stringValue="RIGHT.COMMENT"/>
+                        <L7p:value stringValue=">> meer restrictieve dan de standaard"/>
+                    </L7p:entry>
+                </L7p:Properties>
+            </L7p:AssertionComment>
+            <L7p:HeaderName stringValue="Content-Security-Policy"/>
+            <L7p:HeaderValue stringValue="script-src 'unsafe-inline' https://services-test.nijmegen.nl"/>
+            <L7p:RemoveExisting booleanValue="true"/>
+            <L7p:Target target="RESPONSE"/>
+        </L7p:AddHeader>
+    </wsp:All>
+</wsp:Policy>

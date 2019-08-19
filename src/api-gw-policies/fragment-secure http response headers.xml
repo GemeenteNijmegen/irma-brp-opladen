@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsp:Policy xmlns:L7p="http://www.layer7tech.com/ws/policy" xmlns:wsp="http://schemas.xmlsoap.org/ws/2002/12/policy">
+    <wsp:All wsp:Usage="Required">
+        <L7p:CommentAssertion>
+            <L7p:Comment stringValue="Policy Fragment:"/>
+        </L7p:CommentAssertion>
+        <L7p:AddHeader>
+            <L7p:HeaderName stringValue="Strict-Transport-Security"/>
+            <L7p:HeaderValue stringValue="max-age=2592000; includeSubDomains; preload"/>
+            <L7p:RemoveExisting booleanValue="true"/>
+            <L7p:Target target="RESPONSE"/>
+        </L7p:AddHeader>
+        <L7p:AddHeader>
+            <L7p:HeaderName stringValue="X-Frame-Options"/>
+            <L7p:HeaderValue stringValue="SAMEORIGIN"/>
+            <L7p:RemoveExisting booleanValue="true"/>
+            <L7p:Target target="RESPONSE"/>
+        </L7p:AddHeader>
+        <L7p:AddHeader>
+            <L7p:HeaderName stringValue="Content-Security-Policy"/>
+            <L7p:HeaderValue stringValue="script-src 'unsafe-inline' https://services-test.nijmegen.nl https://componenten.nijmegen.nl https://www.openindex.io https://google.com"/>
+            <L7p:RemoveExisting booleanValue="true"/>
+            <L7p:Target target="RESPONSE"/>
+        </L7p:AddHeader>
+        <L7p:AddHeader>
+            <L7p:HeaderName stringValue="X-Xss-Protection"/>
+            <L7p:HeaderValue stringValue="1; mode=block"/>
+            <L7p:RemoveExisting booleanValue="true"/>
+            <L7p:Target target="RESPONSE"/>
+        </L7p:AddHeader>
+        <L7p:AddHeader>
+            <L7p:HeaderName stringValue="X-Content-Type-Options"/>
+            <L7p:HeaderValue stringValue="nosniff"/>
+            <L7p:RemoveExisting booleanValue="true"/>
+            <L7p:Target target="RESPONSE"/>
+        </L7p:AddHeader>
+    </wsp:All>
+</wsp:Policy>

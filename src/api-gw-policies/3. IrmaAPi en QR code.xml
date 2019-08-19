@@ -1,702 +1,397 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <wsp:Policy xmlns:L7p="http://www.layer7tech.com/ws/policy" xmlns:wsp="http://schemas.xmlsoap.org/ws/2002/12/policy">
     <wsp:All wsp:Usage="Required">
-        <L7p:AuditAssertion>
-            <L7p:SaveRequest booleanValue="true"/>
-            <L7p:SaveResponse booleanValue="true"/>
-        </L7p:AuditAssertion>
+        <L7p:CommentAssertion>
+            <L7p:Comment stringValue="####   Laat vooral de Comments zien!  ######"/>
+        </L7p:CommentAssertion>
         <L7p:CustomizeErrorResponse>
-            <L7p:Content stringValueReference="inline"><![CDATA[<!doctype html>
-<html lang="nl">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://componenten.nijmegen.nl/v2/css/bootstrap.min.css">
-    <!-- Material Design Bootstrap combined with custom styles -->
-    <link rel="stylesheet" href="https://componenten.nijmegen.nl/v2/css/main.css">
-	
-
-
-    <title>IRMA demo BRP opladen</title>
-
-    <style>
-        body {padding: 1rem;}
-    </style>
-<style>
-    body { padding: 50px 0 0;}
-    main .row { padding: 50px 0; }
-    footer.page-footer { margin-top: 50px; }
-	.nav-item{display:none}
-
-	.logoDigiD{margin-right:10px;}
-	#qrcode{
-		margin-top:-40px;
-		margin-bottom:20px;
-	}
-	
-</style>
-</head>
-<body>
-
-<nav class="navbar fixed-top navbar-expand-lg scrolling-navbar navbar-primary">
-    <div class="container">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <a class="navbar-brand" href="/">
-            <div class="navbar-brand-container">
-                <img src="https://componenten.nijmegen.nl/v2/img/beeldmerklabelwit.svg" class="logo-labeled" alt="Logo Nijmegen">
-                <img src="https://componenten.nijmegen.nl/v2/img/beeldmerkwit.svg" class="logo" alt="Logo Nijmegen">
-            </div>
-        </a>
-        <div class="collapse navbar-collapse" id="navbar-collapse">
-            <ul class="navbar-nav mr-auto smooth-scroll">
-                <li class="nav-item">
-                    <a href="#section-1" class="nav-link"></a>
-                </li>
-            </ul>
-            <form action="https://www.nijmegen.nl" class="form-inline ml-auto">
-                <label for="oi-query" class="sr-only">Zoeken</label>
-                <input class="form-control" id="oi-query" type="text" placeholder="Zoeken" autocomplete="off">
-                <button class="btn-search"><i class="mdi mdi-magnify" aria-hidden="true"></i></button>
-            </form>
-        </div>
-    </div>
-</nav>
-
-<main>
-    <div class="container" id="section-1">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card card-filename">
-                    <div class="card-body">
-                        <p class="card-title">er heeft zich een fout voorgedaan</p>
-                        <!--<div id="qrcode"></div>-->
-                        <p id="feedback" class="card-text">Er is iets misgegaan met het opladen van de attributen. Probeert u het later nog eens.</p>
-                    </div>
-                </div>
-            </div>
-          
-        </div>
-
-        <div class="row d-md-none">
-            <div class="col-12">
-                <div class="horizontal-collapse">
-                    <a class="btn-floating btn-large btn-floating-primary btn-floating-collapse">
-                        <span class="sr-only">How to contact/follow us</span>
-                        <i class="mdi mdi-message-processing" aria-hidden="true"></i>
-                    </a>
-                    <ul class="expand-horizontal animated">
-                        <li><a href="tel:+3114024"><span class="sr-only">Telephone</span><i class="mdi mdi-phone" aria-hidden="true"></i></a></li>
-                        <li><i class="mdi mdi-near-me" aria-hidden="true"></i></li>
-                        <li><a href="mailto:gemeente@nijmegen.nl"><span class="sr-only">E-mail</span><i class="mdi mdi-email" aria-hidden="true"></i></a></li>
-                        <li><a href="https://www.facebook.com/gemeentenijmegen"><span class="sr-only">Facebook</span><i class="mdi mdi-facebook-box" aria-hidden="true"></i></a></li>
-                        <li><a href="https://twitter.com/gem_nijmegen"><span class="sr-only">Twitter</span><i class="mdi mdi-twitter-box" aria-hidden="true"></i></a></li>
-                        <li class="btn-floating-wrapper"></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</main>
-
-<footer class="page-footer">
-    <div class="footer-content">
-        <div class="container">
-            <div class="row">
-                <div class="hidden-md-down col-lg-6">
-                    <!-- Space for other content/links -->
-                </div>
-                <div class="col-md-12 col-lg-6">
-                    <div class="row">
-                        <div class="hidden-md-down col-lg-5">
-                            <p class="title">Over deze site</p>
-                            <ul class="link-list">
-                                <li><a href="https://www.nijmegen.nl/toegankelijkheid/">Toegankelijkheid</a></li>
-                                <li><a href="https://www.nijmegen.nl/privacyverklaring/">Privacyverklaring</a></li>
-                                <li><a href="https://www.nijmegen.nl/cookies/">Cookies</a></li>
-                                <li><a href="https://www.nijmegen.nl/proclaimer/">Proclaimer</a></li>
-                                <li><a href="https://www.nijmegen.nl/sitemap/">Sitemap</a></li>
-                            </ul>
-                        </div>
-
-                        <div class="col-xs-12 col-md-6 col-lg-7">
-                            <p class="title">Contactgegevens</p>
-                            <ul class="link-list contact-list">
-                                <li><i class="mdi mdi-map-marker" aria-hidden="true"></i> Stadswinkel, Mariënburg 30</li>
-                                <li><i class="mdi mdi-phone" aria-hidden="true"></i> <a href="tel:14024">14 024</a></li>
-                                <li><i class="mdi mdi-email" aria-hidden="true"></i> <a href="mailto:gemeente@nijmegen.nl">gemeente@nijmegen.nl</a>
-                                </li>
-                                <li><i class="mdi mdi-facebook-box" aria-hidden="true"></i> <a href="https://www.facebook.com/gemeentenijmegen">Gemeente Nijmegen</a></li>
-                                <li><i class="mdi mdi-twitter-box" aria-hidden="true"></i> <a href="https://twitter.com/gem_nijmegen">@nijmegen</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="footer-copyright text-center">
-        <div class="container-fluid">
-            <img src="https://componenten.nijmegen.nl/v2/img/beeldmerkwit.svg" height="32" width="25" class="logo-labeled" alt="">
-            Gemeente Nijmegen
-        </div>
-    </div>
-</footer>
-
-
-<!-- SCRIPTS -->
-
-<!-- JQuery -->
-<script src="https://componenten.nijmegen.nl/v2/js/jquery.min.js"></script>
-<!-- Bootstrap tooltips -->
-<script src="https://componenten.nijmegen.nl/v2/js/popper.min.js"></script>
-<!-- Bootstrap core JavaScript -->
-<script src="https://componenten.nijmegen.nl/v2/js/bootstrap.min.js"></script>
-<!-- MDB core JavaScript -->
-<script src="https://componenten.nijmegen.nl/v2/js/mdb.min.js"></script>
-
-
-<!-- Search API -->
-<script src="https://www.openindex.io/js/openindex.69694b9315763c81.js"></script>
-
-<script>
-$('.horizontal-collapse').on('click', '.btn-floating-collapse', function () {
-    if ($(this).parent().hasClass('active')) {
-        $(this).parent().removeClass('active');
-        $(this).parent().find('.expand-horizontal').removeClass('slideInRight').addClass('slideOutRight');
-    } else {
-        $(this).parent().addClass('active');
-        $(this).parent().find('.expand-horizontal').removeClass('slideOutRight').addClass('slideInRight');
-    }
-});
-
-</script>
-
-
-
-</body>
-</html>]]></L7p:Content>
-            <L7p:ContentType stringValue="text/html; charset=UTF-8"/>
             <L7p:ExtraHeaders nameValuePairArray="included"/>
         </L7p:CustomizeErrorResponse>
-        <L7p:CommentAssertion>
-            <L7p:Comment stringValue="##################################################################"/>
-        </L7p:CommentAssertion>
-        <L7p:CommentAssertion>
-            <L7p:Comment stringValue="### Toon vooral de comments, maakt de policy beter leesbaar. ###"/>
-        </L7p:CommentAssertion>
-        <L7p:CommentAssertion>
-            <L7p:Comment stringValue="##################################################################"/>
-        </L7p:CommentAssertion>
-        <L7p:CommentAssertion>
-            <L7p:Comment stringValue="#"/>
-        </L7p:CommentAssertion>
-        <wsp:All wsp:Usage="Required">
-            <L7p:SslAssertion/>
-            <L7p:CommentAssertion>
-                <L7p:Comment stringValue="##################################################################"/>
-            </L7p:CommentAssertion>
-            <L7p:CommentAssertion>
-                <L7p:Comment stringValue="### BEWUST geen authenticatie, zodat BSN header ook vanuit de browser gevuld kan worden tbv testing ###"/>
-            </L7p:CommentAssertion>
-            <L7p:CommentAssertion>
-                <L7p:Comment stringValue="##################################################################"/>
-            </L7p:CommentAssertion>
-            <L7p:assertionComment>
-                <L7p:Properties mapValue="included">
-                    <L7p:entry>
-                        <L7p:key stringValue="LEFT.COMMENT"/>
-                        <L7p:value stringValue="10. Authenticatie"/>
-                    </L7p:entry>
-                </L7p:Properties>
-            </L7p:assertionComment>
-        </wsp:All>
-        <L7p:CommentAssertion>
-            <L7p:Comment stringValue="#"/>
-        </L7p:CommentAssertion>
-        <L7p:CommentAssertion>
-            <L7p:Comment stringValue="##################################################################"/>
-        </L7p:CommentAssertion>
-        <L7p:CommentAssertion>
-            <L7p:Comment stringValue="### BSN Header kan ook direct gezet worden omdat policy niet beveiligd is ###"/>
-        </L7p:CommentAssertion>
-        <L7p:CommentAssertion>
-            <L7p:Comment stringValue="##################################################################"/>
-        </L7p:CommentAssertion>
-        <L7p:CommentAssertion>
-            <L7p:Comment stringValue="#"/>
-        </L7p:CommentAssertion>
-        <L7p:SetVariable>
+        <L7p:SslAssertion>
             <L7p:AssertionComment assertionComment="included">
                 <L7p:Properties mapValue="included">
                     <L7p:entry>
                         <L7p:key stringValue="RIGHT.COMMENT"/>
-                        <L7p:value stringValue="Komt binnen vanuit DigiD auth stap in een http header"/>
+                        <L7p:value stringValue=">> Meesturen van TLS cert (en https) afdwingen. MOET AAN IN PRODUCTIE"/>
                     </L7p:entry>
                 </L7p:Properties>
             </L7p:AssertionComment>
-            <L7p:Base64Expression stringValue="JHtyZXF1ZXN0Lmh0dHAuaGVhZGVyLlgtTmlqbS1zdWJzY3JpYmVyLWlkfQ=="/>
-            <L7p:VariableToSet stringValue="bsn"/>
-        </L7p:SetVariable>
-        <L7p:SetVariable>
-            <L7p:Base64Expression stringValue="aHR0cHM6Ly9zZXJ2aWNlcy10ZXN0Lm5pam1lZ2VuLm5s"/>
-            <L7p:VariableToSet stringValue="serverName"/>
-        </L7p:SetVariable>
-        <L7p:SetVariable>
+            <L7p:RequireClientAuthentication booleanValue="true"/>
+        </L7p:SslAssertion>
+        <L7p:SpecificUser>
             <L7p:AssertionComment assertionComment="included">
                 <L7p:Properties mapValue="included">
                     <L7p:entry>
                         <L7p:key stringValue="RIGHT.COMMENT"/>
-                        <L7p:value stringValue=">> Werkt alleen in ACCP omgeving"/>
+                        <L7p:value stringValue=">> Bepalen wie deze policy mag aanroepen. Alleen L7 zelf in dit geval. MOET AAN IN PRODUCTIE"/>
                     </L7p:entry>
                 </L7p:Properties>
             </L7p:AssertionComment>
-            <L7p:Base64Expression stringValue="aXJtYS1kZW1v"/>
-            <L7p:VariableToSet stringValue="SchemeManager"/>
-        </L7p:SetVariable>
-        <L7p:SetVariable>
-            <L7p:AssertionComment assertionComment="included">
-                <L7p:Properties mapValue="included">
-                    <L7p:entry>
-                        <L7p:key stringValue="RIGHT.COMMENT"/>
-                        <L7p:value stringValue=">> Werkt alleen in productie omgeving"/>
-                    </L7p:entry>
-                </L7p:Properties>
-            </L7p:AssertionComment>
-            <L7p:Base64Expression stringValue="cGJkZg=="/>
-            <L7p:Enabled booleanValue="false"/>
-            <L7p:VariableToSet stringValue="SchemeManager"/>
-        </L7p:SetVariable>
-        <wsp:All wsp:Usage="Required">
-            <L7p:SetVariable>
-                <L7p:Base64Expression stringValue="JHtnYXRld2F5LnRpbWUuc2Vjb25kc30="/>
-                <L7p:DataType variableDataType="dateTime"/>
-                <L7p:DateFormat stringValue="&lt;Second Timestamp>"/>
-                <L7p:DateOffsetExpression stringValue="7889231"/>
-                <L7p:VariableToSet stringValue="time-plus-3-months"/>
-            </L7p:SetVariable>
-            <L7p:SetVariable>
-                <L7p:Base64Expression stringValue="JHtnYXRld2F5LnRpbWUuc2Vjb25kc30="/>
-                <L7p:DataType variableDataType="dateTime"/>
-                <L7p:DateFormat stringValue="&lt;Second Timestamp>"/>
-                <L7p:DateOffsetExpression stringValue="31557600"/>
-                <L7p:VariableToSet stringValue="time-plus-1-year"/>
-            </L7p:SetVariable>
-            <L7p:SetVariable>
-                <L7p:Base64Expression stringValue="JHtnYXRld2F5LnRpbWUuc2Vjb25kc30="/>
-                <L7p:DataType variableDataType="dateTime"/>
-                <L7p:DateOffsetExpression stringValue="157788000"/>
-                <L7p:VariableToSet stringValue="time-plus-5-year"/>
-            </L7p:SetVariable>
-            <L7p:AuditDetailAssertion>
-                <L7p:Detail stringValueReference="inline"><![CDATA[time-plus-3-months: ${time-plus-3-months}
-time-plus-3-months seconds: ${time-plus-3-months.seconds}]]></L7p:Detail>
-            </L7p:AuditDetailAssertion>
-            <L7p:AuditDetailAssertion>
-                <L7p:Detail stringValueReference="inline"><![CDATA[time-plus-1-year: ${time-plus-1-year}
-time-plus-1-year seconds: ${time-plus-1-year.seconds}]]></L7p:Detail>
-            </L7p:AuditDetailAssertion>
-            <L7p:AuditDetailAssertion>
-                <L7p:Detail stringValueReference="inline"><![CDATA[time-plus-5-year: ${time-plus-5-year}
-time-plus-5-year seconds: ${time-plus-5-year.seconds}]]></L7p:Detail>
-            </L7p:AuditDetailAssertion>
-            <L7p:assertionComment>
-                <L7p:Properties mapValue="included">
-                    <L7p:entry>
-                        <L7p:key stringValue="LEFT.COMMENT"/>
-                        <L7p:value stringValue="12. Unixtimes berekenen"/>
-                    </L7p:entry>
-                </L7p:Properties>
-            </L7p:assertionComment>
-        </wsp:All>
-        <L7p:AuditDetailAssertion>
-            <L7p:Detail stringValue="bsn: ${bsn}"/>
-        </L7p:AuditDetailAssertion>
-        <wsp:All wsp:Usage="Required">
-            <L7p:SetVariable>
-                <L7p:Base64Expression stringValue="eyJic24iOiIke2Jzbn0ifQ=="/>
-                <L7p:ContentType stringValue="application/json; charset=utf-8"/>
-                <L7p:DataType variableDataType="message"/>
-                <L7p:VariableToSet stringValue="BRP_request"/>
-            </L7p:SetVariable>
-            <L7p:HttpRoutingAssertion>
-                <L7p:ConnectionTimeout stringValue="3000"/>
-                <L7p:FailOnErrorStatus booleanValue="false"/>
-                <L7p:HttpMethod httpMethod="POST"/>
-                <L7p:ProtectedServiceUrl stringValue="https://mule-test/IRMA/BRP/API"/>
-                <L7p:ProxyPassword stringValueNull="null"/>
-                <L7p:ProxyUsername stringValueNull="null"/>
-                <L7p:RequestHeaderRules httpPassthroughRuleSet="included">
-                    <L7p:ForwardAll booleanValue="true"/>
-                    <L7p:Rules httpPassthroughRules="included">
-                        <L7p:item httpPassthroughRule="included">
-                            <L7p:Name stringValue="Cookie"/>
-                        </L7p:item>
-                        <L7p:item httpPassthroughRule="included">
-                            <L7p:Name stringValue="SOAPAction"/>
-                        </L7p:item>
-                    </L7p:Rules>
-                </L7p:RequestHeaderRules>
-                <L7p:RequestMsgSrc stringValue="BRP_request"/>
-                <L7p:RequestParamRules httpPassthroughRuleSet="included">
-                    <L7p:ForwardAll booleanValue="true"/>
-                    <L7p:Rules httpPassthroughRules="included"/>
-                </L7p:RequestParamRules>
-                <L7p:ResponseHeaderRules httpPassthroughRuleSet="included">
-                    <L7p:ForwardAll booleanValue="true"/>
-                    <L7p:Rules httpPassthroughRules="included">
-                        <L7p:item httpPassthroughRule="included">
-                            <L7p:Name stringValue="Set-Cookie"/>
-                        </L7p:item>
-                    </L7p:Rules>
-                </L7p:ResponseHeaderRules>
-                <L7p:ResponseMsgDest stringValue="brpResponse"/>
-                <L7p:SamlAssertionVersion intValue="2"/>
-                <L7p:Timeout stringValue="6000"/>
-                <L7p:UseKeepAlives booleanValue="false"/>
-            </L7p:HttpRoutingAssertion>
-            <L7p:AuditDetailAssertion>
-                <L7p:Detail stringValue="brpResponse: ${brpResponse.mainpart}"/>
-                <L7p:Level stringValue="WARNING"/>
-            </L7p:AuditDetailAssertion>
+            <L7p:IdentityProviderOid goidValue="59952c302fbb39a40000000000bb8000"/>
+            <L7p:UserLogin stringValue=""/>
+            <L7p:UserName stringValue="Layer7-Sperwer"/>
+            <L7p:UserUid stringValue="63d6c0befb9b6619d6f1822f9ca564f5"/>
+        </L7p:SpecificUser>
+        <wsp:OneOrMore wsp:Usage="Required">
             <wsp:All wsp:Usage="Required">
-                <L7p:EvaluateJsonPathExpression>
-                    <L7p:Expression stringValue="Persoon.Adres.Straat"/>
-                    <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
-                    <L7p:Target target="OTHER"/>
-                    <L7p:VariablePrefix stringValue="straat"/>
-                </L7p:EvaluateJsonPathExpression>
-                <L7p:EvaluateJsonPathExpression>
-                    <L7p:Expression stringValue="Persoon.Adres.Huisnummer"/>
-                    <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
-                    <L7p:Target target="OTHER"/>
-                    <L7p:VariablePrefix stringValue="huisnr"/>
-                </L7p:EvaluateJsonPathExpression>
-                <L7p:EvaluateJsonPathExpression>
-                    <L7p:Expression stringValue="Persoon.Adres.Postcode"/>
-                    <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
-                    <L7p:Target target="OTHER"/>
-                    <L7p:VariablePrefix stringValue="postcode"/>
-                </L7p:EvaluateJsonPathExpression>
-                <L7p:EvaluateJsonPathExpression>
-                    <L7p:Expression stringValue="Persoon.Adres.Woonplaats"/>
-                    <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
-                    <L7p:Target target="OTHER"/>
-                    <L7p:VariablePrefix stringValue="woonplaats"/>
-                </L7p:EvaluateJsonPathExpression>
-                <L7p:EvaluateJsonPathExpression>
-                    <L7p:Expression stringValue="Persoon.Adres.Gemeente"/>
-                    <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
-                    <L7p:Target target="OTHER"/>
-                    <L7p:VariablePrefix stringValue="gemeente"/>
-                </L7p:EvaluateJsonPathExpression>
+                <L7p:CommentAssertion>
+                    <L7p:Comment stringValue="alle lookups en logica"/>
+                </L7p:CommentAssertion>
+                <L7p:AuditAssertion>
+                    <L7p:SaveRequest booleanValue="true"/>
+                    <L7p:SaveResponse booleanValue="true"/>
+                </L7p:AuditAssertion>
+                <L7p:CommentAssertion>
+                    <L7p:Comment stringValue="vlak voor spannende dingen de errorMessage vullen; dan is er altijd een context afhankelijke error om te tonen"/>
+                </L7p:CommentAssertion>
                 <L7p:SetVariable>
-                    <L7p:Base64Expression stringValue="ew0KImNyZWRlbnRpYWwiOiAiJHtTY2hlbWVNYW5hZ2VyfS5uaWptZWdlbi5hZGRyZXNzIiwNCiJ2YWxpZGl0eSI6ICR7dGltZS1wbHVzLTEteWVhci5zZWNvbmRzfSwNCiJhdHRyaWJ1dGVzIjogew0KInN0cmVldCI6ICIke3N0cmFhdC5yZXN1bHR9IiwNCiJob3VzZU51bWJlciI6ICIke2h1aXNuci5yZXN1bHR9IiwNCiJ6aXBjb2RlIjogIiR7cG9zdGNvZGUucmVzdWx0fSIsDQoibXVuaWNpcGFsaXR5IjogIiR7d29vbnBsYWF0cy5yZXN1bHR9IiwNCiJjaXR5IjogIiR7Z2VtZWVudGUucmVzdWx0fSINCn0NCn0="/>
-                    <L7p:VariableToSet stringValue="adres"/>
-                </L7p:SetVariable>
-                <L7p:AuditDetailAssertion>
-                    <L7p:Detail stringValue="adres: ${adres}"/>
-                </L7p:AuditDetailAssertion>
-                <L7p:assertionComment>
-                    <L7p:Properties mapValue="included">
-                        <L7p:entry>
-                            <L7p:key stringValue="LEFT.COMMENT"/>
-                            <L7p:value stringValue="1.1 Adres verwerken"/>
-                        </L7p:entry>
-                    </L7p:Properties>
-                </L7p:assertionComment>
-            </wsp:All>
-            <wsp:All wsp:Usage="Required">
-                <L7p:EvaluateJsonPathExpression>
-                    <L7p:Expression stringValue="Persoon.Persoonsgegevens.Voorletters"/>
-                    <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
-                    <L7p:Target target="OTHER"/>
-                    <L7p:VariablePrefix stringValue="voorletters"/>
-                </L7p:EvaluateJsonPathExpression>
-                <L7p:EvaluateJsonPathExpression>
-                    <L7p:Expression stringValue="Persoon.Persoonsgegevens.Voornamen"/>
-                    <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
-                    <L7p:Target target="OTHER"/>
-                    <L7p:VariablePrefix stringValue="voornamen"/>
-                </L7p:EvaluateJsonPathExpression>
-                <L7p:EvaluateJsonPathExpression>
-                    <L7p:Expression stringValue="Persoon.Persoonsgegevens.Voorvoegsel"/>
-                    <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
-                    <L7p:Target target="OTHER"/>
-                    <L7p:VariablePrefix stringValue="voorvoegsel"/>
-                </L7p:EvaluateJsonPathExpression>
-                <L7p:EvaluateJsonPathExpression>
-                    <L7p:Expression stringValue="Persoon.Persoonsgegevens.Geslachtsnaam"/>
-                    <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
-                    <L7p:Target target="OTHER"/>
-                    <L7p:VariablePrefix stringValue="geslachtsnaam"/>
-                </L7p:EvaluateJsonPathExpression>
-                <L7p:EvaluateJsonPathExpression>
                     <L7p:AssertionComment assertionComment="included">
                         <L7p:Properties mapValue="included">
                             <L7p:entry>
                                 <L7p:key stringValue="RIGHT.COMMENT"/>
-                                <L7p:value stringValue=">> Wordt niet meer meegegeven vanuit de BRP API"/>
+                                <L7p:value stringValue=">> Werkt alleen in ACCP omgeving"/>
                             </L7p:entry>
                         </L7p:Properties>
                     </L7p:AssertionComment>
-                    <L7p:Expression stringValue="Persoon.Persoonsgegevens.Achternaam"/>
-                    <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
-                    <L7p:Target target="OTHER"/>
-                    <L7p:VariablePrefix stringValue="achternaam"/>
-                </L7p:EvaluateJsonPathExpression>
-                <L7p:EvaluateJsonPathExpression>
-                    <L7p:AssertionComment assertionComment="included">
-                        <L7p:Properties mapValue="included">
-                            <L7p:entry>
-                                <L7p:key stringValue="RIGHT.COMMENT"/>
-                                <L7p:value stringValue=">> Hier bestaat geen attribuut voor"/>
-                            </L7p:entry>
-                        </L7p:Properties>
-                    </L7p:AssertionComment>
-                    <L7p:Expression stringValue="Persoon.Persoonsgegevens.Naam"/>
-                    <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
-                    <L7p:Target target="OTHER"/>
-                    <L7p:VariablePrefix stringValue="naam"/>
-                </L7p:EvaluateJsonPathExpression>
-                <L7p:EvaluateJsonPathExpression>
-                    <L7p:Expression stringValue="Persoon.Persoonsgegevens.Geboortedatum"/>
-                    <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
-                    <L7p:Target target="OTHER"/>
-                    <L7p:VariablePrefix stringValue="geboortedatum"/>
-                </L7p:EvaluateJsonPathExpression>
-                <L7p:EvaluateJsonPathExpression>
-                    <L7p:Expression stringValue="Persoon.Persoonsgegevens.Geslacht"/>
-                    <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
-                    <L7p:Target target="OTHER"/>
-                    <L7p:VariablePrefix stringValue="geslacht"/>
-                </L7p:EvaluateJsonPathExpression>
-                <L7p:EvaluateJsonPathExpression>
-                    <L7p:Expression stringValue="Persoon.Persoonsgegevens.NederlandseNationaliteit"/>
-                    <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
-                    <L7p:Target target="OTHER"/>
-                    <L7p:VariablePrefix stringValue="nederlandsenationaliteit"/>
-                </L7p:EvaluateJsonPathExpression>
-                <L7p:SetVariable>
-                    <L7p:Base64Expression stringValue="ew0KImNyZWRlbnRpYWwiOiAiJHtTY2hlbWVNYW5hZ2VyfS5uaWptZWdlbi5wZXJzb25hbERhdGEiLA0KInZhbGlkaXR5IjogJHt0aW1lLXBsdXMtMS15ZWFyLnNlY29uZHN9LA0KImF0dHJpYnV0ZXMiOiB7DQoiaW5pdGlhbHMiOiAiJHt2b29ybGV0dGVycy5yZXN1bHR9IiwNCiJmaXJzdG5hbWVzIjogIiR7dm9vcm5hbWVuLnJlc3VsdH0iLA0KInByZWZpeCI6ICIke3Zvb3J2b2Vnc2VsLnJlc3VsdH0iLA0KImZhbWlseW5hbWUiOiAiJHtnZXNsYWNodHNuYWFtLnJlc3VsdH0iLA0KImZ1bGxuYW1lIjogIiR7bmFhbS5yZXN1bHR9IiwNCiJkYXRlb2ZiaXJ0aCI6ICIke2dlYm9vcnRlZGF0dW0ucmVzdWx0fSIsDQoiZ2VuZGVyIjogIiR7Z2VzbGFjaHQucmVzdWx0fSIsDQoibmF0aW9uYWxpdHkiOiAiJHtuZWRlcmxhbmRzZW5hdGlvbmFsaXRlaXQucmVzdWx0fSIsDQoic3VybmFtZSI6IiR7YWNodGVybmFhbS5yZXN1bHR9Ig0KfQ0KfQ=="/>
-                    <L7p:VariableToSet stringValue="persoonsgegevens"/>
+                    <L7p:Base64Expression stringValue="aXJtYS1kZW1v"/>
+                    <L7p:VariableToSet stringValue="SchemeManager"/>
                 </L7p:SetVariable>
-                <L7p:AuditDetailAssertion>
-                    <L7p:Detail stringValue="persoonsgegevens: ${persoonsgegevens}"/>
-                </L7p:AuditDetailAssertion>
-                <L7p:assertionComment>
-                    <L7p:Properties mapValue="included">
-                        <L7p:entry>
-                            <L7p:key stringValue="LEFT.COMMENT"/>
-                            <L7p:value stringValue="1.2 Persoonsgegevens verwerken"/>
-                        </L7p:entry>
-                    </L7p:Properties>
-                </L7p:assertionComment>
+                <L7p:SetVariable>
+                    <L7p:Base64Expression stringValue="RXIgaGVlZnQgemljaCBlZW4gb25iZWtlbmRlIGZvdXQgdm9vcmdlZGFhbg=="/>
+                    <L7p:Enabled booleanValue="false"/>
+                    <L7p:VariableToSet stringValue="errorMessage"/>
+                </L7p:SetVariable>
+                <wsp:All wsp:Usage="Required">
+                    <L7p:SetVariable>
+                        <L7p:Base64Expression stringValue="aHR0cHM6Ly9ndy10ZXN0Lm5pam1lZ2VuLm5s"/>
+                        <L7p:VariableToSet stringValue="IRMA-API-Hostname"/>
+                    </L7p:SetVariable>
+                    <L7p:SetVariable>
+                        <L7p:AssertionComment assertionComment="included">
+                            <L7p:Properties mapValue="included">
+                                <L7p:entry>
+                                    <L7p:key stringValue="RIGHT.COMMENT"/>
+                                    <L7p:value stringValue=">> bij gebruik van een eigen hostname hoeft de stagename niet meegegeven te worden"/>
+                                </L7p:entry>
+                            </L7p:Properties>
+                        </L7p:AssertionComment>
+                        <L7p:Base64Expression stringValue="L3Nlc3Npb24v"/>
+                        <L7p:VariableToSet stringValue="endpoint-private"/>
+                    </L7p:SetVariable>
+                </wsp:All>
+                <wsp:All wsp:Usage="Required">
+                    <L7p:SetVariable>
+                        <L7p:Base64Expression stringValue="aHR0cHM6Ly9qM3E4MnFybzMxLmV4ZWN1dGUtYXBpLmV1LXdlc3QtMS5hbWF6b25hd3MuY29t"/>
+                        <L7p:VariableToSet stringValue="IRMA-API-Hostname"/>
+                    </L7p:SetVariable>
+                    <L7p:SetVariable>
+                        <L7p:Base64Expression stringValue="L3Rlc3Qvc2Vzc2lvbi8="/>
+                        <L7p:VariableToSet stringValue="endpoint-private"/>
+                    </L7p:SetVariable>
+                </wsp:All>
+                <wsp:All wsp:Usage="Required">
+                    <L7p:CommentAssertion>
+                        <L7p:Comment stringValue="Uitvragen headers"/>
+                    </L7p:CommentAssertion>
+                    <L7p:SetVariable>
+                        <L7p:Base64Expression stringValue="QlNOIG9mIERpZ2lEIGJldHJvdXdiYWFyaGVpZHNuaXZlYXUgbmlldCBiZXNjaGlrYmFhci4="/>
+                        <L7p:VariableToSet stringValue="errorMessage"/>
+                    </L7p:SetVariable>
+                    <L7p:SetVariable>
+                        <L7p:AssertionComment assertionComment="included">
+                            <L7p:Properties mapValue="included">
+                                <L7p:entry>
+                                    <L7p:key stringValue="RIGHT.COMMENT"/>
+                                    <L7p:value stringValue="Komt binnen vanuit DigiD auth stap in een http header"/>
+                                </L7p:entry>
+                            </L7p:Properties>
+                        </L7p:AssertionComment>
+                        <L7p:Base64Expression stringValue="JHtyZXF1ZXN0Lmh0dHAuaGVhZGVyLlgtTmlqbS1zdWJzY3JpYmVyLWlkfQ=="/>
+                        <L7p:VariableToSet stringValue="bsn"/>
+                    </L7p:SetVariable>
+                    <L7p:SetVariable>
+                        <L7p:AssertionComment assertionComment="included">
+                            <L7p:Properties mapValue="included">
+                                <L7p:entry>
+                                    <L7p:key stringValue="RIGHT.COMMENT"/>
+                                    <L7p:value stringValue="Komt binnen vanuit DigiD auth stap in een http header"/>
+                                </L7p:entry>
+                            </L7p:Properties>
+                        </L7p:AssertionComment>
+                        <L7p:Base64Expression stringValue="JHtyZXF1ZXN0Lmh0dHAuaGVhZGVyLnpla2VyaGVpZHNuaXZlYXV9"/>
+                        <L7p:VariableToSet stringValue="betrouwbaarheidsniveau"/>
+                    </L7p:SetVariable>
+                    <L7p:SetVariable>
+                        <L7p:Base64Expression stringValue="JHtyZXF1ZXN0Lmh0dHAuaGVhZGVyLngtbmlqbS1hdXRoX3R5cGV9"/>
+                        <L7p:VariableToSet stringValue="x-nijm-auth_type"/>
+                    </L7p:SetVariable>
+                    <L7p:SetVariable>
+                        <L7p:AssertionComment assertionComment="included">
+                            <L7p:Properties mapValue="included">
+                                <L7p:entry>
+                                    <L7p:key stringValue="RIGHT.COMMENT"/>
+                                    <L7p:value stringValue="Komt binnen vanuit DigiD auth stap in een http header"/>
+                                </L7p:entry>
+                            </L7p:Properties>
+                        </L7p:AssertionComment>
+                        <L7p:Base64Expression stringValue="OTk5OTk0MTkw"/>
+                        <L7p:Enabled booleanValue="false"/>
+                        <L7p:VariableToSet stringValue="bsn"/>
+                    </L7p:SetVariable>
+                    <L7p:SetVariable>
+                        <L7p:AssertionComment assertionComment="included">
+                            <L7p:Properties mapValue="included">
+                                <L7p:entry>
+                                    <L7p:key stringValue="RIGHT.COMMENT"/>
+                                    <L7p:value stringValue="Komt binnen vanuit DigiD auth stap in een http header"/>
+                                </L7p:entry>
+                            </L7p:Properties>
+                        </L7p:AssertionComment>
+                        <L7p:Base64Expression stringValue="MjU="/>
+                        <L7p:Enabled booleanValue="false"/>
+                        <L7p:VariableToSet stringValue="betrouwbaarheidsniveau"/>
+                    </L7p:SetVariable>
+                    <L7p:AuditDetailAssertion>
+                        <L7p:Detail stringValue="bsn: ${bsn}"/>
+                    </L7p:AuditDetailAssertion>
+                    <L7p:AuditDetailAssertion>
+                        <L7p:Detail stringValue="betrouwbaarheidsniveau: ${betrouwbaarheidsniveau}"/>
+                    </L7p:AuditDetailAssertion>
+                    <L7p:AuditDetailAssertion>
+                        <L7p:Detail stringValue="x-nijm-auth_type: ${x-nijm-auth_type}"/>
+                    </L7p:AuditDetailAssertion>
+                    <L7p:MapValue>
+                        <L7p:AssertionComment assertionComment="included">
+                            <L7p:Properties mapValue="included">
+                                <L7p:entry>
+                                    <L7p:key stringValue="RIGHT.COMMENT"/>
+                                    <L7p:value stringValue=">> mappen van nummer naar tekst"/>
+                                </L7p:entry>
+                            </L7p:Properties>
+                        </L7p:AssertionComment>
+                        <L7p:InputExpr stringValue="${betrouwbaarheidsniveau}"/>
+                        <L7p:Mappings nameValuePairArray="included">
+                            <L7p:item nameValuePair="included">
+                                <L7p:Key stringValue="10"/>
+                                <L7p:Value stringValue="Basis"/>
+                            </L7p:item>
+                            <L7p:item nameValuePair="included">
+                                <L7p:Key stringValue="20"/>
+                                <L7p:Value stringValue="Midden"/>
+                            </L7p:item>
+                            <L7p:item nameValuePair="included">
+                                <L7p:Key stringValue="25"/>
+                                <L7p:Value stringValue="Substantieel"/>
+                            </L7p:item>
+                            <L7p:item nameValuePair="included">
+                                <L7p:Key stringValue="30"/>
+                                <L7p:Value stringValue="Hoog"/>
+                            </L7p:item>
+                        </L7p:Mappings>
+                        <L7p:OutputVar stringValue="betrouwbaarheidsniveau-tekst"/>
+                    </L7p:MapValue>
+                    <L7p:AuditDetailAssertion>
+                        <L7p:Detail stringValue="betrouwbaarheidsniveau tekst: ${betrouwbaarheidsniveau-tekst}"/>
+                    </L7p:AuditDetailAssertion>
+                </wsp:All>
+                <L7p:Include>
+                    <L7p:PolicyGuid stringValue="4bacab78-3247-4164-a66e-f4cc635a86bd"/>
+                </L7p:Include>
+                <wsp:All wsp:Usage="Required">
+                    <L7p:SetVariable>
+                        <L7p:Base64Expression stringValue="RXIgaGVlZnQgemljaCBlZW4gZm91dCAoMikgdm9vcmdlZGFhbi4gUHJvYmVlcnQgdSBoZXQgbGF0ZXIgbm9nIGVlbnMu"/>
+                        <L7p:VariableToSet stringValue="errorMessage"/>
+                    </L7p:SetVariable>
+                    <L7p:AuditDetailAssertion>
+                        <L7p:Detail stringValue="signrequest.mainpart: ${signRequest.mainpart}"/>
+                    </L7p:AuditDetailAssertion>
+                    <L7p:AuditDetailAssertion>
+                        <L7p:Detail stringValue="signrequest.contentType: ${signRequest.mainpart.contentType}"/>
+                    </L7p:AuditDetailAssertion>
+                    <L7p:CustomAssertion>
+                        <L7p:base64SerializedValue>rO0ABXNyADFjb20ubDd0ZWNoLnBvbGljeS5hc3NlcnRpb24uQ3VzdG9tQXNzZXJ0aW9uSG9sZGVyZtcreFwddTICAAlaAAxpc1VpQXV0b09wZW5MAApjYXRlZ29yaWVzdAAPTGphdmEvdXRpbC9TZXQ7TAAIY2F0ZWdvcnl0ACpMY29tL2w3dGVjaC9wb2xpY3kvYXNzZXJ0aW9uL2V4dC9DYXRlZ29yeTtMAA9jdXN0b21Bc3NlcnRpb250ADFMY29tL2w3dGVjaC9wb2xpY3kvYXNzZXJ0aW9uL2V4dC9DdXN0b21Bc3NlcnRpb247TAAUY3VzdG9tTW9kdWxlRmlsZU5hbWV0ABJMamF2YS9sYW5nL1N0cmluZztMAA9kZXNjcmlwdGlvblRleHRxAH4ABEwAD3BhbGV0dGVOb2RlTmFtZXEAfgAETAAOcG9saWN5Tm9kZU5hbWVxAH4ABEwAHnJlZ2lzdGVyZWRDdXN0b21GZWF0dXJlU2V0TmFtZXEAfgAEeHIAJWNvbS5sN3RlY2gucG9saWN5LmFzc2VydGlvbi5Bc3NlcnRpb27bX2OZPL2isQIAAloAB2VuYWJsZWRMABBhc3NlcnRpb25Db21tZW50dAAvTGNvbS9sN3RlY2gvcG9saWN5L2Fzc2VydGlvbi9Bc3NlcnRpb24kQ29tbWVudDt4cAFwAXNyABFqYXZhLnV0aWwuSGFzaFNldLpEhZWWuLc0AwAAeHB3DAAAAAI/QAAAAAAAAXNyAChjb20ubDd0ZWNoLnBvbGljeS5hc3NlcnRpb24uZXh0LkNhdGVnb3J5WrCcZaFE/jUCAAJJAAVteUtleUwABm15TmFtZXEAfgAEeHAAAAALdAAQQ3VzdG9tQXNzZXJ0aW9uc3hwc3IAO2NvbS5sN3RlY2guY3VzdG9tLmFzc2VydGlvbnMuYXdzNHNpZ25lci5Bd3M0U2lnbmVyQXNzZXJ0aW9uzOcqR1y95oUCAAxaABdpc1JlcXVlc3RVc2VDdXJyZW50VGltZUwADmF3c0FjY2Vzc0tleUlEcQB+AARMAA5lbmRwb2ludFN0cmluZ3EAfgAETAAHaGVhZGVyc3QAD0xqYXZhL3V0aWwvTWFwO0wACmh0dHBNZXRob2RxAH4ABEwADG91dHB1dFByZWZpeHEAfgAETAAWcGF5bG9hZENvbnRleHRWYXJpYWJsZXEAfgAETAAYcmVmZXJlbmNlRW50aXRpZXNTdXBwb3J0dABHTGNvbS9sN3RlY2gvcG9saWN5L2Fzc2VydGlvbi9leHQvZW50aXR5L0N1c3RvbVJlZmVyZW5jZUVudGl0aWVzU3VwcG9ydDtMAAZyZWdpb25xAH4ABEwAD3JlcXVlc3REYXRlVGltZXEAfgAETAAIcmVzb3VyY2VxAH4ABEwAB3NlcnZpY2VxAH4ABHhwAXQAFEFLSUFSWkE1RDU1Mk42NFNSQjc3dAAUJHtJUk1BLUFQSS1Ib3N0bmFtZX1zcgARamF2YS51dGlsLkhhc2hNYXAFB9rBwxZg0QMAAkYACmxvYWRGYWN0b3JJAAl0aHJlc2hvbGR4cD9AAAAAAAAAdwgAAAAQAAAAAHh0AARQT1NUdAAIYXdzNEF1dGh0ABRzaWduUmVxdWVzdC5tYWlucGFydHNyAEVjb20ubDd0ZWNoLnBvbGljeS5hc3NlcnRpb24uZXh0LmVudGl0eS5DdXN0b21SZWZlcmVuY2VFbnRpdGllc1N1cHBvcnTYlHneckWYyQIAAUwACnJlZmVyZW5jZXNxAH4ADnhwc3IAEWphdmEudXRpbC5UcmVlTWFwDMH2Pi0lauYDAAFMAApjb21wYXJhdG9ydAAWTGphdmEvdXRpbC9Db21wYXJhdG9yO3hwcHcEAAAAAXQAFGF3c1NlY3JldEFjY2Vzc0tleUlkc3IAVmNvbS5sN3RlY2gucG9saWN5LmFzc2VydGlvbi5leHQuZW50aXR5LkN1c3RvbVJlZmVyZW5jZUVudGl0aWVzU3VwcG9ydCRSZWZlcmVuY2VFbGVtZW506ujM11iO5bcCAARMABllbnRpdHlTZXJpYWxpemVyQ2xhc3NOYW1lcQB+AARMAAJpZHEAfgAETAAJa2V5UHJlZml4cQB+AARMAAR0eXBlcQB+AAR4cHB0ACA3NmQwYWYwM2IwZmYwM2I2MDVmNjUzZmFkYTFlOWZlYXB0AA5TZWN1cmVQYXNzd29yZHh0AAlldS13ZXN0LTF0AAB0ABMke2VuZHBvaW50LXByaXZhdGV9dAALZXhlY3V0ZS1hcGl0ADRhZTUzYWU4MjA5ZjljODJhMTY2Y2QwMmUyODQ2MjQ5MzZjYTZlNDNmNTNkOWU1MGIuamFydABDU2lnbnMgYSBBbWF6b24gV2ViIFNlcnZpY2UgcmVxdWVzdCB1c2luZyBTaWduYXR1cmUgVmVyc2lvbiA0IChBV1M0KXQADEFXUyA0IFNpZ25lcnQADEFXUyA0IFNpZ25lcnA=</L7p:base64SerializedValue>
+                    </L7p:CustomAssertion>
+                    <L7p:AuditDetailAssertion>
+                        <L7p:Detail stringValue="AwsSigning: ${aws4auth.http.authorization}"/>
+                    </L7p:AuditDetailAssertion>
+                    <L7p:AuditDetailAssertion>
+                        <L7p:Detail stringValue="Awsmethod: ${aws4auth.method}"/>
+                    </L7p:AuditDetailAssertion>
+                </wsp:All>
+                <wsp:All wsp:Usage="Required">
+                    <L7p:SetVariable>
+                        <L7p:Base64Expression stringValue="RXIgaXMgZWVuIHNlcnZlciBuaWV0IGJlcmVpa2JhYXIgKDIpLiBQcm9iZWVydCB1IGhldCBsYXRlciBub2cgZWVucy4="/>
+                        <L7p:VariableToSet stringValue="errorMessage"/>
+                    </L7p:SetVariable>
+                    <L7p:CommentAssertion>
+                        <L7p:Comment stringValue="Route naar IRMA"/>
+                    </L7p:CommentAssertion>
+                    <L7p:AuditDetailAssertion>
+                        <L7p:Detail stringValue="routing via: ${IRMA-API-Hostname}${endpoint-private}"/>
+                    </L7p:AuditDetailAssertion>
+                    <L7p:HttpRoutingAssertion>
+                        <L7p:AssertionComment assertionComment="included">
+                            <L7p:Properties mapValue="included">
+                                <L7p:entry>
+                                    <L7p:key stringValue="RIGHT.COMMENT"/>
+                                    <L7p:value stringValue=">> met AWS headers"/>
+                                </L7p:entry>
+                            </L7p:Properties>
+                        </L7p:AssertionComment>
+                        <L7p:CurrentSecurityHeaderHandling intValue="3"/>
+                        <L7p:Enabled booleanValue="false"/>
+                        <L7p:HttpMethod httpMethod="POST"/>
+                        <L7p:PassThroughSoapFaults booleanValue="false"/>
+                        <L7p:ProtectedServiceUrl stringValue="${IRMA-API-Hostname}${endpoint-private}"/>
+                        <L7p:ProxyPassword stringValueNull="null"/>
+                        <L7p:ProxyUsername stringValueNull="null"/>
+                        <L7p:RequestHeaderRules httpPassthroughRuleSet="included">
+                            <L7p:Rules httpPassthroughRules="included">
+                                <L7p:item httpPassthroughRule="included">
+                                    <L7p:CustomizeValue stringValue="${aws4auth.http.authorization}"/>
+                                    <L7p:Name stringValue="Authorization"/>
+                                    <L7p:UsesCustomizedValue booleanValue="true"/>
+                                </L7p:item>
+                                <L7p:item httpPassthroughRule="included">
+                                    <L7p:CustomizeValue stringValue="${aws4auth.http.x-amz-date}"/>
+                                    <L7p:Name stringValue="x-amz-date"/>
+                                    <L7p:UsesCustomizedValue booleanValue="true"/>
+                                </L7p:item>
+                            </L7p:Rules>
+                        </L7p:RequestHeaderRules>
+                        <L7p:RequestMsgSrc stringValue="signRequest"/>
+                        <L7p:RequestParamRules httpPassthroughRuleSet="included">
+                            <L7p:ForwardAll booleanValue="true"/>
+                            <L7p:Rules httpPassthroughRules="included"/>
+                        </L7p:RequestParamRules>
+                        <L7p:ResponseHeaderRules httpPassthroughRuleSet="included">
+                            <L7p:ForwardAll booleanValue="true"/>
+                            <L7p:Rules httpPassthroughRules="included"/>
+                        </L7p:ResponseHeaderRules>
+                        <L7p:ResponseMsgDest stringValue="signResponse"/>
+                        <L7p:SamlAssertionVersion intValue="2"/>
+                        <L7p:UseKeepAlives booleanValue="false"/>
+                    </L7p:HttpRoutingAssertion>
+                    <L7p:HttpRoutingAssertion>
+                        <L7p:AssertionComment assertionComment="included">
+                            <L7p:Properties mapValue="included">
+                                <L7p:entry>
+                                    <L7p:key stringValue="RIGHT.COMMENT"/>
+                                    <L7p:value stringValue=">> IRMA authorization header in http headers"/>
+                                </L7p:entry>
+                            </L7p:Properties>
+                        </L7p:AssertionComment>
+                        <L7p:CurrentSecurityHeaderHandling intValue="3"/>
+                        <L7p:HttpMethod httpMethod="POST"/>
+                        <L7p:PassThroughSoapFaults booleanValue="false"/>
+                        <L7p:ProtectedServiceUrl stringValue="${IRMA-API-Hostname}${endpoint-private}"/>
+                        <L7p:ProxyPassword stringValueNull="null"/>
+                        <L7p:ProxyUsername stringValueNull="null"/>
+                        <L7p:RequestHeaderRules httpPassthroughRuleSet="included">
+                            <L7p:Rules httpPassthroughRules="included">
+                                <L7p:item httpPassthroughRule="included">
+                                    <L7p:CustomizeValue stringValue="${secpass.AWS-IRMA-Development.plaintext}"/>
+                                    <L7p:Name stringValue="authorization"/>
+                                    <L7p:UsesCustomizedValue booleanValue="true"/>
+                                </L7p:item>
+                            </L7p:Rules>
+                        </L7p:RequestHeaderRules>
+                        <L7p:RequestMsgSrc stringValue="signRequest"/>
+                        <L7p:RequestParamRules httpPassthroughRuleSet="included">
+                            <L7p:ForwardAll booleanValue="true"/>
+                            <L7p:Rules httpPassthroughRules="included"/>
+                        </L7p:RequestParamRules>
+                        <L7p:ResponseHeaderRules httpPassthroughRuleSet="included">
+                            <L7p:ForwardAll booleanValue="true"/>
+                            <L7p:Rules httpPassthroughRules="included"/>
+                        </L7p:ResponseHeaderRules>
+                        <L7p:ResponseMsgDest stringValue="signResponse"/>
+                        <L7p:SamlAssertionVersion intValue="2"/>
+                        <L7p:UseKeepAlives booleanValue="false"/>
+                    </L7p:HttpRoutingAssertion>
+                    <L7p:AuditDetailAssertion>
+                        <L7p:Detail stringValue="request headers: ${request.http.allheadervalues} "/>
+                    </L7p:AuditDetailAssertion>
+                    <L7p:AuditDetailAssertion>
+                        <L7p:Detail stringValue="response headers: ${response.http.allheadervalues} "/>
+                    </L7p:AuditDetailAssertion>
+                </wsp:All>
+                <wsp:All wsp:Usage="Required">
+                    <L7p:SetVariable>
+                        <L7p:Base64Expression stringValue="RXIgaGVlZnQgemljaCBlZW4gZm91dCAoMykgdm9vcmdlZGFhbi4gUHJvYmVlcnQgdSBoZXQgbGF0ZXIgbm9nIGVlbnMu"/>
+                        <L7p:VariableToSet stringValue="errorMessage"/>
+                    </L7p:SetVariable>
+                    <L7p:CommentAssertion>
+                        <L7p:Comment stringValue="response samenstellen"/>
+                    </L7p:CommentAssertion>
+                    <L7p:AuditDetailAssertion>
+                        <L7p:Detail stringValue="signResponse: ${signResponse.mainpart}"/>
+                        <L7p:Level stringValue="WARNING"/>
+                    </L7p:AuditDetailAssertion>
+                    <L7p:EvaluateJsonPathExpression>
+                        <L7p:Expression stringValue=".sessionPtr"/>
+                        <L7p:OtherTargetMessageVariable stringValue="signResponse"/>
+                        <L7p:Target target="OTHER"/>
+                        <L7p:VariablePrefix stringValue="sessionPtr"/>
+                    </L7p:EvaluateJsonPathExpression>
+                    <L7p:SetVariable>
+                        <L7p:Base64Expression stringValue="JHtzZXNzaW9uUHRyLnJlc3VsdH0="/>
+                        <L7p:VariableToSet stringValue="qrcode"/>
+                    </L7p:SetVariable>
+                    <L7p:AuditDetailAssertion>
+                        <L7p:Detail stringValue="qrcode json: ${qrcode}"/>
+                    </L7p:AuditDetailAssertion>
+                    <L7p:Include>
+                        <L7p:PolicyGuid stringValue="9663cdcb-bcea-4e78-84bf-c1e4fe3b9f8c"/>
+                    </L7p:Include>
+                    <L7p:AddHeader>
+                        <L7p:AssertionComment assertionComment="included">
+                            <L7p:Properties mapValue="included">
+                                <L7p:entry>
+                                    <L7p:key stringValue="RIGHT.COMMENT"/>
+                                    <L7p:value stringValue=">> meer restrictieve dan de standaard"/>
+                                </L7p:entry>
+                            </L7p:Properties>
+                        </L7p:AssertionComment>
+                        <L7p:HeaderName stringValue="Content-Security-Policy"/>
+                        <L7p:HeaderValue stringValue="script-src 'unsafe-inline' https://services-test.nijmegen.nl"/>
+                        <L7p:RemoveExisting booleanValue="true"/>
+                        <L7p:Target target="RESPONSE"/>
+                    </L7p:AddHeader>
+                    <L7p:Include>
+                        <L7p:PolicyGuid stringValue="f9591ab0-5872-4326-b442-9d6d6418172f"/>
+                    </L7p:Include>
+                    <L7p:HardcodedResponse>
+                        <L7p:Base64ResponseBody stringValue="PCFET0NUWVBFIGh0bWw+PGh0bWw+PGhlYWQ+PG1ldGEgY2hhcnNldD0idXRmLTgiPjxtZXRhIGh0dHAtZXF1aXY9IlgtVUEtQ29tcGF0aWJsZSIgY29udGVudD0iSUU9ZWRnZSI+PHRpdGxlPklSTUEgQlJQIGF0dHJpYnV0ZW48L3RpdGxlPjxtZXRhIG5hbWU9InZpZXdwb3J0IiBjb250ZW50PSJ3aWR0aD1kZXZpY2Utd2lkdGgsaW5pdGlhbC1zY2FsZT0xIj48bWV0YSBuYW1lPSJtb2JpbGUtd2ViLWFwcC1jYXBhYmxlIiBjb250ZW50PSJ5ZXMiPjxtZXRhIG5hbWU9ImFwcGxlLW1vYmlsZS13ZWItYXBwLWNhcGFibGUiIGNvbnRlbnQ9InllcyI+PHNjcmlwdD53aW5kb3cuaXJtYVNlc3Npb25QdHIgPSAnJHtxcmNvZGV9Jzsgd2luZG93LmlybWFFcnJvclN0cmluZyA9ICcke2Vycm9yU3RyaW5nfSc8L3NjcmlwdD48bGluayByZWw9Im1hbmlmZXN0IiBocmVmPSJtYW5pZmVzdC5qc29uIj48bWV0YSBuYW1lPSJ0aGVtZS1jb2xvciIgY29udGVudD0iIzY3M2FiOCI+PGxpbmsgcmVsPSJzaG9ydGN1dCBpY29uIiBocmVmPSJmYXZpY29uLmljbyI+PGxpbmsgaHJlZj0ic3R5bGUuY3NzIiByZWw9InN0eWxlc2hlZXQiPjwvaGVhZD48Ym9keT48c2NyaXB0IGRlZmVyPSJkZWZlciIgc3JjPSJidW5kbGUuanMiPjwvc2NyaXB0PjxzY3JpcHQ+d2luZG93LmZldGNofHxkb2N1bWVudC53cml0ZSgnPHNjcmlwdCBzcmM9InBvbHlmaWxscy4wNGMyMi5qcyI+PFwvc2NyaXB0PicpPC9zY3JpcHQ+PC9ib2R5PjwvaHRtbD4="/>
+                        <L7p:Enabled booleanValue="false"/>
+                        <L7p:ResponseContentType stringValue="text/html; charset=UTF-8"/>
+                    </L7p:HardcodedResponse>
+                </wsp:All>
             </wsp:All>
             <wsp:All wsp:Usage="Required">
-                <L7p:EvaluateJsonPathExpression>
-                    <L7p:Expression stringValue="Persoon.ageLimits.over12"/>
-                    <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
-                    <L7p:Target target="OTHER"/>
-                    <L7p:VariablePrefix stringValue="over12"/>
-                </L7p:EvaluateJsonPathExpression>
-                <L7p:EvaluateJsonPathExpression>
-                    <L7p:Expression stringValue="Persoon.ageLimits.over16"/>
-                    <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
-                    <L7p:Target target="OTHER"/>
-                    <L7p:VariablePrefix stringValue="over16"/>
-                </L7p:EvaluateJsonPathExpression>
-                <L7p:EvaluateJsonPathExpression>
-                    <L7p:Expression stringValue="Persoon.ageLimits.over18"/>
-                    <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
-                    <L7p:Target target="OTHER"/>
-                    <L7p:VariablePrefix stringValue="over18"/>
-                </L7p:EvaluateJsonPathExpression>
-                <L7p:EvaluateJsonPathExpression>
-                    <L7p:Expression stringValue="Persoon.ageLimits.over21"/>
-                    <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
-                    <L7p:Target target="OTHER"/>
-                    <L7p:VariablePrefix stringValue="over21"/>
-                </L7p:EvaluateJsonPathExpression>
-                <L7p:EvaluateJsonPathExpression>
-                    <L7p:Expression stringValue="Persoon.ageLimits.over65"/>
-                    <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
-                    <L7p:Target target="OTHER"/>
-                    <L7p:VariablePrefix stringValue="over65"/>
-                </L7p:EvaluateJsonPathExpression>
+                <L7p:CommentAssertion>
+                    <L7p:Comment stringValue="alleen html pagina returnen, met errorboodschap"/>
+                </L7p:CommentAssertion>
+                <L7p:CommentAssertion>
+                    <L7p:Comment stringValue="expliciet vullen van de errorString var, omdat errorMessage altijd een string bevat"/>
+                </L7p:CommentAssertion>
                 <L7p:SetVariable>
-                    <L7p:Base64Expression stringValue="ew0KImNyZWRlbnRpYWwiOiAiJHtTY2hlbWVNYW5hZ2VyfS5uaWptZWdlbi5hZ2VMaW1pdHMiLA0KInZhbGlkaXR5IjogJHt0aW1lLXBsdXMtMS15ZWFyLnNlY29uZHN9LA0KImF0dHJpYnV0ZXMiOiB7DQoib3ZlcjEyIjogIiR7b3ZlcjEyLnJlc3VsdH0iLA0KIm92ZXIxNiI6ICIke292ZXIxNi5yZXN1bHR9IiwNCiJvdmVyMTgiOiAiJHtvdmVyMTgucmVzdWx0fSIsDQoib3ZlcjIxIjogIiR7b3ZlcjIxLnJlc3VsdH0iLA0KIm92ZXI2NSI6ICIke292ZXI2NS5yZXN1bHR9Ig0KfQ0KfQ=="/>
-                    <L7p:VariableToSet stringValue="agelimits"/>
+                    <L7p:Base64Expression stringValue="JHtlcnJvck1lc3NhZ2V9"/>
+                    <L7p:VariableToSet stringValue="errorString"/>
                 </L7p:SetVariable>
                 <L7p:AuditDetailAssertion>
-                    <L7p:Detail stringValue="agelimits: ${agelimits}"/>
+                    <L7p:Detail stringValue="errorString: ${errorString}"/>
+                    <L7p:Level stringValue="WARNING"/>
                 </L7p:AuditDetailAssertion>
-                <L7p:assertionComment>
-                    <L7p:Properties mapValue="included">
-                        <L7p:entry>
-                            <L7p:key stringValue="LEFT.COMMENT"/>
-                            <L7p:value stringValue="1.3 Agelimits verwerken"/>
-                        </L7p:entry>
-                    </L7p:Properties>
-                </L7p:assertionComment>
+                <L7p:Include>
+                    <L7p:PolicyGuid stringValue="f9591ab0-5872-4326-b442-9d6d6418172f"/>
+                </L7p:Include>
+                <L7p:HardcodedResponse>
+                    <L7p:Base64ResponseBody stringValue="PCFET0NUWVBFIGh0bWw+PGh0bWw+PGhlYWQ+PG1ldGEgY2hhcnNldD0idXRmLTgiPjxtZXRhIGh0dHAtZXF1aXY9IlgtVUEtQ29tcGF0aWJsZSIgY29udGVudD0iSUU9ZWRnZSI+PHRpdGxlPklSTUEgQlJQIGF0dHJpYnV0ZW48L3RpdGxlPjxtZXRhIG5hbWU9InZpZXdwb3J0IiBjb250ZW50PSJ3aWR0aD1kZXZpY2Utd2lkdGgsaW5pdGlhbC1zY2FsZT0xIj48bWV0YSBuYW1lPSJtb2JpbGUtd2ViLWFwcC1jYXBhYmxlIiBjb250ZW50PSJ5ZXMiPjxtZXRhIG5hbWU9ImFwcGxlLW1vYmlsZS13ZWItYXBwLWNhcGFibGUiIGNvbnRlbnQ9InllcyI+PHNjcmlwdD53aW5kb3cuaXJtYVNlc3Npb25QdHIgPSAnJHtxcmNvZGV9Jzsgd2luZG93LmlybWFFcnJvclN0cmluZyA9ICcke2Vycm9yU3RyaW5nfSc8L3NjcmlwdD48bGluayByZWw9Im1hbmlmZXN0IiBocmVmPSJtYW5pZmVzdC5qc29uIj48bWV0YSBuYW1lPSJ0aGVtZS1jb2xvciIgY29udGVudD0iIzY3M2FiOCI+PGxpbmsgcmVsPSJzaG9ydGN1dCBpY29uIiBocmVmPSJmYXZpY29uLmljbyI+PGxpbmsgaHJlZj0ic3R5bGUuY3NzIiByZWw9InN0eWxlc2hlZXQiPjwvaGVhZD48Ym9keT48c2NyaXB0IGRlZmVyPSJkZWZlciIgc3JjPSJidW5kbGUuanMiPjwvc2NyaXB0PjxzY3JpcHQ+d2luZG93LmZldGNofHxkb2N1bWVudC53cml0ZSgnPHNjcmlwdCBzcmM9InBvbHlmaWxscy4wNGMyMi5qcyI+PFwvc2NyaXB0PicpPC9zY3JpcHQ+PC9ib2R5PjwvaHRtbD4="/>
+                    <L7p:Enabled booleanValue="false"/>
+                    <L7p:ResponseContentType stringValue="text/html; charset=UTF-8"/>
+                </L7p:HardcodedResponse>
             </wsp:All>
-            <wsp:All wsp:Usage="Required">
-                <L7p:assertionComment>
-                    <L7p:Properties mapValue="included">
-                        <L7p:entry>
-                            <L7p:key stringValue="LEFT.COMMENT"/>
-                            <L7p:value stringValue="1.4 reisdocumenten verwerken"/>
-                        </L7p:entry>
-                        <L7p:entry>
-                            <L7p:key stringValue="RIGHT.COMMENT"/>
-                            <L7p:value stringValue=" >> TODO. Komt nog niet retour uit de BRP-API"/>
-                        </L7p:entry>
-                    </L7p:Properties>
-                </L7p:assertionComment>
-            </wsp:All>
-            <wsp:All wsp:Usage="Required">
-                <L7p:EvaluateJsonPathExpression>
-                    <L7p:Expression stringValue="Persoon.BSN.BSN"/>
-                    <L7p:OtherTargetMessageVariable stringValue="brpResponse"/>
-                    <L7p:Target target="OTHER"/>
-                    <L7p:VariablePrefix stringValue="bsn"/>
-                </L7p:EvaluateJsonPathExpression>
-                <L7p:SetVariable>
-                    <L7p:Base64Expression stringValue="ew0KImNyZWRlbnRpYWwiOiAiJHtTY2hlbWVNYW5hZ2VyfS5uaWptZWdlbi5ic24iLA0KInZhbGlkaXR5IjogJHt0aW1lLXBsdXMtMS15ZWFyLnNlY29uZHN9LA0KImF0dHJpYnV0ZXMiOiB7DQoiYnNuIjogIiR7YnNuLnJlc3VsdH0iDQp9DQp9"/>
-                    <L7p:VariableToSet stringValue="bsn"/>
-                </L7p:SetVariable>
-                <L7p:AuditDetailAssertion>
-                    <L7p:Detail stringValue="bsn: ${bsn}"/>
-                </L7p:AuditDetailAssertion>
-                <L7p:assertionComment>
-                    <L7p:Properties mapValue="included">
-                        <L7p:entry>
-                            <L7p:key stringValue="LEFT.COMMENT"/>
-                            <L7p:value stringValue="1.5 BSN verwerken"/>
-                        </L7p:entry>
-                    </L7p:Properties>
-                </L7p:assertionComment>
-            </wsp:All>
-        </wsp:All>
-        <L7p:AuditDetailAssertion>
-            <L7p:Detail stringValue="1.1 samenstellen json signrequest"/>
-        </L7p:AuditDetailAssertion>
-        <L7p:SetVariable>
-            <L7p:Base64Expression stringValue="ew0KICAgICJpc3MiOiAibmlqbWVnZW4iLA0KICAgICJraWQiOiAibmlqbWVnZW4iLA0KICAgICJzdWIiOiAiaXNzdWVfcmVxdWVzdCIsDQogICAgImlhdCI6ICR7Z2F0ZXdheS50aW1lLnNlY29uZHN9LA0KICAgICJpcHJlcXVlc3QiOiB7DQogICAgICAgICJyZXF1ZXN0Ijogew0KICAgICAgICAgICAgImNyZWRlbnRpYWxzIjogWw0KICAgICAgICAgICAgICAgICR7YWRyZXN9LA0KICAgICAgICAgICAgICAgICR7cGVyc29vbnNnZWdldmVuc30sDQogICAgICAgICAgICAgICAgJHthZ2VsaW1pdHN9LA0KICAgICAgICAgICAgICAgICR7YnNufQ0KICAgICAgICAgICAgXQ0KICAgICAgICB9DQogICAgfQ0KfQ=="/>
-            <L7p:VariableToSet stringValue="signRequest"/>
-        </L7p:SetVariable>
-        <L7p:AuditDetailAssertion>
-            <L7p:Detail stringValue="signRequest: ${signRequest}"/>
-        </L7p:AuditDetailAssertion>
-        <wsp:All wsp:Usage="Required">
-            <L7p:AuditDetailAssertion>
-                <L7p:Detail stringValue="2.1 signen json signrequest"/>
-            </L7p:AuditDetailAssertion>
-            <L7p:EncodeJsonWebToken>
-                <L7p:KeyAlias stringValue="irma-api-server"/>
-                <L7p:KeyGoid goidValue="00000000000000000000000000000002"/>
-                <L7p:SignPayload booleanValue="true"/>
-                <L7p:SignatureAlgorithm stringValue="RS256"/>
-                <L7p:SignatureSourceType intValue="1"/>
-                <L7p:SourceVariable stringValue="${signRequest}"/>
-                <L7p:TargetVariable stringValue="signedJwt"/>
-            </L7p:EncodeJsonWebToken>
-            <L7p:SetVariable>
-                <L7p:Base64Expression stringValue="JHtzaWduZWRKd3QuY29tcGFjdH0="/>
-                <L7p:ContentType stringValue="text/plain; charset=utf-8"/>
-                <L7p:DataType variableDataType="message"/>
-                <L7p:VariableToSet stringValue="msgJWT"/>
-            </L7p:SetVariable>
-            <L7p:AuditDetailAssertion>
-                <L7p:Detail stringValue="${signedJwt.compact}"/>
-                <L7p:Level stringValue="WARNING"/>
-            </L7p:AuditDetailAssertion>
-            <L7p:HttpRoutingAssertion>
-                <L7p:AssertionComment assertionComment="included">
-                    <L7p:Properties mapValue="included">
-                        <L7p:entry>
-                            <L7p:key stringValue="RIGHT.COMMENT"/>
-                            <L7p:value stringValue="json naar IRMA api server sturen. Response in nieuwe variable"/>
-                        </L7p:entry>
-                    </L7p:Properties>
-                </L7p:AssertionComment>
-                <L7p:FailOnErrorStatus booleanValue="false"/>
-                <L7p:HttpMethod httpMethod="POST"/>
-                <L7p:ProtectedServiceUrl stringValue="https://acc.nijmegen.nl/personen/attributen/irma-server-api/api/v2/issue"/>
-                <L7p:ProxyPassword stringValueNull="null"/>
-                <L7p:ProxyUsername stringValueNull="null"/>
-                <L7p:RequestHeaderRules httpPassthroughRuleSet="included">
-                    <L7p:ForwardAll booleanValue="true"/>
-                    <L7p:Rules httpPassthroughRules="included">
-                        <L7p:item httpPassthroughRule="included">
-                            <L7p:Name stringValue="Cookie"/>
-                        </L7p:item>
-                        <L7p:item httpPassthroughRule="included">
-                            <L7p:Name stringValue="SOAPAction"/>
-                        </L7p:item>
-                    </L7p:Rules>
-                </L7p:RequestHeaderRules>
-                <L7p:RequestMsgSrc stringValue="msgJWT"/>
-                <L7p:RequestParamRules httpPassthroughRuleSet="included">
-                    <L7p:ForwardAll booleanValue="true"/>
-                    <L7p:Rules httpPassthroughRules="included"/>
-                </L7p:RequestParamRules>
-                <L7p:ResponseHeaderRules httpPassthroughRuleSet="included">
-                    <L7p:ForwardAll booleanValue="true"/>
-                    <L7p:Rules httpPassthroughRules="included">
-                        <L7p:item httpPassthroughRule="included">
-                            <L7p:Name stringValue="Set-Cookie"/>
-                        </L7p:item>
-                    </L7p:Rules>
-                </L7p:ResponseHeaderRules>
-                <L7p:ResponseMsgDest stringValue="signResponse"/>
-                <L7p:SamlAssertionVersion intValue="2"/>
-            </L7p:HttpRoutingAssertion>
-            <L7p:AuditDetailAssertion>
-                <L7p:Detail stringValue="signResponse: ${signResponse.mainpart}"/>
-                <L7p:Level stringValue="WARNING"/>
-            </L7p:AuditDetailAssertion>
-        </wsp:All>
-        <wsp:All wsp:Usage="Required">
-            <L7p:AuditDetailAssertion>
-                <L7p:Detail stringValue="signresponse.v: ${signResponse.mainpart.v}"/>
-                <L7p:Level stringValue="WARNING"/>
-            </L7p:AuditDetailAssertion>
-            <L7p:EvaluateJsonPathExpression>
-                <L7p:Expression stringValue=".v"/>
-                <L7p:OtherTargetMessageVariable stringValue="signResponse"/>
-                <L7p:Target target="OTHER"/>
-                <L7p:VariablePrefix stringValue="version"/>
-            </L7p:EvaluateJsonPathExpression>
-            <L7p:EvaluateJsonPathExpression>
-                <L7p:Expression stringValue=".vmax"/>
-                <L7p:OtherTargetMessageVariable stringValue="signResponse"/>
-                <L7p:Target target="OTHER"/>
-                <L7p:VariablePrefix stringValue="vmax"/>
-            </L7p:EvaluateJsonPathExpression>
-            <L7p:EvaluateJsonPathExpression>
-                <L7p:Expression stringValue=".u"/>
-                <L7p:OtherTargetMessageVariable stringValue="signResponse"/>
-                <L7p:Target target="OTHER"/>
-                <L7p:VariablePrefix stringValue="u"/>
-            </L7p:EvaluateJsonPathExpression>
-            <L7p:SetVariable>
-                <L7p:Base64Expression stringValue="ew0KICJpcm1hcXIiOiAiaXNzdWluZyIsDQogInYiOiAiMi4wIiwNCiJ2bWF4IjogIjIuMyIsDQogInUiOiAiaHR0cHM6Ly9hY2MubmlqbWVnZW4ubmwvcGVyc29uZW4vYXR0cmlidXRlbi9pcm1hLXNlcnZlci1hcGkvYXBpL3YyL2lzc3VlLyR7dS5yZXN1bHR9Ig0KfQ=="/>
-                <L7p:VariableToSet stringValue="qrcode"/>
-            </L7p:SetVariable>
-        </wsp:All>
-        <L7p:AuditDetailAssertion>
-            <L7p:Detail stringValue="4. QR code tonen aan user"/>
-        </L7p:AuditDetailAssertion>
-        <L7p:HardcodedResponse>
-            <L7p:Base64ResponseBody stringValue="PCFkb2N0eXBlIGh0bWw+CjxodG1sIGxhbmc9Im5sIj4KICAgIDwhLS0gRXIgd29yZGVuIHR3ZWUgdmFyaWFiZWxlbiBnZWJydWlrdCwgJHtzZXJ2ZXJOYW1lfSBlbiB7cXJjb2RlfSwgZGllIHZlcndpanplbiBuYWFyIHZhcnMgZGllIGluIGRlIExheWVyNyBwb2xpY3kgZ2V2dWxkIHppam4tLT4KICAgIDwhLS0gaW4gcnVudGltZSB3b3JkZW4gZGllIHZhcnMgdmVydmFuZ2VuIGRvb3IgZGUgZGFhZHdlcmtlbGlqa2UgaW5ob3VkLCBlbiBkYW4gd29yZHQgZGV6ZSBoZWxlIHBhZ2luYSBuYWFyIGRlIGJyb3dzZXIgZ2VzdHV1cmQtLT4KCjxoZWFkPgogICAgPG1ldGEgY2hhcnNldD0idXRmLTgiPgogICAgPG1ldGEgbmFtZT0idmlld3BvcnQiIGNvbnRlbnQ9IndpZHRoPWRldmljZS13aWR0aCwgaW5pdGlhbC1zY2FsZT0xLCBzaHJpbmstdG8tZml0PW5vIj4KICAgIDxtZXRhIGh0dHAtZXF1aXY9IngtdWEtY29tcGF0aWJsZSIgY29udGVudD0iaWU9ZWRnZSI+CiAgICA8IS0tIEJvb3RzdHJhcCBjb3JlIENTUyAtLT4KICAgIDxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iaHR0cHM6Ly9jb21wb25lbnRlbi5uaWptZWdlbi5ubC92Mi9jc3MvYm9vdHN0cmFwLm1pbi5jc3MiPgogICAgPCEtLSBNYXRlcmlhbCBEZXNpZ24gQm9vdHN0cmFwIGNvbWJpbmVkIHdpdGggY3VzdG9tIHN0eWxlcyAtLT4KICAgIDxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iaHR0cHM6Ly9jb21wb25lbnRlbi5uaWptZWdlbi5ubC92Mi9jc3MvbWFpbi5jc3MiPgoKCgogICAgPHRpdGxlPklSTUEgZGVtbyBCUlAgb3BsYWRlbjwvdGl0bGU+CgogICAgPHN0eWxlPgogICAgICAgIGJvZHkge3BhZGRpbmc6IDFyZW07fQogICAgPC9zdHlsZT4KICAgIDxzdHlsZT4KICAgICAgICBib2R5IHsgcGFkZGluZzogNTBweCAwIDA7fQogICAgbWFpbiAucm93IHsgcGFkZGluZzogNTBweCAwOyB9CiAgICBmb290ZXIucGFnZS1mb290ZXIgeyBtYXJnaW4tdG9wOiA1MHB4OyB9CgkubmF2LWl0ZW17ZGlzcGxheTpub25lfQoKCS5sb2dvRGlnaUR7bWFyZ2luLXJpZ2h0OjEwcHg7fQoJI3FyY29kZXsKCQltYXJnaW4tdG9wOi00MHB4OwoJCW1hcmdpbi1ib3R0b206MjBweDsKCX0KCQo8L3N0eWxlPgo8L2hlYWQ+Cgo8Ym9keT4KCiAgICA8bmF2IGNsYXNzPSJuYXZiYXIgZml4ZWQtdG9wIG5hdmJhci1leHBhbmQtbGcgc2Nyb2xsaW5nLW5hdmJhciBuYXZiYXItcHJpbWFyeSI+CiAgICAgICAgPGRpdiBjbGFzcz0iY29udGFpbmVyIj4KICAgICAgICAgICAgPGJ1dHRvbiBjbGFzcz0ibmF2YmFyLXRvZ2dsZXIiIHR5cGU9ImJ1dHRvbiIgZGF0YS10b2dnbGU9ImNvbGxhcHNlIiBkYXRhLXRhcmdldD0iI25hdmJhci1jb2xsYXBzZSIKICAgICAgICAgICAgICAgIGFyaWEtY29udHJvbHM9Im5hdmJhci1jb2xsYXBzZSIgYXJpYS1leHBhbmRlZD0iZmFsc2UiIGFyaWEtbGFiZWw9IlRvZ2dsZSBuYXZpZ2F0aW9uIj4KICAgICAgICAgICAgICAgIDxzcGFuIGNsYXNzPSJuYXZiYXItdG9nZ2xlci1pY29uIj48L3NwYW4+CiAgICAgICAgICAgIDwvYnV0dG9uPgogICAgICAgICAgICA8YSBjbGFzcz0ibmF2YmFyLWJyYW5kIiBocmVmPSIvIj4KICAgICAgICAgICAgICAgIDxkaXYgY2xhc3M9Im5hdmJhci1icmFuZC1jb250YWluZXIiPgogICAgICAgICAgICAgICAgICAgIDxpbWcgc3JjPSJodHRwczovL2NvbXBvbmVudGVuLm5pam1lZ2VuLm5sL3YyL2ltZy9iZWVsZG1lcmtsYWJlbHdpdC5zdmciIGNsYXNzPSJsb2dvLWxhYmVsZWQiIGFsdD0iTG9nbyBOaWptZWdlbiI+CiAgICAgICAgICAgICAgICAgICAgPGltZyBzcmM9Imh0dHBzOi8vY29tcG9uZW50ZW4ubmlqbWVnZW4ubmwvdjIvaW1nL2JlZWxkbWVya3dpdC5zdmciIGNsYXNzPSJsb2dvIiBhbHQ9IkxvZ28gTmlqbWVnZW4iPgogICAgICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgIDwvYT4KICAgICAgICAgICAgPGRpdiBjbGFzcz0iY29sbGFwc2UgbmF2YmFyLWNvbGxhcHNlIiBpZD0ibmF2YmFyLWNvbGxhcHNlIj4KICAgICAgICAgICAgICAgIDx1bCBjbGFzcz0ibmF2YmFyLW5hdiBtci1hdXRvIHNtb290aC1zY3JvbGwiPgogICAgICAgICAgICAgICAgICAgIDxsaSBjbGFzcz0ibmF2LWl0ZW0iPgogICAgICAgICAgICAgICAgICAgICAgICA8YSBocmVmPSIjc2VjdGlvbi0xIiBjbGFzcz0ibmF2LWxpbmsiPjwvYT4KICAgICAgICAgICAgICAgICAgICA8L2xpPgogICAgICAgICAgICAgICAgPC91bD4KICAgICAgICAgICAgICAgIDxmb3JtIGFjdGlvbj0iaHR0cHM6Ly93d3cubmlqbWVnZW4ubmwiIGNsYXNzPSJmb3JtLWlubGluZSBtbC1hdXRvIj4KICAgICAgICAgICAgICAgICAgICA8bGFiZWwgZm9yPSJvaS1xdWVyeSIgY2xhc3M9InNyLW9ubHkiPlpvZWtlbjwvbGFiZWw+CiAgICAgICAgICAgICAgICAgICAgPGlucHV0IGNsYXNzPSJmb3JtLWNvbnRyb2wiIGlkPSJvaS1xdWVyeSIgdHlwZT0idGV4dCIgcGxhY2Vob2xkZXI9IlpvZWtlbiIgYXV0b2NvbXBsZXRlPSJvZmYiPgogICAgICAgICAgICAgICAgICAgIDxidXR0b24gY2xhc3M9ImJ0bi1zZWFyY2giPjxpIGNsYXNzPSJtZGkgbWRpLW1hZ25pZnkiIGFyaWEtaGlkZGVuPSJ0cnVlIj48L2k+PC9idXR0b24+CiAgICAgICAgICAgICAgICA8L2Zvcm0+CiAgICAgICAgICAgIDwvZGl2PgogICAgICAgIDwvZGl2PgogICAgPC9uYXY+CgogICAgPG1haW4+CiAgICAgICAgPGRpdiBjbGFzcz0iY29udGFpbmVyIiBpZD0ic2VjdGlvbi0xIj4KICAgICAgICAgICAgPGRpdiBjbGFzcz0icm93Ij4KICAgICAgICAgICAgICAgIDxkaXYgY2xhc3M9ImNvbC1sZy0xMiI+CiAgICAgICAgICAgICAgICAgICAgPGRpdiBjbGFzcz0iY2FyZCBjYXJkLWZpbGVuYW1lIj4KICAgICAgICAgICAgICAgICAgICAgICAgPGRpdiBjbGFzcz0iY2FyZC1ib2R5Ij4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxwIGNsYXNzPSJjYXJkLXRpdGxlIj5CUlAgZ2VnZXZlbnMgb3BsYWRlbiBpbiBJUk1BPC9wPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGRpdiBpZD0icXJjb2RlIj48L2Rpdj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxwIGlkPSJmZWVkYmFjayIgY2xhc3M9ImNhcmQtdGV4dCI+U2NhbiBkZSBib3ZlbnN0YWFuZGUgYWZiZWVsZGluZyBtZXQgdXcgSVJNQSBhcHAuPC9wPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPHAgY2xhc3M9InRleHQtcmlnaHQgbWItMCB0ZXh0LXVwcGVyY2FzZSI+PGltZyBjbGFzcz0ibG9nb0RpZ2lEIiBzcmM9Imh0dHBzOi8vd3d3Lm5pam1lZ2VuLm5sL2ZpbGVhZG1pbi9iZXN0YW5kZW4vbG9nb3MvZGlnaWRfZW9fcmdiXzUwcHgucG5nIj48YQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBocmVmPSIke3NlcnZlck5hbWV9L2lybWEvZGlnaWQvbG9nb3V0IiBhcmlhLWxhYmVsPSJPcGxhZGVuIj5VaXRsb2dnZW48L2E+PC9wPgogICAgICAgICAgICAgICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICAgICAgIDwvZGl2PgoKICAgICAgICAgICAgPC9kaXY+CgogICAgICAgICAgICA8ZGl2IGNsYXNzPSJyb3cgZC1tZC1ub25lIj4KICAgICAgICAgICAgICAgIDxkaXYgY2xhc3M9ImNvbC0xMiI+CiAgICAgICAgICAgICAgICAgICAgPGRpdiBjbGFzcz0iaG9yaXpvbnRhbC1jb2xsYXBzZSI+CiAgICAgICAgICAgICAgICAgICAgICAgIDxhIGNsYXNzPSJidG4tZmxvYXRpbmcgYnRuLWxhcmdlIGJ0bi1mbG9hdGluZy1wcmltYXJ5IGJ0bi1mbG9hdGluZy1jb2xsYXBzZSI+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8c3BhbiBjbGFzcz0ic3Itb25seSI+SG93IHRvIGNvbnRhY3QvZm9sbG93IHVzPC9zcGFuPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGkgY2xhc3M9Im1kaSBtZGktbWVzc2FnZS1wcm9jZXNzaW5nIiBhcmlhLWhpZGRlbj0idHJ1ZSI+PC9pPgogICAgICAgICAgICAgICAgICAgICAgICA8L2E+CiAgICAgICAgICAgICAgICAgICAgICAgIDx1bCBjbGFzcz0iZXhwYW5kLWhvcml6b250YWwgYW5pbWF0ZWQiPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGxpPjxhIGhyZWY9InRlbDorMzExNDAyNCI+PHNwYW4gY2xhc3M9InNyLW9ubHkiPlRlbGVwaG9uZTwvc3Bhbj48aSBjbGFzcz0ibWRpIG1kaS1waG9uZSIKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGFyaWEtaGlkZGVuPSJ0cnVlIj48L2k+PC9hPjwvbGk+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8bGk+PGkgY2xhc3M9Im1kaSBtZGktbmVhci1tZSIgYXJpYS1oaWRkZW49InRydWUiPjwvaT48L2xpPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGxpPjxhIGhyZWY9Im1haWx0bzpnZW1lZW50ZUBuaWptZWdlbi5ubCI+PHNwYW4gY2xhc3M9InNyLW9ubHkiPkUtbWFpbDwvc3Bhbj48aSBjbGFzcz0ibWRpIG1kaS1lbWFpbCIKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGFyaWEtaGlkZGVuPSJ0cnVlIj48L2k+PC9hPjwvbGk+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8bGk+PGEgaHJlZj0iaHR0cHM6Ly93d3cuZmFjZWJvb2suY29tL2dlbWVlbnRlbmlqbWVnZW4iPjxzcGFuIGNsYXNzPSJzci1vbmx5Ij5GYWNlYm9vazwvc3Bhbj48aQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY2xhc3M9Im1kaSBtZGktZmFjZWJvb2stYm94IiBhcmlhLWhpZGRlbj0idHJ1ZSI+PC9pPjwvYT48L2xpPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGxpPjxhIGhyZWY9Imh0dHBzOi8vdHdpdHRlci5jb20vZ2VtX25pam1lZ2VuIj48c3BhbiBjbGFzcz0ic3Itb25seSI+VHdpdHRlcjwvc3Bhbj48aSBjbGFzcz0ibWRpIG1kaS10d2l0dGVyLWJveCIKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGFyaWEtaGlkZGVuPSJ0cnVlIj48L2k+PC9hPjwvbGk+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8bGkgY2xhc3M9ImJ0bi1mbG9hdGluZy13cmFwcGVyIj48L2xpPgogICAgICAgICAgICAgICAgICAgICAgICA8L3VsPgogICAgICAgICAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgIDwvZGl2PgogICAgICAgIDwvZGl2PgogICAgPC9tYWluPgoKICAgIDxmb290ZXIgY2xhc3M9InBhZ2UtZm9vdGVyIj4KICAgICAgICA8ZGl2IGNsYXNzPSJmb290ZXItY29udGVudCI+CiAgICAgICAgICAgIDxkaXYgY2xhc3M9ImNvbnRhaW5lciI+CiAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzPSJyb3ciPgogICAgICAgICAgICAgICAgICAgIDxkaXYgY2xhc3M9ImhpZGRlbi1tZC1kb3duIGNvbC1sZy02Ij4KICAgICAgICAgICAgICAgICAgICAgICAgPCEtLSBTcGFjZSBmb3Igb3RoZXIgY29udGVudC9saW5rcyAtLT4KICAgICAgICAgICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzPSJjb2wtbWQtMTIgY29sLWxnLTYiPgogICAgICAgICAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzPSJyb3ciPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGRpdiBjbGFzcz0iaGlkZGVuLW1kLWRvd24gY29sLWxnLTUiPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxwIGNsYXNzPSJ0aXRsZSI+T3ZlciBkZXplIHNpdGU8L3A+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPHVsIGNsYXNzPSJsaW5rLWxpc3QiPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8bGk+PGEgaHJlZj0iaHR0cHM6Ly93d3cubmlqbWVnZW4ubmwvdG9lZ2Fua2VsaWpraGVpZC8iPlRvZWdhbmtlbGlqa2hlaWQ8L2E+PC9saT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGxpPjxhIGhyZWY9Imh0dHBzOi8vd3d3Lm5pam1lZ2VuLm5sL3ByaXZhY3l2ZXJrbGFyaW5nLyI+UHJpdmFjeXZlcmtsYXJpbmc8L2E+PC9saT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGxpPjxhIGhyZWY9Imh0dHBzOi8vd3d3Lm5pam1lZ2VuLm5sL2Nvb2tpZXMvIj5Db29raWVzPC9hPjwvbGk+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxsaT48YSBocmVmPSJodHRwczovL3d3dy5uaWptZWdlbi5ubC9wcm9jbGFpbWVyLyI+UHJvY2xhaW1lcjwvYT48L2xpPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8bGk+PGEgaHJlZj0iaHR0cHM6Ly93d3cubmlqbWVnZW4ubmwvc2l0ZW1hcC8iPlNpdGVtYXA8L2E+PC9saT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L3VsPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9kaXY+CgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGRpdiBjbGFzcz0iY29sLXhzLTEyIGNvbC1tZC02IGNvbC1sZy03Ij4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8cCBjbGFzcz0idGl0bGUiPkNvbnRhY3RnZWdldmVuczwvcD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8dWwgY2xhc3M9ImxpbmstbGlzdCBjb250YWN0LWxpc3QiPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8bGk+PGkgY2xhc3M9Im1kaSBtZGktbWFwLW1hcmtlciIgYXJpYS1oaWRkZW49InRydWUiPjwvaT4gU3RhZHN3aW5rZWwsIE1hcmnDq25idXJnCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAzMDwvbGk+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxsaT48aSBjbGFzcz0ibWRpIG1kaS1waG9uZSIgYXJpYS1oaWRkZW49InRydWUiPjwvaT4gPGEgaHJlZj0idGVsOjE0MDI0Ij4xNCAwMjQ8L2E+PC9saT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGxpPjxpIGNsYXNzPSJtZGkgbWRpLWVtYWlsIiBhcmlhLWhpZGRlbj0idHJ1ZSI+PC9pPiA8YSBocmVmPSJtYWlsdG86Z2VtZWVudGVAbmlqbWVnZW4ubmwiPmdlbWVlbnRlQG5pam1lZ2VuLm5sPC9hPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2xpPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8bGk+PGkgY2xhc3M9Im1kaSBtZGktZmFjZWJvb2stYm94IiBhcmlhLWhpZGRlbj0idHJ1ZSI+PC9pPiA8YSBocmVmPSJodHRwczovL3d3dy5mYWNlYm9vay5jb20vZ2VtZWVudGVuaWptZWdlbiI+R2VtZWVudGUKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBOaWptZWdlbjwvYT48L2xpPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8bGk+PGkgY2xhc3M9Im1kaSBtZGktdHdpdHRlci1ib3giIGFyaWEtaGlkZGVuPSJ0cnVlIj48L2k+IDxhIGhyZWY9Imh0dHBzOi8vdHdpdHRlci5jb20vZ2VtX25pam1lZ2VuIj5AbmlqbWVnZW48L2E+PC9saT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L3VsPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgICAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgIDwvZGl2PgogICAgICAgIDwvZGl2PgogICAgICAgIDxkaXYgY2xhc3M9ImZvb3Rlci1jb3B5cmlnaHQgdGV4dC1jZW50ZXIiPgogICAgICAgICAgICA8ZGl2IGNsYXNzPSJjb250YWluZXItZmx1aWQiPgogICAgICAgICAgICAgICAgPGltZyBzcmM9Imh0dHBzOi8vY29tcG9uZW50ZW4ubmlqbWVnZW4ubmwvdjIvaW1nL2JlZWxkbWVya3dpdC5zdmciIGhlaWdodD0iMzIiIHdpZHRoPSIyNSIgY2xhc3M9ImxvZ28tbGFiZWxlZCIKICAgICAgICAgICAgICAgICAgICBhbHQ9IiI+CiAgICAgICAgICAgICAgICBHZW1lZW50ZSBOaWptZWdlbgogICAgICAgICAgICA8L2Rpdj4KICAgICAgICA8L2Rpdj4KICAgIDwvZm9vdGVyPgoKCiAgICA8IS0tIFNDUklQVFMgLS0+CgogICAgPCEtLSBKUXVlcnkgLS0+CiAgICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9jb21wb25lbnRlbi5uaWptZWdlbi5ubC92Mi9qcy9qcXVlcnkubWluLmpzIj48L3NjcmlwdD4KICAgIDwhLS0gQm9vdHN0cmFwIHRvb2x0aXBzIC0tPgogICAgPHNjcmlwdCBzcmM9Imh0dHBzOi8vY29tcG9uZW50ZW4ubmlqbWVnZW4ubmwvdjIvanMvcG9wcGVyLm1pbi5qcyI+PC9zY3JpcHQ+CiAgICA8IS0tIEJvb3RzdHJhcCBjb3JlIEphdmFTY3JpcHQgLS0+CiAgICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9jb21wb25lbnRlbi5uaWptZWdlbi5ubC92Mi9qcy9ib290c3RyYXAubWluLmpzIj48L3NjcmlwdD4KICAgIDwhLS0gTURCIGNvcmUgSmF2YVNjcmlwdCAtLT4KICAgIDxzY3JpcHQgc3JjPSJodHRwczovL2NvbXBvbmVudGVuLm5pam1lZ2VuLm5sL3YyL2pzL21kYi5taW4uanMiPjwvc2NyaXB0PgoKICAgIDwhLS0gSVJNQSAtLT4KICAgIDxzY3JpcHQgdHlwZT0idGV4dC9qYXZhc2NyaXB0IiBzcmM9Imh0dHBzOi8vY2RuLnJhd2dpdC5jb20vZGF2aWRzaGltanMvcXJjb2RlanMvZ2gtcGFnZXMvcXJjb2RlLm1pbi5qcyI+PC9zY3JpcHQ+CiAgICA8c2NyaXB0IHR5cGU9InRleHQvamF2YXNjcmlwdCIgc3JjPSIke3NlcnZlck5hbWV9L2lybWEvaXNzdWUvaXJtYS1uaWptZWdlbi5qcyI+PC9zY3JpcHQ+CgogICAgPCEtLSBTZWFyY2ggQVBJIC0tPgogICAgPHNjcmlwdCBzcmM9Imh0dHBzOi8vd3d3Lm9wZW5pbmRleC5pby9qcy9vcGVuaW5kZXguNjk2OTRiOTMxNTc2M2M4MS5qcyI+PC9zY3JpcHQ+CgogICAgPHNjcmlwdD4KICAgICAgICAkKCcuaG9yaXpvbnRhbC1jb2xsYXBzZScpLm9uKCdjbGljaycsICcuYnRuLWZsb2F0aW5nLWNvbGxhcHNlJywgZnVuY3Rpb24gKCkgewogICAgICAgICAgICBpZiAoJCh0aGlzKS5wYXJlbnQoKS5oYXNDbGFzcygnYWN0aXZlJykpIHsKICAgICAgICAgICAgICAgICQodGhpcykucGFyZW50KCkucmVtb3ZlQ2xhc3MoJ2FjdGl2ZScpOwogICAgICAgICAgICAgICAgJCh0aGlzKS5wYXJlbnQoKS5maW5kKCcuZXhwYW5kLWhvcml6b250YWwnKS5yZW1vdmVDbGFzcygnc2xpZGVJblJpZ2h0JykuYWRkQ2xhc3MoJ3NsaWRlT3V0UmlnaHQnKTsKICAgICAgICAgICAgfSBlbHNlIHsKICAgICAgICAgICAgICAgICQodGhpcykucGFyZW50KCkuYWRkQ2xhc3MoJ2FjdGl2ZScpOwogICAgICAgICAgICAgICAgJCh0aGlzKS5wYXJlbnQoKS5maW5kKCcuZXhwYW5kLWhvcml6b250YWwnKS5yZW1vdmVDbGFzcygnc2xpZGVPdXRSaWdodCcpLmFkZENsYXNzKCdzbGlkZUluUmlnaHQnKTsKICAgICAgICAgICAgfQogICAgICAgIH0pOwoKICAgICAgICB2YXIgc2hvd1dhcm5pbmcgPSBmdW5jdGlvbiAoZXJyb3Jjb2RlLCBtc2cpIHsKICAgICAgICAgICAgdmFyIHggPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgicXJjb2RlIik7CiAgICAgICAgICAgIHguc3R5bGUuZGlzcGxheSA9ICJub25lIjsKCiAgICAgICAgICAgIGxvZyhMb2dsZXZlbC5XYXJuLCBtc2cpOwogICAgICAgICAgICBmZWVkYmFjayhtc2cpOwogICAgICAgIH07CgogICAgICAgIHZhciBzaG93RXJyb3IgPSBmdW5jdGlvbiAoZXJyb3Jjb2RlLCBtc2cpIHsKICAgICAgICAgICAgdmFyIHggPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgicXJjb2RlIik7CiAgICAgICAgICAgIHguc3R5bGUuZGlzcGxheSA9ICJub25lIjsKCiAgICAgICAgICAgIGxvZyhMb2dsZXZlbC5FcnJvciwgbXNnKTsKICAgICAgICAgICAgZmVlZGJhY2sobXNnKTsKICAgICAgICB9OwoKICAgICAgICB2YXIgc3VjY2Vzc19mdW4gPSBmdW5jdGlvbiAoZGF0YSkgewogICAgICAgICAgICAvLzxkaXYgaWQ9InFyY29kZSI+CiAgICAgICAgICAgIHZhciB4ID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoInFyY29kZSIpOwogICAgICAgICAgICB4LnN0eWxlLmRpc3BsYXkgPSAibm9uZSI7CgogICAgICAgICAgICBsb2coTG9nbGV2ZWwuSW5mbywgImNyZWRlbnRpYWxzIGlzc3VlZCIpOwogICAgICAgICAgICBmZWVkYmFjaygiT3BsYWRlbiBnZWx1a3QuIFUga3VudCBkZXplIHBhZ2luYSBzbHVpdGVuLiIpCiAgICAgICAgfTsKICAgIDwvc2NyaXB0PgoKICAgIDwhLS0gSVJNQSBzdHVmZiAtLT4KICAgIDxzY3JpcHQgdHlwZT0idGV4dC9qYXZhc2NyaXB0Ij4KCiAgICAgICAgZGV0ZWN0VXNlckFnZW50KCk7Ly9ub2RpZyBvbSBvcCBtb2JpbGUgZGV2aWNlcyByb3V0aW5nIG5hYXIgSVJNQSBhcHAgdGUgcmVnZWxlbgoKICAgICAgICBpc3N1ZUZyb21RcigkeyBxcmNvZGUgfSwgc3VjY2Vzc19mdW4sIHNob3dXYXJuaW5nLCBzaG93RXJyb3IpOwogICAgICAgIG5ldyBRUkNvZGUoZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoInFyY29kZSIpLCBKU09OLnN0cmluZ2lmeSgkeyBxcmNvZGUgfSkpOwogICAgPC9zY3JpcHQ+CgogICAgPHNjcmlwdCB0eXBlPSJ0ZXh0L2phdmFzY3JpcHQiPgogICAgICAgIGZ1bmN0aW9uIGZlZWRiYWNrKHR4dCkgewogICAgICAgICAgICAkKCIjZmVlZGJhY2siKS5odG1sKHR4dCk7CiAgICAgICAgfQogICAgPC9zY3JpcHQ+Cgo8L2JvZHk+Cgo8L2h0bWw+"/>
-            <L7p:ResponseContentType stringValue="text/html; charset=UTF-8"/>
-        </L7p:HardcodedResponse>
-        <L7p:Include>
-            <L7p:PolicyGuid stringValue="029182d3-b6f0-4d51-847b-9b382cf14c12"/>
-        </L7p:Include>
+        </wsp:OneOrMore>
     </wsp:All>
 </wsp:Policy>
