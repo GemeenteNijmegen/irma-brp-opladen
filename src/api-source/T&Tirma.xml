@@ -1,0 +1,702 @@
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+    <xsl:output indent="yes" method="xml"/>
+    <xsl:template exclude-result-prefixes="xs S gban ns2" match="/"
+        xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"
+        xmlns:gban="https://data-test.nijmegen.nl/GbaNaw/"
+        xmlns:ns2="http://www.competent.nl/gbav/v1"
+        xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema">
+        <xsl:if test="/S:Envelope/S:Body/ns2:gbavAntwoord/resultaten/persoon[2]">
+            <BSN2>JA</BSN2>
+        </xsl:if>
+        
+        <xsl:if test="not(/S:Envelope/S:Body/ns2:gbavAntwoord/resultaten/persoon[2])">
+            <xsl:variable name="rootPersoon"
+                select="/S:Envelope/S:Body/ns2:gbavAntwoord/resultaten/persoon"/>
+            
+            <xsl:if test="$rootPersoon/categorieen/categorie[nummer = '06']">
+                <Persoon><overleden>ja</overleden></Persoon>
+            </xsl:if>
+            
+            <xsl:if test="not($rootPersoon/categorieen/categorie[nummer = '06'])">
+                <Persoon>
+
+                    <BSN>
+                        <BSN>
+                            <xsl:value-of
+                                select="$rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0120']/waarde/text()"
+                            />
+                        </BSN>
+                    </BSN>
+                    
+                    <Persoonsgegevens>
+                        <Voorletters>
+                            <!--Als laatste karakter van voornaam is een spatie, dan selecteren en laatste waarde weghalen -->
+                            <xsl:if
+                                test="ends-with($rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0210']/waarde/text(), ' ')">
+                                <xsl:call-template name="create_voorletters">
+                                    <xsl:with-param name="voornamen"
+                                        select="substring($rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0210']/waarde/text(), 1, string-length($rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0210']/waarde/text()) - 1)"
+                                    />
+                                </xsl:call-template>
+                            </xsl:if>
+                            <!-- Als laatste karakter geen spatie, dan gewoon template voorletters uitvoeren -->
+
+                            <xsl:if
+                                test="not(ends-with($rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0210']/waarde/text(), ' '))">
+                                <xsl:call-template name="create_voorletters">
+                                    <xsl:with-param name="voornamen"
+                                        select="$rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0210']/waarde/text()"
+                                    />
+                                </xsl:call-template>
+                            </xsl:if>
+
+
+                        </Voorletters>
+                        <Voornamen>
+                            <!--Als laatste karakter van voornaam geen spatie is, dan waarde selecteren -->
+                            <xsl:if
+                                test="not(ends-with($rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0210']/waarde/text(), ' '))">
+                                <xsl:value-of
+                                    select="$rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0210']/waarde/text()"
+                                />
+                            </xsl:if>
+                            <!--Als laatste karakter van voornaam is een spatie, dan waarde selectern en laatste waarde weghalen -->
+                            <xsl:if
+                                test="ends-with($rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0210']/waarde/text(), ' ')">
+                                <xsl:value-of
+                                    select="substring($rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0210']/waarde/text(), 1, string-length($rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0210']/waarde/text()) - 1)"
+                                />
+                            </xsl:if>
+                        </Voornamen>
+                        <Voorvoegsel>
+                            <xsl:value-of
+                                select="$rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0230']/waarde/text()"
+                            />
+                        </Voorvoegsel>
+                        <Geslachtsnaam>
+                            <xsl:value-of
+                                select="$rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0240']/waarde/text()"
+                            />
+                        </Geslachtsnaam>
+                        <xsl:choose>
+                            <xsl:when
+                                test="$rootPersoon/categorieen/categorie[nummer = '05']/rubrieken/rubriek[nummer = '0610']/waarde/text()">
+                                <!-- cat05 bestaat, dus for-each om actuele partner te achterhalen -->
+                                <xsl:for-each
+                                    select="$rootPersoon/categorieen/categorie[nummer = '05']">
+                                    <xsl:variable name="showCurrent" select="current()/text()"> </xsl:variable>
+                                    <xsl:if
+                                        test="current()/rubrieken/rubriek[nummer = '0610']/waarde/text()">
+
+                                        <Achternaam>
+                                            <xsl:call-template name="create_achternaam">
+                                                <xsl:with-param name="naamgebruik"
+                                                  select="$rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '6110']/waarde/text()"/>
+                                                <xsl:with-param name="voorvoegselGeslachtsnaam"
+                                                  select="$rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0230']/waarde/text()"/>
+                                                <xsl:with-param name="achternaam"
+                                                  select="$rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0240']/waarde/text()"/>
+                                                <xsl:with-param
+                                                  name="voorvoegselGeslachtsnaamPartner"
+                                                  select="current()/rubrieken/rubriek[nummer = '0230']/waarde/text()"/>
+                                                <xsl:with-param name="AchternaamPartner"
+                                                  select="current()/rubrieken/rubriek[nummer = '0240']/waarde/text()"
+                                                />
+                                            </xsl:call-template>
+                                        </Achternaam>
+
+                                        <Naam>
+                                            <xsl:if
+                                                test="ends-with($rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0210']/waarde/text(), ' ')">
+                                                <!--Als laatste karakter van voornaam is een spatie, dan selecteren en laatse waarde weghalen-->
+                                                <xsl:call-template name="create_naam">
+                                                  <xsl:with-param name="voornamen"
+                                                  select="substring($rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0210']/waarde/text(), 1, string-length($rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0210']/waarde/text()) - 1)"/>
+                                                  <xsl:with-param name="naamgebruik"
+                                                  select="$rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '6110']/waarde/text()"/>
+                                                  <xsl:with-param name="voorvoegselGeslachtsnaam"
+                                                  select="$rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0230']/waarde/text()"/>
+                                                  <xsl:with-param name="achternaam"
+                                                  select="$rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0240']/waarde/text()"/>
+                                                  <xsl:with-param
+                                                  name="voorvoegselGeslachtsnaamPartner"
+                                                  select="current()/rubrieken/rubriek[nummer = '0230']/waarde/text()"/>
+                                                  <xsl:with-param name="AchternaamPartner"
+                                                  select="current()/rubrieken/rubriek[nummer = '0240']/waarde/text()"
+                                                  />
+                                                </xsl:call-template>
+                                            </xsl:if>
+                                            <xsl:if
+                                                test="not(ends-with($rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0210']/waarde/text(), ' '))">
+                                                <!--Als laatste karakter van voornaam geen spatie is, dan waarde selecteren -->
+                                                <xsl:call-template name="create_naam">
+                                                  <xsl:with-param name="voornamen"
+                                                  select="$rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0210']/waarde/text()"/>
+                                                  <xsl:with-param name="naamgebruik"
+                                                  select="$rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '6110']/waarde/text()"/>
+                                                  <xsl:with-param name="voorvoegselGeslachtsnaam"
+                                                  select="$rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0230']/waarde/text()"/>
+                                                  <xsl:with-param name="achternaam"
+                                                  select="$rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0240']/waarde/text()"/>
+                                                  <xsl:with-param
+                                                  name="voorvoegselGeslachtsnaamPartner"
+                                                  select="current()/rubrieken/rubriek[nummer = '0230']/waarde/text()"/>
+                                                  <xsl:with-param name="AchternaamPartner"
+                                                  select="current()/rubrieken/rubriek[nummer = '0240']/waarde/text()"
+                                                  />
+                                                </xsl:call-template>
+                                            </xsl:if>
+                                        </Naam>
+
+                                    </xsl:if>
+                                </xsl:for-each>
+                            </xsl:when>
+
+                            <xsl:otherwise>
+                                <!-- geen (ex)partner, meteen <naam> vullen dus maar -->
+                                <Achternaam>
+                                    <xsl:call-template name="create_achternaam">
+                                        <xsl:with-param name="naamgebruik"
+                                            select="$rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '6110']/waarde/text()"/>
+                                        <xsl:with-param name="voorvoegselGeslachtsnaam"
+                                            select="$rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0230']/waarde/text()"/>
+                                        <xsl:with-param name="achternaam"
+                                            select="$rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0240']/waarde/text()"/>
+                                        <xsl:with-param name="voorvoegselGeslachtsnaamPartner"
+                                            select="leeg"/>
+                                        <xsl:with-param name="AchternaamPartner" select="leeg"/>
+                                    </xsl:call-template>
+                                </Achternaam>
+                                <Naam>
+                                    <xsl:if
+                                        test="ends-with($rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0210']/waarde/text(), ' ')">
+                                        <!--Als laatste karakter van voornaam is een spatie, dan selecteren en laatse waarde weghalen-->
+                                        <xsl:call-template name="create_naam">
+                                            <xsl:with-param name="voornamen"
+                                                select="substring($rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0210']/waarde/text(), 1, string-length($rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0210']/waarde/text()) - 1)"/>
+                                            <xsl:with-param name="naamgebruik"
+                                                select="$rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '6110']/waarde/text()"/>
+                                            <xsl:with-param name="voorvoegselGeslachtsnaam"
+                                                select="$rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0230']/waarde/text()"/>
+                                            <xsl:with-param name="achternaam"
+                                                select="$rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0240']/waarde/text()"/>
+                                            <xsl:with-param name="voorvoegselGeslachtsnaamPartner"
+                                                select="leeg"/>
+                                            <xsl:with-param name="AchternaamPartner" select="leeg"/>
+                                        </xsl:call-template>
+                                    </xsl:if>
+                                    <xsl:if
+                                        test="not(ends-with($rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0210']/waarde/text(), ' '))">
+                                        <!--Als laatste karakter van voornaam geen spatie is, dan waarde selecteren -->
+                                        <xsl:call-template name="create_naam">
+                                            <xsl:with-param name="voornamen"
+                                                select="$rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0210']/waarde/text()"/>
+                                            <xsl:with-param name="naamgebruik"
+                                                select="$rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '6110']/waarde/text()"/>
+                                            <xsl:with-param name="voorvoegselGeslachtsnaam"
+                                                select="$rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0230']/waarde/text()"/>
+                                            <xsl:with-param name="achternaam"
+                                                select="$rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0240']/waarde/text()"/>
+                                            <xsl:with-param name="voorvoegselGeslachtsnaamPartner"
+                                                select="leeg"/>
+                                            <xsl:with-param name="AchternaamPartner" select="leeg"/>
+                                        </xsl:call-template>
+                                    </xsl:if>
+                                </Naam>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <GeboortedatumNum>
+                            <xsl:value-of
+                                select="$rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0310']/waarde"
+                            />
+                        </GeboortedatumNum>
+                        <Geboortedatum>
+                            <xsl:call-template name="create_geboortedatum">
+                                <xsl:with-param name="gdatum"
+                                    select="$rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0310']/waarde/text()"
+                                />
+                            </xsl:call-template>
+                        </Geboortedatum>
+                        <Geboorteplaats>
+                            <xsl:value-of
+                                select="$rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0320']/omschrijving/text()"
+                            />
+                        </Geboorteplaats>
+                        <Geboorteland>
+                            <xsl:value-of
+                                select="$rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0330']/omschrijving/text()"
+                            />
+                        </Geboorteland>
+                        <Geslacht>
+                            <xsl:value-of
+                                select="$rootPersoon/categorieen/categorie[nummer = '01']/rubrieken/rubriek[nummer = '0410']/waarde"
+                            />
+                        </Geslacht>
+                        <NederlandseNationaliteit>
+                            <xsl:choose>
+                                <xsl:when
+                                    test="$rootPersoon/categorieen/categorie[nummer = '04']/rubrieken/rubriek[nummer = '0510']/waarde = '0001'"
+                                    >Ja</xsl:when>
+                                <xsl:otherwise>Nee</xsl:otherwise>
+                            </xsl:choose>
+                        </NederlandseNationaliteit>
+                    </Persoonsgegevens>
+                    <Adres>
+                        <Straat>
+                            <xsl:value-of
+                                select="$rootPersoon/categorieen/categorie[nummer = '08']/rubrieken/rubriek[nummer = '1115']/waarde/text()"
+                            />
+                        </Straat>
+                        <Huisnummer>
+                            <xsl:call-template name="create_adres">
+                                <xsl:with-param name="huisnummer"
+                                    select="$rootPersoon/categorieen/categorie[nummer = '08']/rubrieken/rubriek[nummer = '1120']/waarde/text()"/>
+                                <xsl:with-param name="huisletter"
+                                    select="$rootPersoon/categorieen/categorie[nummer = '08']/rubrieken/rubriek[nummer = '1130']/waarde/text()"/>
+                                <xsl:with-param name="hnrtoevoeging"
+                                    select="$rootPersoon/categorieen/categorie[nummer = '08']/rubrieken/rubriek[nummer = '1140']/waarde/text()"
+                                />
+                            </xsl:call-template>
+                        </Huisnummer>
+                        <!-- Als gemeentecode is 1999 (RNI) dan waarde leeg laten, ander waarde laten zien -->
+                        <Gemeente>
+                            <xsl:if
+                                test="not($rootPersoon/categorieen/categorie[nummer = '08']/rubrieken/rubriek[nummer = '0910']/waarde = '1999')">
+                                <xsl:value-of
+                                    select="$rootPersoon/categorieen/categorie[nummer = '08']/rubrieken/rubriek[nummer = '0910']/omschrijving/text()"
+                                />
+                            </xsl:if>
+                        </Gemeente>
+                        <xsl:choose>
+                            <xsl:when
+                                test="not($rootPersoon/categorieen/categorie[nummer = '08']/rubrieken/rubriek[nummer = '1160']/waarde)">
+                                <!-- Als er geen postcode is, dan lege waarde weergeven (en geen '-'. -->
+                                <Postcode/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <!-- Postcode aanwezig, template laden -->
+                                <Postcode>
+                                    <xsl:call-template name="create_postcode">
+                                        <xsl:with-param name="pcode"
+                                            select="$rootPersoon/categorieen/categorie[nummer = '08']/rubrieken/rubriek[nummer = '1160']/waarde/text()"
+                                        />
+                                    </xsl:call-template>
+                                </Postcode>
+                            </xsl:otherwise>
+                        </xsl:choose>
+
+
+                        <Woonplaats>
+                            <xsl:value-of
+                                select="$rootPersoon/categorieen/categorie[nummer = '08']/rubrieken/rubriek[nummer = '1170']/omschrijving/text()"
+                            />
+                        </Woonplaats>
+                    </Adres>
+                    <!-- voor elk reisdocument een groep reisdocumeten aanmaken aan gegevens selecteren -->
+                    <xsl:for-each select="$rootPersoon/categorieen/categorie[nummer = '12']">
+                        <Reisdocument>
+
+
+                            <xsl:if test="not(./rubrieken/rubriek[nummer = '3560']/omschrijving)">
+
+                                <Documentsoort>
+                                    <xsl:value-of
+                                        select="./rubrieken/rubriek[nummer = '3510']/omschrijving/text()"
+                                    />
+                                </Documentsoort>
+                                <Documentnummer>
+                                    <xsl:value-of
+                                        select="./rubrieken/rubriek[nummer = '3520']/waarde/text()"
+                                    />
+                                </Documentnummer>
+                                <Uitgiftedatum>
+                                    <xsl:value-of
+                                        select="./rubrieken/rubriek[nummer = '3530']/waarde/text()"
+                                    />
+                                </Uitgiftedatum>
+                                <Verloopdatum>
+                                    <xsl:value-of
+                                        select="./rubrieken/rubriek[nummer = '3550']/waarde/text()"
+                                    />
+                                </Verloopdatum>
+                            </xsl:if>
+                        </Reisdocument>
+                    </xsl:for-each>
+                    <ageLimits>
+                        <over12/>
+                        <over16/>
+                        <over18/>
+                        <over21/>
+                        <over65/>
+                    </ageLimits>
+
+
+                </Persoon>
+            </xsl:if>
+        </xsl:if>
+        <!--</soapenv:Envelope>-->
+    </xsl:template>
+
+
+    <!-- ############################################# -->
+    <!-- Aanmaken geboorte datum in formaat: DD-MM-YYYY -->
+    <xsl:template name="create_geboortedatum">
+        <!-- ############################################# -->
+        <xsl:param name="gdatum"/>
+        <xsl:value-of select="substring($gdatum, 7, 2)"/>
+        <xsl:text>-</xsl:text>
+        <xsl:value-of select="substring($gdatum, 5, 2)"/>
+        <xsl:text>-</xsl:text>
+        <xsl:value-of select="substring($gdatum, 1, 4)"/>
+    </xsl:template>
+
+
+    <!-- ############################################# -->
+    <!-- Aanmaken Postcode in formaat: AAAA BB -->
+    <xsl:template name="create_postcode">
+        <!-- ############################################# -->
+        <xsl:param name="pcode"/>
+        <xsl:value-of select="substring($pcode, 1, 4)"/>
+        <xsl:text> </xsl:text>
+        <xsl:value-of select="substring($pcode, 5, 2)"/>
+    </xsl:template>
+
+    <!-- ############################################# -->
+    <xsl:template name="create_adres">
+        <!-- ############################################# -->
+
+        <xsl:param name="huisnummer"/>
+        <xsl:param name="huisletter"/>
+        <xsl:param name="hnrtoevoeging"/>
+
+        <!-- combinaties met huisnummers, letters en toevoegingen-->
+        <xsl:if test="$huisletter">
+            <xsl:if test="not($hnrtoevoeging)">
+                <xsl:value-of select="concat($huisnummer, '-', $huisletter)"/>
+            </xsl:if>
+            <xsl:if test="$hnrtoevoeging">
+                <xsl:value-of select="concat($huisnummer, '-', $huisletter, '-', $hnrtoevoeging)"/>
+            </xsl:if>
+        </xsl:if>
+
+        <xsl:if test="not($huisletter)">
+            <xsl:if test="not($hnrtoevoeging)">
+                <xsl:value-of select="$huisnummer"/>
+            </xsl:if>
+            <xsl:if test="$hnrtoevoeging">
+                <xsl:value-of select="concat($huisnummer, '-', $hnrtoevoeging)"/>
+            </xsl:if>
+        </xsl:if>
+
+
+
+
+
+    </xsl:template>
+
+
+    <!-- ############################################# -->
+    <xsl:template name="create_voorletters">
+        <!-- ############################################# -->
+        <xsl:param name="voornamen" select="' '"/>
+        <xsl:param name="separator" select="' '"/>
+        <xsl:if test="not(ends-with($voornamen, ' '))">
+            <xsl:for-each select="tokenize($voornamen, $separator)">
+                
+                <!-- ############################################# -->
+                <!-- controleren of 2e letter van een naam ook een hoofdletter is. ALs dat zo is dan 1e en 2e letter teruggeven als 1 initiaal. -->
+                <!-- Dit zorgt ervoor dat voornaam IJsbrand de initiaal IJ. krijgt ipv de initiaal I. -->
+                <!-- ############################################# -->
+                <xsl:choose>
+                    <xsl:when test="upper-case(substring(., 2, 1)) = substring(., 2, 1)">
+                        <xsl:value-of select="substring(., 1, 2)"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="substring(., 1, 1)"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+                
+                <xsl:text>.</xsl:text>
+                
+            </xsl:for-each>
+        </xsl:if>
+        <xsl:if test="ends-with($voornamen, ' ')">
+            <xsl:for-each select="tokenize($voornamen, $separator)">
+                <xsl:value-of select="substring(., 1, 1)"/>
+                <xsl:text>.</xsl:text>
+            </xsl:for-each>
+        </xsl:if>
+        <xsl:text/>
+    </xsl:template>
+
+
+
+
+    <!-- ############################################# -->
+    <xsl:template name="create_naam">
+
+        <!-- ############################################# -->
+        <xsl:param name="voornamen"/>
+        <xsl:param name="naamgebruik"/>
+        <xsl:param name="spatie" select="' '"/>
+        <xsl:param name="voorvoegselGeslachtsnaam"/>
+        <xsl:param name="achternaam"/>
+        <xsl:param name="voorvoegselGeslachtsnaamPartner"/>
+        <xsl:param name="AchternaamPartner"/>
+
+        <xsl:variable name="voorletters">
+            <xsl:call-template name="create_voorletters">
+                <xsl:with-param name="voornamen" select="$voornamen"/>
+            </xsl:call-template>
+        </xsl:variable>
+
+        <xsl:choose>
+            <!-- als er geen naamgebruik is, dan standaard E-->
+            <xsl:when test="not($naamgebruik)">
+                <!-- .Naam = String.Format("{0} {1} {2}",  .Tussenvoegsels, .Achternaam) -->
+                <!-- als er een voorvoegsel Geslachtsnaam is, dan spatie tussenvoegen -->
+                <xsl:if test="$voorvoegselGeslachtsnaam">
+                    <xsl:value-of
+                        select="concat($voorletters, $spatie, $voorvoegselGeslachtsnaam, $spatie, $achternaam)"
+                    />
+                </xsl:if>
+                <!-- als er geen voorvoegsel Geslachtsnaam is, dan alleen achternaam  -->
+                <xsl:if test="not($voorvoegselGeslachtsnaam)">
+                    <xsl:value-of select="concat($voorletters, $spatie, $achternaam)"/>
+                </xsl:if>
+            </xsl:when>
+            <xsl:when test="$naamgebruik = 'E'">
+                <!-- .Naam = String.Format("{0} {1} {2}",  .Tussenvoegsels, .Achternaam) -->
+                <!-- als er een voorvoegsel Geslachtsnaam is, dan spatie tussenvoegen -->
+                <xsl:if test="$voorvoegselGeslachtsnaam">
+                    <xsl:value-of
+                        select="concat($voorletters, $spatie, $voorvoegselGeslachtsnaam, $spatie, $achternaam)"
+                    />
+                </xsl:if>
+                <!-- als er geen voorvoegsel Geslachtsnaam is, dan alleen achternaam  -->
+                <xsl:if test="not($voorvoegselGeslachtsnaam)">
+                    <xsl:value-of select="concat($voorletters, $spatie, $achternaam)"/>
+                </xsl:if>
+            </xsl:when>
+
+            <xsl:when test="$naamgebruik = 'P'">
+                <!-- .Naam = String.Format("{0} {1} {2}", .TussenvoegselsPartner, .AchternaamPartner) -->
+
+                <xsl:if test="$voorvoegselGeslachtsnaamPartner">
+                    <!-- als er een voorvoegsel PartnerGeslachtsnaam is, dan spatie tussenvoegen -->
+                    <xsl:value-of
+                        select="concat($voorletters, $spatie, $voorvoegselGeslachtsnaamPartner, $spatie, $AchternaamPartner)"
+                    />
+                </xsl:if>
+                <xsl:if test="not($voorvoegselGeslachtsnaamPartner)">
+                    <!-- als er geen voorvoegsel PartnerGeslachtsnaam is, dan AchternaamPartner -->
+                    <xsl:value-of select="concat($voorletters, $spatie, $AchternaamPartner)"/>
+                </xsl:if>
+
+            </xsl:when>
+
+            <xsl:when test="$naamgebruik = 'V'">
+                <xsl:if test="$voorvoegselGeslachtsnaam">
+                    <!-- .Naam = String.Format("{0} {1} {2}-{3} {4}", .Voorletters, .TussenvoegselsPartner, .AchternaamPartner, .Tussenvoegsels, .Achternaam) -->
+                    <!-- als er een voorvoegsel Geslachtsnaam is, dan door naar volgende if. -->
+                    <!-- als er een voorvoegsel PartnerGeslachtsnaam is, dana alles selecteren + spaties -->
+                    <xsl:if test="$voorvoegselGeslachtsnaamPartner">
+                        <xsl:value-of
+                            select="concat($voorletters, $spatie, $voorvoegselGeslachtsnaamPartner, $spatie, $AchternaamPartner, '-', $voorvoegselGeslachtsnaam, $spatie, $achternaam)"
+                        />
+                    </xsl:if>
+                    <!-- als er geen voorvoegsel PartnerGeslachtsnaam is, dan met voorvoegesel Geslachtnaam, maar zonder voorvoegsel PartnerGeslachtsnaam en bijbehorende spaties-->
+                    <xsl:if test="not($voorvoegselGeslachtsnaamPartner)">
+                        <xsl:value-of
+                            select="concat($voorletters, $spatie, $AchternaamPartner, '-', $voorvoegselGeslachtsnaam, $spatie, $achternaam)"
+                        />
+                    </xsl:if>
+                </xsl:if>
+                <xsl:if test="not($voorvoegselGeslachtsnaam)">
+
+                    <xsl:if test="$voorvoegselGeslachtsnaamPartner">
+                        <!-- als er een voorvoegsel PartnerGeslachtsnaam is, dan met voorvoegesel PartnerGeslachtnaam, maar zonder voorvoegsel Geslachtsnaam en bijbehorende spaties-->
+                        <xsl:value-of
+                            select="concat($voorletters, $spatie, $voorvoegselGeslachtsnaamPartner, $spatie, $AchternaamPartner, '-', $achternaam)"
+                        />
+                    </xsl:if>
+                    <!-- als er geen voorvoegsel PartnerGeslachtsnaam is en geen voorvoegesel PartnerGeslachtnaam, dan achternamen en bijbehorende spaties-->
+                    <xsl:if test="not($voorvoegselGeslachtsnaamPartner)">
+                        <xsl:value-of
+                            select="concat($voorletters, $spatie, $AchternaamPartner, '-', $achternaam)"
+                        />
+                    </xsl:if>
+                </xsl:if>
+
+            </xsl:when>
+
+            <xsl:when test="$naamgebruik = 'N'">
+                <xsl:if test="$voorvoegselGeslachtsnaam">
+                    <!-- .Naam = String.Format("{0} {1} {2}-{3} {4}", .Voorletters, .TussenvoegselsPartner, .AchternaamPartner, .Tussenvoegsels, .Achternaam) -->
+                    <!-- als er een voorvoegsel Geslachtsnaam is, dan door naar volgende if. -->
+                    <xsl:if test="$voorvoegselGeslachtsnaamPartner">
+                        <!-- als er een voorvoegsel PartnerGeslachtsnaam is, dana alles selecteren + spaties -->
+                        <xsl:value-of
+                            select="concat($voorletters, ' ', $voorvoegselGeslachtsnaam, ' ', $achternaam, '-', $voorvoegselGeslachtsnaamPartner, ' ', $AchternaamPartner)"
+                        />
+                    </xsl:if>
+                    <!-- als er geen voorvoegsel PartnerGeslachtsnaam is, dan met voorvoegesel Geslachtnaam, maar zonder voorvoegsel PartnerGeslachtsnaam en bijbehorende spaties-->
+                    <xsl:if test="not($voorvoegselGeslachtsnaamPartner)">
+                        <xsl:value-of
+                            select="concat($voorletters, ' ', $voorvoegselGeslachtsnaam, ' ', $achternaam, '-', $AchternaamPartner)"
+                        />
+                    </xsl:if>
+                </xsl:if>
+                <xsl:if test="not($voorvoegselGeslachtsnaam)">
+                    <xsl:if test="$voorvoegselGeslachtsnaamPartner">
+                        <!-- als er een voorvoegsel PartnerGeslachtsnaam is, dan met voorvoegesel PartnerGeslachtnaam, maar zonder voorvoegsel Geslachtsnaam en bijbehorende spaties-->
+                        <xsl:value-of
+                            select="concat($voorletters, ' ', $achternaam, '-', $voorvoegselGeslachtsnaamPartner, ' ', $AchternaamPartner)"
+                        />
+                    </xsl:if>
+                    <xsl:if test="not($voorvoegselGeslachtsnaamPartner)">
+                        <!-- als er geen voorvoegsel PartnerGeslachtsnaam is en geen voorvoegesel PartnerGeslachtnaam, dan achternamen en bijbehorende spaties-->
+                        <xsl:value-of
+                            select="concat($voorletters, ' ', $achternaam, '-', $AchternaamPartner)"
+                        />
+                    </xsl:if>
+                </xsl:if>
+
+            </xsl:when>
+
+        </xsl:choose>
+        <!-- .Naam = Trim(.Naam).Replace("  ", " ") -->
+
+
+
+    </xsl:template>
+
+    <!-- ############################################# -->
+    <xsl:template name="create_achternaam">
+        <!-- ############################################# -->
+
+        <xsl:param name="naamgebruik"/>
+        <xsl:param name="spatie" select="' '"/>
+        <xsl:param name="voorvoegselGeslachtsnaam"/>
+        <xsl:param name="achternaam"/>
+        <xsl:param name="voorvoegselGeslachtsnaamPartner"/>
+        <xsl:param name="AchternaamPartner"/>
+
+
+
+        <xsl:choose>
+            <!-- als er geen naamgebruik is, dan standaard E-->
+            <xsl:when test="not($naamgebruik)">
+                <!-- .Naam = String.Format("{0} {1} {2}",  .Tussenvoegsels, .Achternaam) -->
+                <!-- als er een voorvoegsel Geslachtsnaam is, dan spatie tussenvoegen -->
+                <xsl:if test="$voorvoegselGeslachtsnaam">
+                    <xsl:value-of select="concat($voorvoegselGeslachtsnaam, $spatie, $achternaam)"/>
+                </xsl:if>
+                <!-- als er geen voorvoegsel Geslachtsnaam is, dan alleen achternaam  -->
+                <xsl:if test="not($voorvoegselGeslachtsnaam)">
+                    <xsl:value-of select="$achternaam"/>
+                </xsl:if>
+            </xsl:when>
+            <xsl:when test="$naamgebruik = 'E'">
+                <!-- .Naam = String.Format("{0} {1} {2}",  .Tussenvoegsels, .Achternaam) -->
+                <!-- als er een voorvoegsel Geslachtsnaam is, dan spatie tussenvoegen -->
+                <xsl:if test="$voorvoegselGeslachtsnaam">
+                    <xsl:value-of select="concat($voorvoegselGeslachtsnaam, $spatie, $achternaam)"/>
+                </xsl:if>
+                <!-- als er geen voorvoegsel Geslachtsnaam is, dan alleen achternaam  -->
+                <xsl:if test="not($voorvoegselGeslachtsnaam)">
+                    <xsl:value-of select="$achternaam"/>
+                </xsl:if>
+            </xsl:when>
+
+            <xsl:when test="$naamgebruik = 'P'">
+                <!-- .Naam = String.Format("{0} {1} {2}", .TussenvoegselsPartner, .AchternaamPartner) -->
+
+                <xsl:if test="$voorvoegselGeslachtsnaamPartner">
+                    <!-- als er een voorvoegsel PartnerGeslachtsnaam is, dan spatie tussenvoegen -->
+                    <xsl:value-of
+                        select="concat($voorvoegselGeslachtsnaamPartner, $spatie, $AchternaamPartner)"
+                    />
+                </xsl:if>
+                <xsl:if test="not($voorvoegselGeslachtsnaamPartner)">
+                    <!-- als er geen voorvoegsel PartnerGeslachtsnaam is, dan AchternaamPartner -->
+                    <xsl:value-of select="$AchternaamPartner"/>
+                </xsl:if>
+
+            </xsl:when>
+
+            <xsl:when test="$naamgebruik = 'V'">
+                <xsl:if test="$voorvoegselGeslachtsnaam">
+                    <!-- .Naam = String.Format("{0} {1} {2}-{3} {4}", .Voorletters, .TussenvoegselsPartner, .AchternaamPartner, .Tussenvoegsels, .Achternaam) -->
+                    <!-- als er een voorvoegsel Geslachtsnaam is, dan door naar volgende if. -->
+                    <!-- als er een voorvoegsel PartnerGeslachtsnaam is, dana alles selecteren + spaties -->
+                    <xsl:if test="$voorvoegselGeslachtsnaamPartner">
+                        <xsl:value-of
+                            select="concat($voorvoegselGeslachtsnaamPartner, $spatie, $AchternaamPartner, '-', $voorvoegselGeslachtsnaam, $spatie, $achternaam)"
+                        />
+                    </xsl:if>
+                    <!-- als er geen voorvoegsel PartnerGeslachtsnaam is, dan met voorvoegesel Geslachtnaam, maar zonder voorvoegsel PartnerGeslachtsnaam en bijbehorende spaties-->
+                    <xsl:if test="not($voorvoegselGeslachtsnaamPartner)">
+                        <xsl:value-of
+                            select="concat($AchternaamPartner, '-', $voorvoegselGeslachtsnaam, $spatie, $achternaam)"
+                        />
+                    </xsl:if>
+                </xsl:if>
+                <xsl:if test="not($voorvoegselGeslachtsnaam)">
+
+                    <xsl:if test="$voorvoegselGeslachtsnaamPartner">
+                        <!-- als er een voorvoegsel PartnerGeslachtsnaam is, dan met voorvoegesel PartnerGeslachtnaam, maar zonder voorvoegsel Geslachtsnaam en bijbehorende spaties-->
+                        <xsl:value-of
+                            select="concat($voorvoegselGeslachtsnaamPartner, $spatie, $AchternaamPartner, '-', $achternaam)"
+                        />
+                    </xsl:if>
+                    <!-- als er geen voorvoegsel PartnerGeslachtsnaam is en geen voorvoegesel PartnerGeslachtnaam, dan achternamen en bijbehorende spaties-->
+                    <xsl:if test="not($voorvoegselGeslachtsnaamPartner)">
+                        <xsl:value-of select="concat($AchternaamPartner, '-', $achternaam)"/>
+                    </xsl:if>
+                </xsl:if>
+
+            </xsl:when>
+
+            <xsl:when test="$naamgebruik = 'N'">
+                <xsl:if test="$voorvoegselGeslachtsnaam">
+                    <!-- .Naam = String.Format("{0} {1} {2}-{3} {4}", .Voorletters, .TussenvoegselsPartner, .AchternaamPartner, .Tussenvoegsels, .Achternaam) -->
+                    <!-- als er een voorvoegsel Geslachtsnaam is, dan door naar volgende if. -->
+                    <xsl:if test="$voorvoegselGeslachtsnaamPartner">
+                        <!-- als er een voorvoegsel PartnerGeslachtsnaam is, dana alles selecteren + spaties -->
+                        <xsl:value-of
+                            select="concat($voorvoegselGeslachtsnaam, ' ', $achternaam, '-', $voorvoegselGeslachtsnaamPartner, ' ', $AchternaamPartner)"
+                        />
+                    </xsl:if>
+                    <!-- als er geen voorvoegsel PartnerGeslachtsnaam is, dan met voorvoegesel Geslachtnaam, maar zonder voorvoegsel PartnerGeslachtsnaam en bijbehorende spaties-->
+                    <xsl:if test="not($voorvoegselGeslachtsnaamPartner)">
+                        <xsl:value-of
+                            select="concat($voorvoegselGeslachtsnaam, ' ', $achternaam, '-', $AchternaamPartner)"
+                        />
+                    </xsl:if>
+                </xsl:if>
+                <xsl:if test="not($voorvoegselGeslachtsnaam)">
+                    <xsl:if test="$voorvoegselGeslachtsnaamPartner">
+                        <!-- als er een voorvoegsel PartnerGeslachtsnaam is, dan met voorvoegesel PartnerGeslachtnaam, maar zonder voorvoegsel Geslachtsnaam en bijbehorende spaties-->
+                        <xsl:value-of
+                            select="concat($achternaam, '-', $voorvoegselGeslachtsnaamPartner, ' ', $AchternaamPartner)"
+                        />
+                    </xsl:if>
+                    <xsl:if test="not($voorvoegselGeslachtsnaamPartner)">
+                        <!-- als er geen voorvoegsel PartnerGeslachtsnaam is en geen voorvoegesel PartnerGeslachtnaam, dan achternamen en bijbehorende spaties-->
+                        <xsl:value-of select="concat($achternaam, '-', $AchternaamPartner)"/>
+                    </xsl:if>
+                </xsl:if>
+
+            </xsl:when>
+
+        </xsl:choose>
+        <!-- .Naam = Trim(.Naam).Replace("  ", " ") -->
+
+
+
+    </xsl:template>
+
+
+</xsl:stylesheet>
