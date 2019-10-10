@@ -1,0 +1,40 @@
+{
+  "Persoon": {
+    "BSN": {
+      "BSN": "999993653"
+    },
+    "Persoonsgegevens": {
+      "Voorletters": "S.",
+      "Voornamen": "Suzanne",
+      "Voorvoegsel": "van der",
+      "Geslachtsnaam": "Stappen",
+      "Achternaam": "van der Stappen",
+      "Naam": "S. van der Stappen",
+      "Geboortedatum": "29-12-2001",
+      "Geslacht": "V",
+      "NederlandseNationaliteit": "Nee",
+      "Geboorteplaats": "Almelo",
+      "Geboorteland": "Nederland"
+    },
+    "Adres": {
+      "Straat": "Jan van Galenlaan",
+      "Huisnummer": "15-b",
+      "Gemeente": "Eindhoven",
+      "Postcode": "1107 KL",
+      "Woonplaats": "Eindhoven"
+    },
+    "Reisdocument": {
+      "Documentsoort": "",
+      "Documentnummer": "",
+      "Uitgiftedatum": "",
+      "Verloopdatum": ""
+    },
+    "ageLimits": {
+      "over12": "Yes",
+      "over16": "Yes",
+      "over18": "No",
+      "over21": "No",
+      "over65": "No"
+    }
+  }
+}
