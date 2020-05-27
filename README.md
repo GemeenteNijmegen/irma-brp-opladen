@@ -11,7 +11,12 @@ Je hebt een of meer DigiD Preprod accounts nodig. Je kunt een DigiD Preprod acco
 Het opladen proces start bij https://services-test.nijmegen.nl/irma/gemeente/start
 Na een succesvolle DigiD authenticatie wordt de GBA-V geraadpleegd. Als het BSN daar gevonden is wordt er een QR code getoond die met de IRMA app gescand kan worden.
 
-### Gebruik zonder DigiD
+### Gebruik zonder DigiD variant 1
+De meest simpele manier is zelf direct attributen aan jezelf uitgeven in het IRMA-DEMO schema.
+Dat kan door jezelf adres gegevens te verstrekken [via deze pagina](https://privacybydesign.foundation/attribute-index/en/irma-demo.gemeente.address.html) en vervolgens jezelf een naam en bsn te geven [via deze pagina](https://privacybydesign.foundation/attribute-index/en/irma-demo.gemeente.personalData.html)
+Door deze variant te gebruiken krijgen je attributen niet de opmaak (bijvoorbeeld puntjes tussen de initialen) zoals je die wel krijgt door een van de varianten hieronder te gebruiken.
+
+### Gebruik zonder DigiD variant 2
 Er is weinig tot geen overlap tussen de BSN's die in de DigiD preprod omgeving gebruikt worden en de BSN's die voorkomen in de GBA-V testset.
 In de acceptatie omgeving is het daarom mogelijk om de QR code te genereren met een zelfgekozen BSN, zonder gebruik te maken van DigiD.
 [De complete GBA-V testset is hier](https://www.rvig.nl/documenten/richtlijnen/2018/09/20/testdataset-persoonslijsten-proefomgevingen-gba-v) te vinden.
