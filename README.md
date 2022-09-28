@@ -52,12 +52,11 @@ For more information about IRMA, see: https://privacybydesign.foundation/irma/
 
 The IRMA client apps can be downloaded from their respective app stores:
 
-    Apple App Store
-    Google Play Store
+- [F-Driod catalogue](https://f-droid.org/en/packages/org.irmacard.cardemu/)
+- [Apple App Store](https://itunes.apple.com/nl/app/irma-authentication/id1294092994)
+- [Google Play Store](https://play.google.com/store/apps/details?id=org.irmacard.cardemu)
 
-Other components in the IRMA ecosystem include:
+Other components in the IRMA ecosystem can be downloaded from:
 
-    IRMA Android app
-    IRMA iOS app
-    IRMA API server
-
+- [Repositories on github](https://github.com/privacybydesign)
+- [The IRMA homepage](https://irma.app/)
