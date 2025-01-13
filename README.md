@@ -1,3 +1,5 @@
+# OUTDATED: repository is niet meer in gebruik. Irma-brp-opladen is vervangen door een nieuwe ESB implementatie en de Yivi Issue App, zie: https://github.com/GemeenteNijmegen/yivi-issue-app
+
 # irma-brp-opladen
 De code in deze repository is bedoeld voor een [CA API Gateway](https://www.ca.com/us/products/ca-api-gateway.html) en kan niet zelfstandig draaien.
 
